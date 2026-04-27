@@ -36,20 +36,32 @@ main() {
     mkdir -p "${SKILL_DIR}"
     mkdir -p "${AGENT_DIR}"
 
-    # Clone or update
-    TEMP_DIR=$(mktemp -d)
-    trap "rm -rf ${TEMP_DIR}" EXIT
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    TEMP_DIR=""
+    cleanup() {
+        if [ -n "${TEMP_DIR}" ] && [ -d "${TEMP_DIR}" ]; then
+            rm -rf "${TEMP_DIR}"
+        fi
+    }
+    trap cleanup EXIT
 
-    echo "↓ Downloading Codex SEO (${REPO_TAG})..."
-    git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/codex-seo" 2>/dev/null
+    if [ "${CODEX_SEO_FORCE_REMOTE:-0}" != "1" ] && [ -f "${SCRIPT_DIR}/skills/seo/SKILL.md" ]; then
+        SOURCE_DIR="${SCRIPT_DIR}"
+        echo "→ Installing from local checkout: ${SOURCE_DIR}"
+    else
+        TEMP_DIR=$(mktemp -d)
+        SOURCE_DIR="${TEMP_DIR}/codex-seo"
+        echo "↓ Downloading Codex SEO (${REPO_TAG})..."
+        git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${SOURCE_DIR}" 2>/dev/null
+    fi
 
     # Copy skill files
     echo "→ Installing skill files..."
-    cp -r "${TEMP_DIR}/codex-seo/skills/seo/"* "${SKILL_DIR}/"
+    cp -r "${SOURCE_DIR}/skills/seo/"* "${SKILL_DIR}/"
 
     # Copy sub-skills
-    if [ -d "${TEMP_DIR}/codex-seo/skills" ]; then
-        for skill_dir in "${TEMP_DIR}/codex-seo/skills"/*/; do
+    if [ -d "${SOURCE_DIR}/skills" ]; then
+        for skill_dir in "${SOURCE_DIR}/skills"/*/; do
             skill_name=$(basename "${skill_dir}")
             target="${SKILL_ROOT}/${skill_name}"
             mkdir -p "${target}"
@@ -58,39 +70,39 @@ main() {
     fi
 
     # Copy schema templates
-    if [ -d "${TEMP_DIR}/codex-seo/schema" ]; then
+    if [ -d "${SOURCE_DIR}/schema" ]; then
         mkdir -p "${SKILL_DIR}/schema"
-        cp -r "${TEMP_DIR}/codex-seo/schema/"* "${SKILL_DIR}/schema/"
+        cp -r "${SOURCE_DIR}/schema/"* "${SKILL_DIR}/schema/"
     fi
 
     # Copy reference docs
-    if [ -d "${TEMP_DIR}/codex-seo/pdf" ]; then
+    if [ -d "${SOURCE_DIR}/pdf" ]; then
         mkdir -p "${SKILL_DIR}/pdf"
-        cp -r "${TEMP_DIR}/codex-seo/pdf/"* "${SKILL_DIR}/pdf/"
+        cp -r "${SOURCE_DIR}/pdf/"* "${SKILL_DIR}/pdf/"
     fi
 
     # Copy agents
     echo "→ Installing agent prompt files..."
-    cp -r "${TEMP_DIR}/codex-seo/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
+    cp -r "${SOURCE_DIR}/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
 
     # Copy shared scripts
-    if [ -d "${TEMP_DIR}/codex-seo/scripts" ]; then
+    if [ -d "${SOURCE_DIR}/scripts" ]; then
         mkdir -p "${SKILL_DIR}/scripts"
-        cp -r "${TEMP_DIR}/codex-seo/scripts/"* "${SKILL_DIR}/scripts/"
+        cp -r "${SOURCE_DIR}/scripts/"* "${SKILL_DIR}/scripts/"
     fi
 
     # Copy hooks
-    if [ -d "${TEMP_DIR}/codex-seo/hooks" ]; then
+    if [ -d "${SOURCE_DIR}/hooks" ]; then
         mkdir -p "${SKILL_DIR}/hooks"
-        cp -r "${TEMP_DIR}/codex-seo/hooks/"* "${SKILL_DIR}/hooks/"
+        cp -r "${SOURCE_DIR}/hooks/"* "${SKILL_DIR}/hooks/"
         chmod +x "${SKILL_DIR}/hooks/"*.sh 2>/dev/null || true
         chmod +x "${SKILL_DIR}/hooks/"*.py 2>/dev/null || true
     fi
 
     # Copy extensions (optional add-ons: dataforseo, banana)
-    if [ -d "${TEMP_DIR}/codex-seo/extensions" ]; then
+    if [ -d "${SOURCE_DIR}/extensions" ]; then
         echo "=> Installing extensions..."
-        for ext_dir in "${TEMP_DIR}/codex-seo/extensions"/*/; do
+        for ext_dir in "${SOURCE_DIR}/extensions"/*/; do
             [ -d "${ext_dir}" ] || continue
             ext_name=$(basename "${ext_dir}")
             # Extension skills
@@ -121,13 +133,13 @@ main() {
     fi
 
     # Copy requirements.txt to skill dir so users can retry later
-    cp "${TEMP_DIR}/codex-seo/requirements.txt" "${SKILL_DIR}/requirements.txt" 2>/dev/null || true
+    cp "${SOURCE_DIR}/requirements.txt" "${SKILL_DIR}/requirements.txt" 2>/dev/null || true
 
     # Install Python dependencies (venv preferred, --user fallback)
     echo "→ Installing Python dependencies..."
     VENV_DIR="${SKILL_DIR}/.venv"
     if python3 -m venv "${VENV_DIR}" 2>/dev/null; then
-        "${VENV_DIR}/bin/pip" install --quiet -r "${TEMP_DIR}/codex-seo/requirements.txt" 2>/dev/null && \
+        "${VENV_DIR}/bin/pip" install --quiet -r "${SOURCE_DIR}/requirements.txt" 2>/dev/null && \
             echo "  ✓ Installed in venv at ${VENV_DIR}" || \
             echo "  ⚠  Venv pip install failed. Run: ${VENV_DIR}/bin/pip install -r ${SKILL_DIR}/requirements.txt"
     else
