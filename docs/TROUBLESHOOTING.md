@@ -10,23 +10,23 @@
 
 1. Verify installation:
 ```bash
-ls ~/.claude/skills/seo/SKILL.md
+ls ~/.codex/skills/seo/SKILL.md
 ```
 
 2. Check SKILL.md has proper frontmatter:
 ```bash
-head -5 ~/.claude/skills/seo/SKILL.md
+head -5 ~/.codex/skills/seo/SKILL.md
 ```
 Should start with `---` followed by YAML.
 
-3. Restart Claude Code:
+3. Restart Codex:
 ```bash
-claude
+codex
 ```
 
 4. Re-run installer:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 ```
 
 ---
@@ -41,12 +41,12 @@ As of v1.2.0, dependencies are installed in a venv. Try:
 
 ```bash
 # Use the venv pip
-~/.claude/skills/seo/.venv/bin/pip install -r ~/.claude/skills/seo/requirements.txt
+~/.codex/skills/seo/.venv/bin/pip install -r ~/.codex/skills/seo/requirements.txt
 ```
 
 If the venv doesn't exist, install with `--user`:
 ```bash
-pip install --user -r ~/.claude/skills/seo/requirements.txt
+pip install --user -r ~/.codex/skills/seo/requirements.txt
 ```
 
 Or install individually:
@@ -61,13 +61,13 @@ pip install --user beautifulsoup4 requests lxml playwright Pillow urllib3 valida
 **Solution:** As of v1.2.0, requirements.txt is copied to the skill directory:
 
 ```bash
-ls ~/.claude/skills/seo/requirements.txt
+ls ~/.codex/skills/seo/requirements.txt
 ```
 
 If missing, download it directly:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requirements.txt \
-  -o ~/.claude/skills/seo/requirements.txt
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/requirements.txt \
+  -o ~/.codex/skills/seo/requirements.txt
 ```
 
 ### Windows Python Detection Issues
@@ -105,32 +105,33 @@ python -m playwright install chromium
 
 **Solution:**
 ```bash
-chmod +x ~/.claude/skills/seo/scripts/*.py
+chmod +x ~/.codex/skills/seo/scripts/*.py
 ```
 
 ---
 
 ---
 
-### Subagent Not Found
+### Agent Prompt File Not Found
 
-**Symptom:** `Agent 'seo-technical' not found`
+**Symptom:** an audit cannot locate the `seo-technical` prompt file
 
 **Solution:**
 
 1. Verify agent files exist:
 ```bash
-ls ~/.claude/agents/seo-*.md
+ls ~/.codex/skills/seo/agents/seo-*.md
 ```
 
 2. Check agent frontmatter:
 ```bash
-head -5 ~/.claude/agents/seo-technical.md
+head -5 ~/.codex/skills/seo/agents/seo-technical.md
 ```
 
 3. Re-install agents:
 ```bash
-cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
+mkdir -p ~/.codex/skills/seo/agents
+cp /path/to/codex-seo/agents/*.md ~/.codex/skills/seo/agents/
 ```
 
 ---
@@ -168,7 +169,7 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 **Solutions:**
 
 1. Audit crawls up to 500 pages: large sites take time
-2. Subagents run in parallel to speed up analysis
+2. Specialist audit slices can run in parallel when the Codex environment supports native parallel agents
 3. For faster checks, use `/seo page` on specific URLs
 4. Check if site has slow response times
 
@@ -180,19 +181,19 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 
 2. **GitHub Issues:** Report bugs at the repository
 
-3. **Logs:** Check Claude Code's output for error details
+3. **Logs:** Check Codex's output for error details
 
 ## Debug Mode
 
-To see detailed output, check Claude Code's internal logs or run scripts directly:
+To see detailed output, check Codex's internal logs or run scripts directly:
 
 ```bash
 # Test fetch
-python3 ~/.claude/skills/seo/scripts/fetch_page.py https://example.com
+python3 ~/.codex/skills/seo/scripts/fetch_page.py https://example.com
 
 # Test parse
-python3 ~/.claude/skills/seo/scripts/parse_html.py page.html --json
+python3 ~/.codex/skills/seo/scripts/parse_html.py page.html --json
 
 # Test screenshot
-python3 ~/.claude/skills/seo/scripts/capture_screenshot.py https://example.com
+python3 ~/.codex/skills/seo/scripts/capture_screenshot.py https://example.com
 ```

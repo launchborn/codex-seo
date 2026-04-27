@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Script — Claude SEO v1.7.2</title>
+<title>Video Script — Codex SEO v1.7.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 <body>
 
 <header>
-  <h1>Claude <span class="accent">SEO</span> v1.7.2</h1>
+  <h1>Codex <span class="accent">SEO</span> v1.7.2</h1>
   <p>Video Script</p>
   <div class="meta">
     <div class="meta-item"><div class="meta-dot"></div>~5 minutes</div>
@@ -63,7 +63,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
     <div class="section-title">Intro</div>
   </div>
 
-  <p class="script">Hey everyone. About a month ago I released Claude SEO &mdash; the first version, kind of a proof of concept. Since then, the project has completely transformed. We went from the initial release to <strong>v1.7.2</strong>, from <strong>12 skills to 19</strong>, from zero extensions to <strong>three</strong>, and from about 2,000 stars to over <strong>3,500</strong>. Which is insane. Thank you.</p>
+  <p class="script">Hey everyone. About a month ago I released Codex SEO &mdash; the first version, kind of a proof of concept. Since then, the project has completely transformed. We went from the initial release to <strong>v1.7.2</strong>, from <strong>12 skills to 19</strong>, from zero extensions to <strong>three</strong>, and from about 2,000 stars to over <strong>3,500</strong>. Which is insane. Thank you.</p>
 
   <p class="script">In this video I'm going to walk you through the three biggest things that changed: <strong>Google API integration</strong> with live data and PDF reports, <strong>DataForSEO</strong> for live SERP and keyword data, and the <strong>extension system</strong> that makes it all plug and play.</p>
 
@@ -77,11 +77,11 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
     <div class="section-title">Google SEO APIs</div>
   </div>
 
-  <div class="direction">Screen: Show terminal with Claude Code open</div>
+  <div class="direction">Screen: Show terminal with Codex open</div>
 
-  <p class="script">The biggest addition is direct Google API integration. The first version of Claude SEO was smart but blind &mdash; it could analyze your HTML, but it couldn't see what Google actually sees. Now it can.</p>
+  <p class="script">The biggest addition is direct Google API integration. The first version of Codex SEO was smart but blind &mdash; it could analyze your HTML, but it couldn't see what Google actually sees. Now it can.</p>
 
-  <p class="script">Claude SEO pulls live data from <strong>six Google APIs</strong> &mdash; Search Console, PageSpeed Insights, CrUX, GA4, the Indexing API, and YouTube Data.</p>
+  <p class="script">Codex SEO pulls live data from <strong>six Google APIs</strong> &mdash; Search Console, PageSpeed Insights, CrUX, GA4, the Indexing API, and YouTube Data.</p>
 
   <div class="cmd"><span class="prompt">$</span> <span class="command">/seo google psi https://example.com</span></div>
 
@@ -120,7 +120,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 
   <div class="direction">Screen: Terminal</div>
 
-  <p class="script">The second big feature is the DataForSEO extension. This gives Claude SEO access to <strong>live SERP data, keyword research, backlink profiles</strong>, and a lot more.</p>
+  <p class="script">The second big feature is the DataForSEO extension. This gives Codex SEO access to <strong>live SERP data, keyword research, backlink profiles</strong>, and a lot more.</p>
 
   <div class="cmd"><span class="prompt">$</span> <span class="command">/seo dataforseo serp best coffee shops new york</span></div>
 
@@ -128,7 +128,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 
   <div class="cmd"><span class="prompt">$</span> <span class="command">/seo dataforseo keywords seo audit tool</span></div>
 
-  <p class="script">Keyword research &mdash; search volume, difficulty score, CPC, competition level. This is the same data you'd get from paid tools like Ahrefs or SEMrush, but you're running it from your terminal inside Claude Code.</p>
+  <p class="script">Keyword research &mdash; search volume, difficulty score, CPC, competition level. This is the same data you'd get from paid tools like Ahrefs or SEMrush, but you're running it from your terminal inside Codex.</p>
 
   <div class="cmd"><span class="prompt">$</span> <span class="command">/seo dataforseo backlinks example.com</span></div>
 
@@ -152,9 +152,9 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 
   <div class="direction">Screen: Show the extensions/ folder in editor, then the before/after slide</div>
 
-  <p class="script">This is the part I'm most proud of because it's how Claude SEO scales without getting bloated.</p>
+  <p class="script">This is the part I'm most proud of because it's how Codex SEO scales without getting bloated.</p>
 
-  <p class="script">The core skill &mdash; <strong>17 sub-skills, 12 subagents</strong> &mdash; works with <strong>zero API keys</strong>. You install it, run <strong>/seo audit</strong>, and 12 AI agents analyze your site in parallel. Technical SEO, content quality, schema, GEO, local SEO &mdash; all of that runs on Claude's own intelligence, no external APIs.</p>
+  <p class="script">The core skill &mdash; <strong>17 sub-skills, 12 subagents</strong> &mdash; works with <strong>zero API keys</strong>. You install it, run <strong>/seo audit</strong>, and 12 AI agents analyze your site in parallel. Technical SEO, content quality, schema, GEO, local SEO &mdash; all of that runs on Codex native reasoning, no external APIs.</p>
 
   <p class="script">But when you want deeper data, you plug in an extension. Right now there are three:</p>
 
@@ -180,9 +180,9 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 
   <p class="script">Last thing. We did a full compliance audit against <strong>Anthropic's official documentation</strong>. Every skill now has its own LICENSE file. We added a PRIVACY.md. Cleaned up all the frontmatter. And the plugin now <strong>passes validation</strong> with zero errors, zero warnings.</p>
 
-  <div class="direction">Show: claude plugin validate . passing</div>
+  <div class="direction">Show: codex plugin validate . passing</div>
 
-  <p class="script">We're submitting to the official Claude Code plugin marketplace. And we got listed on the <strong>awesome-claude-skills repo</strong> &mdash; the one with 49,000 stars.</p>
+  <p class="script">We're submitting to the official Codex plugin marketplace. And we got listed on the <strong>Codex skill ecosystem repo</strong> &mdash; the one with 49,000 stars.</p>
 
   <p class="script">The project is now at <strong>19 sub-skills, 12 subagents, 3 extensions, 3,500+ stars, 560 forks</strong>. Community PRs keep coming in &mdash; we've reviewed and responded to every single one.</p>
 </div>
@@ -194,7 +194,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
     <div class="section-title">Outro</div>
   </div>
 
-  <p class="script">If you're using Claude Code for anything SEO-related, give Claude SEO a try. Install is one command &mdash; link in the description. Star the repo if you find it useful, and drop a comment if there's a feature you want to see next.</p>
+  <p class="script">If you're using Codex for anything SEO-related, give Codex SEO a try. Install is one command &mdash; link in the description. Star the repo if you find it useful, and drop a comment if there's a feature you want to see next.</p>
 
   <p class="script">I'm thinking v1.8 might be the <strong>content strategy skill</strong> &mdash; turning audit findings into actual content plans and topic clusters. Let me know what you think.</p>
 
@@ -204,7 +204,7 @@ header p{font-size:12px;color:var(--text-muted);margin-top:8px;letter-spacing:1p
 <!-- YOUTUBE DESCRIPTION -->
 <div class="desc-box" style="margin-top:64px">
   <h3>YouTube Description</h3>
-  <pre>Claude SEO v1.7.2 -- Universal SEO Skill for Claude Code
+  <pre>Codex SEO v1.7.2 -- Universal SEO Skill for Codex
 
 From the first release to v1.7.2: 19 sub-skills, 12 subagents, 3 extensions.
 
@@ -216,7 +216,7 @@ What's new:
 - Firecrawl extension (full-site crawling with JS rendering)
 - Banana extension (AI image generation via Gemini)
 - Extension system (plug in what you need, core works without any API keys)
-- Official marketplace compliance (passes claude plugin validate)
+- Official marketplace compliance (passes codex plugin validate)
 
 Timestamps:
 0:00 Intro
@@ -227,23 +227,23 @@ Timestamps:
 4:50 Outro
 
 Install:
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 
-GitHub: https://github.com/AgriciDaniel/claude-seo
+GitHub: https://github.com/launchborn/codex-seo
 Skool: https://www.skool.com/ai-marketing-hub-pro
 
 Previous video: https://www.youtube.com/watch?v=COMnNlUakQk
 
 19 sub-skills | 12 subagents | 3 extensions | 3,500+ stars | MIT licensed | $0 forever
 
-#ClaudeCode #SEO #AI #ClaudeSEO #DataForSEO #GoogleAPIs</pre>
+#Codex #SEO #AI #CodexSEO #DataForSEO #GoogleAPIs</pre>
 </div>
 
 <!-- THUMBNAIL IDEAS -->
 <div class="desc-box">
   <h3>Thumbnail Text Ideas</h3>
   <div class="thumbs">
-    <div class="thumb">Claude SEO v1.7.2</div>
+    <div class="thumb">Codex SEO v1.7.2</div>
     <div class="thumb">Google APIs + Live SEO Data</div>
     <div class="thumb">19 Skills | 3 Extensions</div>
     <div class="thumb">From v1.0 to v1.7.2</div>

@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# DataForSEO Extension Installer for Claude SEO
+# DataForSEO Extension Installer for Codex SEO
 # Wraps everything in main() to prevent partial execution on network failure
 
 main() {
-    SKILL_DIR="${HOME}/.claude/skills/seo-dataforseo"
-    AGENT_DIR="${HOME}/.claude/agents"
-    SEO_SKILL_DIR="${HOME}/.claude/skills/seo"
-    SETTINGS_FILE="${HOME}/.claude/settings.json"
+    SKILL_DIR="${HOME}/.codex/skills/seo-dataforseo"
+    SEO_SKILL_DIR="${HOME}/.codex/skills/seo"
+    AGENT_DIR="${SEO_SKILL_DIR}/agents"
+    CODEX_CONFIG_FILE="${CODEX_CONFIG:-${CODEX_HOME:-${HOME}/.codex}/config.toml}"
 
     echo "════════════════════════════════════════"
     echo "║   DataForSEO Extension - Installer   ║"
-    echo "║   For Claude SEO                     ║"
+    echo "║   For Codex SEO                     ║"
     echo "════════════════════════════════════════"
     echo ""
 
     # Check prerequisites
     if [ ! -d "${SEO_SKILL_DIR}" ]; then
-        echo "✗ Claude SEO is not installed."
-        echo "  Install it first: curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash"
+        echo "✗ Codex SEO is not installed."
+        echo "  Install it first: curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash"
         exit 1
     fi
-    echo "✓ Claude SEO detected"
+    echo "✓ Codex SEO detected"
 
     if ! command -v node >/dev/null 2>&1; then
         echo "✗ Node.js is required but not installed."
@@ -73,7 +73,7 @@ main() {
         SOURCE_DIR="${SCRIPT_DIR}/extensions/dataforseo"
     else
         echo "✗ Cannot find extension source files."
-        echo "  Run this script from the claude-seo repo: ./extensions/dataforseo/install.sh"
+        echo "  Run this script from the codex-seo repo: ./extensions/dataforseo/install.sh"
         exit 1
     fi
 
@@ -92,50 +92,20 @@ main() {
     echo "→ Installing field config..."
     cp "${SOURCE_DIR}/field-config.json" "${SEO_SKILL_DIR}/dataforseo-field-config.json"
 
-    # Merge MCP config into settings.json
+    # Merge MCP config into Codex config.toml
     echo "→ Configuring MCP server..."
     FIELD_CONFIG_PATH="${SEO_SKILL_DIR}/dataforseo-field-config.json"
 
-    python3 -c "
-import json, os, sys
-
-settings_path = '${SETTINGS_FILE}'
-username = '''${DFSE_USERNAME}'''
-password = '''${DFSE_PASSWORD}'''
-field_config = '${FIELD_CONFIG_PATH}'
-
-# Read existing settings or create new
-if os.path.exists(settings_path):
-    with open(settings_path, 'r') as f:
-        settings = json.load(f)
-else:
-    settings = {}
-
-# Ensure mcpServers key exists
-if 'mcpServers' not in settings:
-    settings['mcpServers'] = {}
-
-# Add DataForSEO server config
-settings['mcpServers']['dataforseo'] = {
-    'command': 'npx',
-    'args': ['-y', 'dataforseo-mcp-server'],
-    'env': {
-        'DATAFORSEO_USERNAME': username,
-        'DATAFORSEO_PASSWORD': password,
-        'ENABLED_MODULES': 'SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION',
-        'FIELD_CONFIG_PATH': field_config
-    }
-}
-
-# Write back
-os.makedirs(os.path.dirname(settings_path), exist_ok=True)
-with open(settings_path, 'w') as f:
-    json.dump(settings, f, indent=2)
-
-print('  ✓ MCP server configured in settings.json')
-" || {
+    CODEX_CONFIG="${CODEX_CONFIG_FILE}" python3 "${SEO_SKILL_DIR}/scripts/codex_mcp_config.py" add dataforseo \
+        --command npx \
+        --args-json '["-y", "dataforseo-mcp-server"]' \
+        --env "DATAFORSEO_USERNAME=${DFSE_USERNAME}" \
+        --env "DATAFORSEO_PASSWORD=${DFSE_PASSWORD}" \
+        --env "ENABLED_MODULES=SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION" \
+        --env "FIELD_CONFIG_PATH=${FIELD_CONFIG_PATH}" && \
+        echo "  ✓ MCP server configured in ${CODEX_CONFIG_FILE}" || {
         echo "  ⚠  Could not auto-configure MCP server."
-        echo "  Add the dataforseo server manually to ~/.claude/settings.json"
+        echo "  Add the dataforseo server manually to ${CODEX_CONFIG_FILE}"
         echo "  See: extensions/dataforseo/docs/DATAFORSEO-SETUP.md"
     }
 
@@ -147,7 +117,7 @@ print('  ✓ MCP server configured in settings.json')
     echo "✓ DataForSEO extension installed successfully!"
     echo ""
     echo "Usage:"
-    echo "  1. Start Claude Code:  claude"
+    echo "  1. Start Codex:  codex"
     echo "  2. Run commands:"
     echo "     /seo dataforseo serp best coffee shops"
     echo "     /seo dataforseo keywords seo tools"

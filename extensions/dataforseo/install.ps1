@@ -1,22 +1,22 @@
-# DataForSEO Extension Installer for Claude SEO (Windows)
+# DataForSEO Extension Installer for Codex SEO (Windows)
 # PowerShell installation script
 
 $ErrorActionPreference = "Stop"
 
 Write-Host "════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host "║   DataForSEO Extension - Installer   ║" -ForegroundColor Cyan
-Write-Host "║   For Claude SEO                     ║" -ForegroundColor Cyan
+Write-Host "║   For Codex SEO                     ║" -ForegroundColor Cyan
 Write-Host "════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
 
 # Check prerequisites
-$SeoSkillDir = "$env:USERPROFILE\.claude\skills\seo"
+$SeoSkillDir = "$env:USERPROFILE\.codex\skills\seo"
 if (-not (Test-Path $SeoSkillDir)) {
-    Write-Host "✗ Claude SEO is not installed." -ForegroundColor Red
-    Write-Host "  Install it first: irm https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.ps1 | iex"
+    Write-Host "✗ Codex SEO is not installed." -ForegroundColor Red
+    Write-Host "  Install it first: irm https://raw.githubusercontent.com/launchborn/codex-seo/main/install.ps1 | iex"
     exit 1
 }
-Write-Host "✓ Claude SEO detected" -ForegroundColor Green
+Write-Host "✓ Codex SEO detected" -ForegroundColor Green
 
 $nodeCmd = Get-Command -Name node -ErrorAction SilentlyContinue
 if ($null -eq $nodeCmd) {
@@ -68,14 +68,15 @@ if (Test-Path "$ScriptDir\skills\seo-dataforseo\SKILL.md") {
     $SourceDir = "$ScriptDir\extensions\dataforseo"
 } else {
     Write-Host "✗ Cannot find extension source files." -ForegroundColor Red
-    Write-Host "  Run this script from the claude-seo repo."
+    Write-Host "  Run this script from the codex-seo repo."
     exit 1
 }
 
 # Set paths
-$SkillDir = "$env:USERPROFILE\.claude\skills\seo-dataforseo"
-$AgentDir = "$env:USERPROFILE\.claude\agents"
-$SettingsFile = "$env:USERPROFILE\.claude\settings.json"
+$SkillDir = "$env:USERPROFILE\.codex\skills\seo-dataforseo"
+$AgentDir = "$SeoSkillDir\agents"
+$CodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { "$env:USERPROFILE\.codex" }
+$ConfigFile = if ($env:CODEX_CONFIG) { $env:CODEX_CONFIG } else { Join-Path $CodexHome "config.toml" }
 $FieldConfigPath = "$SeoSkillDir\dataforseo-field-config.json"
 
 # Install skill
@@ -93,7 +94,7 @@ Copy-Item -Force "$SourceDir\agents\seo-dataforseo.md" "$AgentDir\seo-dataforseo
 Write-Host "→ Installing field config..." -ForegroundColor Yellow
 Copy-Item -Force "$SourceDir\field-config.json" $FieldConfigPath
 
-# Merge MCP config into settings.json
+# Merge MCP config into Codex config.toml
 Write-Host "→ Configuring MCP server..." -ForegroundColor Yellow
 
 $python = Get-Command -Name python -ErrorAction SilentlyContinue
@@ -103,38 +104,20 @@ if ($null -eq $python) {
 
 if ($null -ne $python) {
     $pyExe = $python.Source
-    $pyScript = @"
-import json, os
-settings_path = r'$SettingsFile'
-if os.path.exists(settings_path):
-    with open(settings_path, 'r') as f:
-        settings = json.load(f)
-else:
-    settings = {}
-if 'mcpServers' not in settings:
-    settings['mcpServers'] = {}
-settings['mcpServers']['dataforseo'] = {
-    'command': 'npx',
-    'args': ['-y', 'dataforseo-mcp-server'],
-    'env': {
-        'DATAFORSEO_USERNAME': '$DfseUsername',
-        'DATAFORSEO_PASSWORD': '$DfsePassword',
-        'ENABLED_MODULES': 'SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION',
-        'FIELD_CONFIG_PATH': r'$FieldConfigPath'
-    }
-}
-os.makedirs(os.path.dirname(settings_path), exist_ok=True)
-with open(settings_path, 'w') as f:
-    json.dump(settings, f, indent=2)
-print('  ok')
-"@
-
-    $result = & $pyExe -c $pyScript 2>&1
+    $helper = Join-Path $SeoSkillDir "scripts\codex_mcp_config.py"
+    $env:CODEX_CONFIG = $ConfigFile
+    $result = & $pyExe $helper add dataforseo `
+        --command npx `
+        --args-json '["-y", "dataforseo-mcp-server"]' `
+        --env "DATAFORSEO_USERNAME=$DfseUsername" `
+        --env "DATAFORSEO_PASSWORD=$DfsePassword" `
+        --env "ENABLED_MODULES=SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION" `
+        --env "FIELD_CONFIG_PATH=$FieldConfigPath" 2>&1
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "  ✓ MCP server configured in settings.json" -ForegroundColor Green
+        Write-Host "  ✓ MCP server configured in $ConfigFile" -ForegroundColor Green
     } else {
         Write-Host "  ⚠  Could not auto-configure MCP server." -ForegroundColor Yellow
-        Write-Host "  Add the dataforseo server manually to ~\.claude\settings.json"
+        Write-Host "  Add the dataforseo server manually to $ConfigFile"
     }
 } else {
     Write-Host "  ⚠  Python not found. Configure MCP server manually." -ForegroundColor Yellow
@@ -153,7 +136,7 @@ Write-Host ""
 Write-Host "✓ DataForSEO extension installed successfully!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Usage:" -ForegroundColor Cyan
-Write-Host "  1. Start Claude Code:  claude"
+Write-Host "  1. Start Codex:  codex"
 Write-Host "  2. Run commands:"
 Write-Host "     /seo dataforseo serp best coffee shops"
 Write-Host "     /seo dataforseo keywords seo tools"

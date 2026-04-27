@@ -2,13 +2,13 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Integrate FLOW's 42 AI prompts + framework doc into Claude SEO as the `seo-flow` skill, wiring it into the main orchestrator and 4 cross-referenced skills.
+**Goal:** Integrate FLOW's 42 AI prompts + framework doc into Codex SEO as the `seo-flow` skill, wiring it into the main orchestrator and 4 cross-referenced skills.
 
-**Architecture:** New `skills/seo-flow/` skill exposes the FLOW prompt library (Find → Leverage → Optimize → Win loop) via `/seo flow`. A companion `agents/seo-flow.md` handles URL-targeted analysis. `scripts/sync_flow.py` (Codex-written, Claude-reviewed) fetches all 42 prompts from the Flow repo with CC BY 4.0 attribution headers. All other changes are additive cross-references — no existing skill logic is altered.
+**Architecture:** New `skills/seo-flow/` skill exposes the FLOW prompt library (Find → Leverage → Optimize → Win loop) via `/seo flow`. A companion `agents/seo-flow.md` handles URL-targeted analysis. `scripts/sync_flow.py` (Codex-written, Codex-reviewed) fetches all 42 prompts from the Flow repo with CC BY 4.0 attribution headers. All other changes are additive cross-references — no existing skill logic is altered.
 
 **Tech Stack:** Python 3.10+, GitHub REST API v3, `gh` CLI (authenticated requests), stdlib only (`base64`, `argparse`, `pathlib`, `json`, `urllib.request`, `subprocess`)
 
-**Orchestration split:** Claude writes all skill/agent/project files. Codex writes `sync_flow.py`. Claude reviews Codex output line-by-line before any execution. The sync script populates the 42 prompt files when run.
+**Orchestration split:** Codex writes all skill/agent/project files. Codex writes `sync_flow.py`. Codex reviews Codex output line-by-line before any execution. The sync script populates the 42 prompt files when run.
 
 ---
 
@@ -16,9 +16,9 @@
 
 | Action | Path | Owner |
 |--------|------|-------|
-| Create | `skills/seo-flow/SKILL.md` | Claude |
-| Create | `agents/seo-flow.md` | Claude |
-| Create | `scripts/sync_flow.py` | Codex (reviewed by Claude) |
+| Create | `skills/seo-flow/SKILL.md` | Codex |
+| Create | `agents/seo-flow.md` | Codex |
+| Create | `scripts/sync_flow.py` | Codex (reviewed by Codex) |
 | Create (via sync) | `skills/seo-flow/references/flow-framework.md` | `sync_flow.py` |
 | Create (via sync) | `skills/seo-flow/references/bibliography.md` | `sync_flow.py` |
 | Create (via sync) | `skills/seo-flow/references/prompts/README.md` | `sync_flow.py` |
@@ -27,17 +27,17 @@
 | Create (via sync) | `skills/seo-flow/references/prompts/optimize/*.md` (18) | `sync_flow.py` |
 | Create (via sync) | `skills/seo-flow/references/prompts/win/*.md` (3) | `sync_flow.py` |
 | Create (via sync) | `skills/seo-flow/references/prompts/local/*.md` (8) | `sync_flow.py` |
-| Create | `tests/test_sync_flow.py` | Claude (TDD gate) |
-| Modify | `skills/seo/SKILL.md` | Claude |
-| Modify | `skills/seo-geo/SKILL.md` | Claude |
-| Modify | `skills/seo-local/SKILL.md` | Claude |
-| Modify | `skills/seo-content/SKILL.md` | Claude |
-| Modify | `skills/seo-cluster/SKILL.md` | Claude |
-| Modify | `.claude-plugin/plugin.json` | Claude |
-| Modify | `CONTRIBUTORS.md` | Claude |
-| Modify | `README.md` | Claude |
-| Modify | `CLAUDE.md` | Claude |
-| Modify | `CHANGELOG.md` | Claude |
+| Create | `tests/test_sync_flow.py` | Codex (TDD gate) |
+| Modify | `skills/seo/SKILL.md` | Codex |
+| Modify | `skills/seo-geo/SKILL.md` | Codex |
+| Modify | `skills/seo-local/SKILL.md` | Codex |
+| Modify | `skills/seo-content/SKILL.md` | Codex |
+| Modify | `skills/seo-cluster/SKILL.md` | Codex |
+| Modify | `.codex-plugin/plugin.json` | Codex |
+| Modify | `CONTRIBUTORS.md` | Codex |
+| Modify | `README.md` | Codex |
+| Modify | `CODEX.md` | Codex |
+| Modify | `CHANGELOG.md` | Codex |
 
 ---
 
@@ -113,7 +113,7 @@ metadata:
 
 > Framework and prompts © Daniel Agrici, CC BY 4.0 — github.com/AgriciDaniel/flow
 
-FLOW is an evidence-led SEO operating model built for the AI-search era. Claude SEO
+FLOW is an evidence-led SEO operating model built for the AI-search era. Codex SEO
 integrates the FLOW prompt library (42 prompts across 5 stages) so every analysis can
 be driven by structured, evidence-backed AI prompts rather than improvised queries.
 
@@ -426,14 +426,14 @@ git commit -m "test: add sync_flow.py test suite (TDD — dry-run tests fail unt
 ## Task 5: Delegate `scripts/sync_flow.py` to Codex
 
 **Files:**
-- Create: `scripts/sync_flow.py` (Codex-written, Claude-reviewed before use)
+- Create: `scripts/sync_flow.py` (Codex-written, Codex-reviewed before use)
 
 - [ ] **Step 5.1: Invoke Codex sub-agent**
 
 Use the Agent tool with `subagent_type: "codex:codex-rescue"` and this exact task prompt (pass verbatim):
 
 ```
-Write scripts/sync_flow.py in the claude-seo repository.
+Write scripts/sync_flow.py in the codex-seo repository.
 
 WHAT THE SCRIPT DOES:
 Fetches the operational layer of the Flow SEO repo (github.com/AgriciDaniel/flow)
@@ -818,26 +818,26 @@ git commit -m "feat: add FLOW framework cross-references to seo-geo, seo-local, 
 ## Task 12: Project-level file updates
 
 **Files:**
-- Modify: `.claude-plugin/plugin.json`
+- Modify: `.codex-plugin/plugin.json`
 - Modify: `CONTRIBUTORS.md`
 - Modify: `README.md`
-- Modify: `CLAUDE.md`
+- Modify: `CODEX.md`
 - Modify: `CHANGELOG.md`
 
 - [ ] **Step 12.1: Version bump in plugin.json**
 
-In `.claude-plugin/plugin.json`, change `"version": "1.9.0"` to `"version": "1.9.5"`.
+In `.codex-plugin/plugin.json`, change `"version": "1.9.0"` to `"version": "1.9.5"`.
 
 Verify:
 ```bash
-grep '"version"' .claude-plugin/plugin.json
+grep '"version"' .codex-plugin/plugin.json
 ```
 Expected: `"version": "1.9.5"`
 
 - [ ] **Step 12.2: Commit plugin.json**
 
 ```bash
-git add .claude-plugin/plugin.json
+git add .codex-plugin/plugin.json
 git commit -m "chore: bump version 1.9.0 → 1.9.5 in plugin.json"
 ```
 
@@ -865,7 +865,7 @@ git commit -m "docs: credit FLOW framework integration in CONTRIBUTORS.md"
 
 - [ ] **Step 12.5: Add FLOW to README.md Ecosystem table**
 
-In `README.md`, find the Ecosystem table (around line 379). The table has 4 rows. Add this row after the last row (`AI Marketing Claude`):
+In `README.md`, find the Ecosystem table (around line 379). The table has 4 rows. Add this row after the last row (`marketing automation tools`):
 
 ```markdown
 | [FLOW](https://github.com/AgriciDaniel/flow) | Evidence-led SEO framework (42 AI prompts, CC BY 4.0) | Knowledge base — powers `seo-flow` prompts |
@@ -878,9 +878,9 @@ git add README.md
 git commit -m "docs: add FLOW to README ecosystem table"
 ```
 
-- [ ] **Step 12.7: Add sync_flow.py to CLAUDE.md scripts list**
+- [ ] **Step 12.7: Add sync_flow.py to CODEX.md scripts list**
 
-In `CLAUDE.md` (the project CLAUDE.md at `/home/agricidaniel/Desktop/Claude-SEO/CLAUDE.md`), make two changes:
+In `CODEX.md` (the project CODEX.md at `/home/agricidaniel/Desktop/Codex-SEO/CODEX.md`), make two changes:
 
 **Change 1** — Find the scripts directory comment line:
 ```
@@ -896,11 +896,11 @@ Update the count:
     sync_flow.py                         # FLOW prompt library sync (GitHub API, CC BY 4.0 headers, --dry-run, --ref)
 ```
 
-- [ ] **Step 12.8: Commit CLAUDE.md**
+- [ ] **Step 12.8: Commit CODEX.md**
 
 ```bash
-git add CLAUDE.md
-git commit -m "docs: add sync_flow.py to CLAUDE.md scripts list"
+git add CODEX.md
+git commit -m "docs: add sync_flow.py to CODEX.md scripts list"
 ```
 
 - [ ] **Step 12.9: Add CHANGELOG.md entry**
@@ -918,7 +918,7 @@ In `CHANGELOG.md`, find the line `## [1.9.0] - 2026-04-14`. Insert this block im
 - **FLOW cross-references**: Integration notes added to seo-geo, seo-local, seo-content, and seo-cluster skills.
 
 ### License
-- FLOW content bundled under CC BY 4.0. Attribution header on every prompt file (automated by `sync_flow.py`). Claude SEO's MIT license unchanged — applies to skill code only.
+- FLOW content bundled under CC BY 4.0. Attribution header on every prompt file (automated by `sync_flow.py`). Codex SEO's MIT license unchanged — applies to skill code only.
 
 ```
 
@@ -952,7 +952,7 @@ Expected: 1 (SKILL.md) + 2 (flow-framework.md, bibliography.md) + 1 (prompts/REA
 - [ ] **Step 13.3: Verify version consistency**
 
 ```bash
-grep '"version"' .claude-plugin/plugin.json
+grep '"version"' .codex-plugin/plugin.json
 grep 'version:' skills/seo-flow/SKILL.md
 grep '## \[1.9.5\]' CHANGELOG.md
 ```
@@ -998,7 +998,7 @@ tools: Read, Bash, WebFetch, Glob, Grep
 git log --oneline -15
 ```
 
-Confirm the feature commits are all present: directories, SKILL.md, agent, tests, sync_flow.py, reference files, routing update, cross-references, version bump, CONTRIBUTORS, README, CLAUDE.md, CHANGELOG.
+Confirm the feature commits are all present: directories, SKILL.md, agent, tests, sync_flow.py, reference files, routing update, cross-references, version bump, CONTRIBUTORS, README, CODEX.md, CHANGELOG.
 
 - [ ] **Step 13.8: Tag v1.9.5**
 
@@ -1023,8 +1023,8 @@ git rm -r skills/seo-flow/ agents/seo-flow.md scripts/sync_flow.py tests/test_sy
 git revert <task-11-commit-sha>
 
 # Revert version bump
-# Edit .claude-plugin/plugin.json: "1.9.5" → "1.9.0"
-git add .claude-plugin/plugin.json && git commit -m "chore: revert version to 1.9.0"
+# Edit .codex-plugin/plugin.json: "1.9.5" → "1.9.0"
+git add .codex-plugin/plugin.json && git commit -m "chore: revert version to 1.9.0"
 ```
 
 No infrastructure changes. No migrations. No schema changes. Time to full rollback: < 5 minutes.

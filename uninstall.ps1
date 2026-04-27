@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-# claude-seo uninstaller for Windows
+# codex-seo uninstaller for Windows
 # Cleanly removes all SEO skills, agents, and scripts
 
 $ErrorActionPreference = "Stop"
@@ -9,10 +9,11 @@ function Write-Color($Color, $Text) {
 }
 
 function Main {
-    $SkillDir = Join-Path $env:USERPROFILE ".claude" "skills"
-    $AgentDir = Join-Path $env:USERPROFILE ".claude" "agents"
+    $CodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE ".codex" }
+    $SkillDir = Join-Path $CodexHome "skills"
+    $AgentDir = Join-Path $CodexHome "agents"
 
-    Write-Color Cyan "=== Uninstalling claude-seo ==="
+    Write-Color Cyan "=== Uninstalling codex-seo ==="
     Write-Host ""
 
     # Remove main skill (includes venv, references, scripts, hooks)
@@ -24,9 +25,12 @@ function Main {
 
     # Remove sub-skills
     $subSkills = @(
-        "seo-audit", "seo-competitor-pages", "seo-content", "seo-geo",
-        "seo-hreflang", "seo-images", "seo-page", "seo-plan",
-        "seo-programmatic", "seo-schema", "seo-sitemap", "seo-technical"
+        "seo-audit", "seo-backlinks", "seo-cluster", "seo-competitor-pages",
+        "seo-content", "seo-dataforseo", "seo-drift", "seo-ecommerce",
+        "seo-firecrawl", "seo-flow", "seo-geo", "seo-google", "seo-hreflang",
+        "seo-image-gen", "seo-images", "seo-local", "seo-maps", "seo-page",
+        "seo-plan", "seo-programmatic", "seo-schema", "seo-sitemap",
+        "seo-sxo", "seo-technical"
     )
     foreach ($skill in $subSkills) {
         $skillPath = Join-Path $SkillDir $skill
@@ -36,7 +40,7 @@ function Main {
         }
     }
 
-    # Remove agents
+    # Remove legacy top-level agent copies from earlier Codex SEO installers.
     $agents = @(
         "seo-technical", "seo-content", "seo-schema",
         "seo-sitemap", "seo-performance", "seo-visual", "seo-geo"
@@ -50,9 +54,9 @@ function Main {
     }
 
     Write-Host ""
-    Write-Color Cyan "=== claude-seo uninstalled ==="
+    Write-Color Cyan "=== codex-seo uninstalled ==="
     Write-Host ""
-    Write-Color Yellow "Restart Claude Code to complete removal."
+    Write-Color Yellow "Restart Codex to complete removal."
 }
 
 Main

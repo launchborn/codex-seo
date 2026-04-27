@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-release_report.py — Claude SEO v1.9.0 Pro Hub Challenge Release Report
+release_report.py — Codex SEO v1.9.0 Pro Hub Challenge Release Report
 
 Usage:
     python scripts/release_report.py --output ~/Desktop/
@@ -76,7 +76,7 @@ def chart_contribution_flow(charts_dir: Path) -> str:
         ("Dan Colta",        "/seo drift",     "new",      "New Skill"),
         ("Matej Marjanovic", "/seo ecommerce", "new",      "New Skill"),
         ("Chris Muller",     "/seo hreflang",  "enhanced", "Enhancement"),
-        ("Benjamin",         "claude-blog",    "deferred", "Out of Scope"),
+        ("Benjamin",         "blog skill",    "deferred", "Out of Scope"),
     ]
     status_colors = {
         "new":      BRAND["green"],
@@ -175,7 +175,7 @@ def chart_skill_architecture(charts_dir: Path) -> str:
     ax.set_yticks(y)
     ax.set_yticklabels(categories, fontsize=10, color=BRAND["text"])
     ax.set_xlabel("Number of Skills", fontsize=10)
-    ax.set_title("Claude SEO Skill Architecture: v1.9.0 (23 Total Skills)",
+    ax.set_title("Codex SEO Skill Architecture: v1.9.0 (23 Total Skills)",
                  fontsize=14, fontweight="bold", color=BRAND["text"], pad=12)
     ax.set_xlim(0, 7.5)
     ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
@@ -314,7 +314,7 @@ def _build_css() -> str:
       font-family: 'Space Grotesk', 'DejaVu Sans', system-ui, sans-serif;
     }
     @bottom-right {
-      content: "Claude SEO v1.9.0";
+      content: "Codex SEO v1.9.0";
       font-size: 8pt; color: #2D2D2D;
       font-family: 'Space Grotesk', 'DejaVu Sans', system-ui, sans-serif;
     }
@@ -558,8 +558,8 @@ def _build_title_page(logo_path: str = "") -> str:
         )
     return f"""
 <div class="title-page">
-  {logo_html}<div class="badge">Claude Code &nbsp;&#183;&nbsp; Agent Skills Standard</div>
-  <h1>Claude SEO v1.9.0<br>Release Report</h1>
+  {logo_html}<div class="badge">Codex &nbsp;&#183;&nbsp; Agent Skills Standard</div>
+  <h1>Codex SEO v1.9.0<br>Release Report</h1>
   <div class="subtitle">Pro Hub Challenge: Community-Driven Extension</div>
   <div class="title-metrics">
     <div class="mc"><div class="big">4</div><div class="small">New Skills</div></div>
@@ -568,7 +568,7 @@ def _build_title_page(logo_path: str = "") -> str:
     <div class="mc"><div class="big">85</div><div class="small">Security Score</div></div>
   </div>
   <div class="meta">
-    Version 1.9.0 &nbsp;&#183;&nbsp; {date} &nbsp;&#183;&nbsp; github.com/AgriciDaniel/claude-seo
+    Version 1.9.0 &nbsp;&#183;&nbsp; {date} &nbsp;&#183;&nbsp; github.com/launchborn/codex-seo
   </div>
 
   <div style="margin-top:14mm; padding:5mm 6mm; background:#111111; border:1px solid #2D2D2D; border-radius:6px; text-align:left;">
@@ -577,7 +577,7 @@ def _build_title_page(logo_path: str = "") -> str:
       <div style="display:table-cell; width:50%; padding-right:3mm; vertical-align:top;">
         <ul style="list-style:none; padding:0; margin:0; font-size:9pt; color:#D0CFC8;">
           <li style="margin-bottom:2mm;">5 community submissions, 4 new skills shipped</li>
-          <li style="margin-bottom:2mm;">$600 Claude Credits prize pool distributed</li>
+          <li style="margin-bottom:2mm;">$600 AI credits prize pool distributed</li>
           <li style="margin-bottom:2mm;">4 review rounds, peak score 97/100</li>
           <li style="margin-bottom:2mm;">85/100 cybersecurity audit (8 specialist agents)</li>
         </ul>
@@ -619,7 +619,7 @@ def _build_toc() -> str:
   <ul class="toc-list">
 {items}  </ul>
   <div style="margin-top:10mm; padding:4mm 5mm; background:#111111; border-left:3px solid #E07850; border-radius:0 4px 4px 0; font-size:9pt; color:#D0CFC8;">
-    v1.9.0 is the first community-driven Claude SEO release. Six members submitted skills for the inaugural Pro Hub Challenge. Five shipped. This report covers the contributions, architecture changes, review process, and security findings in full.
+    v1.9.0 is the first community-driven Codex SEO release. Six members submitted skills for the inaugural Pro Hub Challenge. Five shipped. This report covers the contributions, architecture changes, review process, and security findings in full.
   </div>
 </div>"""
 
@@ -629,7 +629,7 @@ def _build_executive_summary() -> str:
 <div class="section">
   <div class="section-header">
     <h2>1. Executive Summary</h2>
-    <div class="smeta">Claude SEO v1.9.0, April 2026</div>
+    <div class="smeta">Codex SEO v1.9.0, April 2026</div>
   </div>
 
   <p>v1.9.0 is the first community-driven release. Six members submitted skills for the inaugural Pro Hub Challenge. Five shipped. Four are entirely new Tier-4 skills. The release also adds DataForSEO cost guardrails and passed a four-round quality review including a dedicated cybersecurity audit.</p>
@@ -653,7 +653,7 @@ def _build_executive_summary() -> str:
       <div class="success-box">
         <h4 style="margin-top:0; border:none; padding:0; color:#4ADE80;">Community</h4>
         <ul>
-          <li>First Pro Hub Challenge, $600 Claude Credits prize pool</li>
+          <li>First Pro Hub Challenge, $600 AI credits prize pool</li>
           <li>5 of 6 submissions integrated into the official release</li>
           <li>4 new skills added to the ecosystem</li>
           <li>All contributors credited in CONTRIBUTORS.md and skill frontmatter</li>
@@ -689,10 +689,10 @@ def _build_challenge_section(chart_path: str, fig_num: int, ss: Path = None) -> 
 <div class="section">
   <div class="section-header">
     <h2>2. Pro Hub Challenge</h2>
-    <div class="smeta">Community, $600 Claude Credits Prize Pool, 6 Submissions</div>
+    <div class="smeta">Community, $600 AI credits Prize Pool, 6 Submissions</div>
   </div>
 
-  <p>The Pro Hub Challenge is a community extension program in AI Marketing Hub Pro. Members submit Claude Code skills for claude-seo or related tools. Winning submissions get integrated into the official release. The inaugural challenge offered $600 in Claude Credits across prize tiers.</p>
+  <p>The Pro Hub Challenge is a community extension program in AI Marketing Hub Pro. Members submit Codex skills for codex-seo or related tools. Winning submissions get integrated into the official release. The inaugural challenge offered $600 in AI credits across prize tiers.</p>
 
   {chart}
 
@@ -755,7 +755,7 @@ def _build_contributions_section(ss: Path = None) -> str:
             "desc":  "Git for SEO. Captures baselines of SEO-critical page elements, then diffs against current state to catch regressions before they impact rankings.",
             "points": [
                 "17 comparison rules across 3 severity levels (CRITICAL, WARNING, INFO)",
-                "SQLite persistence at ~/.cache/claude-seo/drift/baselines.db",
+                "SQLite persistence at ~/.cache/codex-seo/drift/baselines.db",
                 "Parameterized SQL throughout, html.escape() on all report output",
             ],
         },
@@ -817,7 +817,7 @@ def _build_contributions_section(ss: Path = None) -> str:
 
 def _build_architecture_section(chart_path: str, fig_num: int) -> tuple:
     chart = _chart_html(chart_path,
-                        "Claude SEO skill architecture: 23 skills by category (orange = v1.9.0 additions)",
+                        "Codex SEO skill architecture: 23 skills by category (orange = v1.9.0 additions)",
                         fig_num)
     html = f"""
 <div class="section">
@@ -1002,13 +1002,13 @@ def _build_next_section() -> str:
 
   <div class="success-box" style="margin-top:5mm;">
     <h4 style="margin-top:0; border:none; padding:0; color:#4ADE80;">April Challenge. $600. One Word.</h4>
-    <p>Challenge v2 is live in AI Marketing Hub Pro. The keyword is <strong style="color:#4ADE80;">LEADS</strong>. Build anything that touches lead generation: Claude Code skills, n8n workflows, MCP servers, dashboards, scrapers, pipelines. If it helps someone capture, qualify, nurture, or convert leads, it counts.</p>
+    <p>Challenge v2 is live in AI Marketing Hub Pro. The keyword is <strong style="color:#4ADE80;">LEADS</strong>. Build anything that touches lead generation: Codex skills, n8n workflows, MCP servers, dashboards, scrapers, pipelines. If it helps someone capture, qualify, nurture, or convert leads, it counts.</p>
     <div style="display:table; width:100%; margin-top:3mm;">
       <div style="display:table-cell; width:50%; vertical-align:top;">
         <p style="margin-bottom:1mm;"><strong>Prizes</strong></p>
         <ul style="margin-bottom:0;">
-          <li>1st Place: $400 in Claude Credits</li>
-          <li>2nd Place: $200 in Claude Credits</li>
+          <li>1st Place: $400 in AI credits</li>
+          <li>2nd Place: $200 in AI credits</li>
         </ul>
       </div>
       <div style="display:table-cell; width:50%; vertical-align:top;">
@@ -1024,8 +1024,8 @@ def _build_next_section() -> str:
 
   <hr class="divider">
   <p style="font-size:8.5pt; color:#888888; text-align:center; margin-top:4mm;">
-    Claude SEO is open-source (Agent Skills standard) &nbsp;&#183;&nbsp;
-    github.com/AgriciDaniel/claude-seo &nbsp;&#183;&nbsp;
+    Codex SEO is open-source (Agent Skills standard) &nbsp;&#183;&nbsp;
+    github.com/launchborn/codex-seo &nbsp;&#183;&nbsp;
     AI Marketing Hub: skool.com/ai-marketing-hub-pro
   </p>
 </div>
@@ -1080,7 +1080,7 @@ def _review_pdf(pdf_path: Path, html_content: str) -> dict:
 
 def generate_report(output_dir: str, screenshots_dir: str = SCREENSHOTS_DIR) -> str:
     out = Path(output_dir).expanduser().resolve()
-    charts_dir = out / "claude-seo-v190-charts"
+    charts_dir = out / "codex-seo-v190-charts"
     charts_dir.mkdir(parents=True, exist_ok=True)
 
     ss = Path(screenshots_dir)
@@ -1089,7 +1089,7 @@ def generate_report(output_dir: str, screenshots_dir: str = SCREENSHOTS_DIR) -> 
     if not Path(logo_path).exists():
         logo_path = str(ss / "AI MArketing hub  pro logo with black text.png")
 
-    pdf_path = out / "Claude-SEO-v1.9.0-Release-Report.pdf"
+    pdf_path = out / "Codex-SEO-v1.9.0-Release-Report.pdf"
 
     print("Generating charts...")
     flow_path   = chart_contribution_flow(charts_dir)
@@ -1129,7 +1129,7 @@ def generate_report(output_dir: str, screenshots_dir: str = SCREENSHOTS_DIR) -> 
         from weasyprint import HTML
         HTML(string=full_html).write_pdf(str(pdf_path))
     except ImportError:
-        html_out = out / "Claude-SEO-v1.9.0-Release-Report.html"
+        html_out = out / "Codex-SEO-v1.9.0-Release-Report.html"
         html_out.write_text(full_html, encoding="utf-8")
         print(f"WeasyPrint not installed. HTML saved: {html_out}")
         return str(html_out)
@@ -1150,7 +1150,7 @@ def generate_report(output_dir: str, screenshots_dir: str = SCREENSHOTS_DIR) -> 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate Claude SEO v1.9.0 Pro Hub Challenge Release Report"
+        description="Generate Codex SEO v1.9.0 Pro Hub Challenge Release Report"
     )
     parser.add_argument("--output", "-o", default="~/Desktop",
                         help="Output directory (default: ~/Desktop)")

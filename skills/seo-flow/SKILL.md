@@ -19,7 +19,7 @@ metadata:
 
 > Framework and prompts © Daniel Agrici, CC BY 4.0 — github.com/AgriciDaniel/flow
 
-FLOW is an evidence-led SEO operating model built for the AI-search era. Claude SEO
+FLOW is an evidence-led SEO operating model built for the AI-search era. Codex SEO
 integrates the FLOW prompt library (41 prompts across 5 stages) so every analysis can
 be driven by structured, evidence-backed AI prompts rather than improvised queries.
 

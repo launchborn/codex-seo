@@ -42,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **FLOW cross-references**: Integration notes added to seo-geo, seo-local, seo-content, and seo-cluster skills.
 
 ### License
-- FLOW content bundled under CC BY 4.0. Attribution header on every prompt file (automated by `sync_flow.py`). Claude SEO's MIT license unchanged — applies to skill code only.
+- FLOW content bundled under CC BY 4.0. Attribution header on every prompt file (automated by `sync_flow.py`). Codex SEO's MIT license unchanged — applies to skill code only.
 
 ## [1.9.0] - 2026-04-14
 
@@ -88,7 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Python requirement**: pyproject.toml corrected from `>=3.11` to `>=3.10` (matches README and install scripts)
 - **README architecture counts**: sub-skills "15+2" → "16+3", agents "10+2" → "11+2"
 - **Orchestrator SKILL.md**: stale count "15+2" → "16+3" at line 119
-- **CLAUDE.md**: sub-skill count 17→16 core, script count "20+2" → "21+2"
+- **CODEX.md**: sub-skill count 17→16 core, script count "20+2" → "21+2"
 - **Extension install hang**: merged PR #43 — npx pre-warm no longer starts MCP server binary
 
 ### Community
@@ -111,16 +111,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Plugin keywords: `image-serp`, `google-images` added to plugin.json
 
 ### Fixed
-- **Version mismatch**: unified all 19 SKILL.md files, plugin.json, and CLAUDE.md to v1.8.0 (was 1.7.0/1.7.2/1.8.0 three-way split)
+- **Version mismatch**: unified all 19 SKILL.md files, plugin.json, and CODEX.md to v1.8.0 (was 1.7.0/1.7.2/1.8.0 three-way split)
 - **Broken reference path**: seo-backlinks now correctly points to `skills/seo/references/backlink-quality.md` (shared reference)
-- **Hardcoded absolute paths**: removed `~/.claude/skills/` from `agents/seo-visual.md`, `agents/seo-schema.md`, `skills/seo-image-gen/SKILL.md`, and banana extension copy (now use plugin-relative paths)
+- **Hardcoded absolute paths**: removed `~/.codex/skills/` from `agents/seo-visual.md`, `agents/seo-schema.md`, `skills/seo-image-gen/SKILL.md`, and banana extension copy (now use plugin-relative paths)
 - **seo-dataforseo line count**: moved 35-line utility tools list to reference file, reduced from 416 to 380 lines
 
 ### Changed
 - seo-images description: added trigger phrases for image SERP, metadata, WebP conversion
 - seo-dataforseo description: added "Google Images" and image ranking trigger phrases
 - seo orchestrator: updated images command to reflect new SERP + optimize capabilities
-- CLAUDE.md: updated plugin version reference, images command description
+- CODEX.md: updated plugin version reference, images command description
 
 ## [1.7.2] - 2026-03-30
 
@@ -140,7 +140,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Sheets: Summary, Queries, Pages, Indexation (conditional on data available)
   - Navy header styling matching PDF palette, auto-column-width, frozen headers, auto-filter
   - New format options: `xlsx`, `all` (pdf+html+xlsx)
-- **Ecosystem cross-links**: AI Marketing Claude added to README and CLAUDE.md ecosystem sections
+- **Ecosystem cross-links**: marketing automation companion tools added to README and CODEX.md ecosystem sections
 
 ### Changed
 - Sub-skill count: 18 -> 19 (added seo-backlinks)
@@ -183,7 +183,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Subagent count: 9 -> 10 core (+ 2 extension) with conditional Google API spawning
 - seo-audit spawns seo-google agent when Google API credentials detected
 - seo-technical and seo-performance can use CrUX field data when available
-- Report Generation Rules added to CLAUDE.md with color palette, dependency, and cross-skill enforcement
+- Report Generation Rules added to CODEX.md with color palette, dependency, and cross-skill enforcement
 - README updated with Google APIs, local SEO, maps, and PDF report features
 
 ---
@@ -191,7 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.1] - 2026-03-27
 
 ### Added
-- **Marketplace distribution**: Created `.claude-plugin/marketplace.json` for plugin marketplace submission. Users can now install via `/plugin marketplace add AgriciDaniel/claude-seo`
+- **Marketplace distribution**: Created `.codex-plugin/marketplace.json` for plugin marketplace submission. Users can now install via `/plugin marketplace add launchborn/codex-seo`
 - **Agent model and turn limits**: All 11 subagents now specify `model: sonnet` and `maxTurns` (15-25) for predictable cost and behavior
 - **Plugin keywords**: Added 12 discovery keywords to `plugin.json` for marketplace searchability
 
@@ -201,10 +201,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **allowed-tools format**: Converted from YAML arrays to comma-separated strings across all 17 SKILL.md files
 - **Metadata standardized**: Added `license: MIT` and `metadata:` block (author, version, category) to all SKILL.md frontmatters
 - **Cross-references**: Updated all agent and skill files referencing `seo/references/` to `skills/seo/references/`
-- **CLAUDE.md**: Architecture tree updated to reflect new structure
+- **CODEX.md**: Architecture tree updated to reflect new structure
 
 ### Fixed
-- **Plugin validation**: `claude plugin validate .` now passes cleanly (previously would fail on non-standard fields)
+- **Plugin validation**: plugin validation now passes cleanly (previously would fail on non-standard fields)
 
 ---
 
@@ -230,7 +230,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Frontmatter fields**: `user-invokable`, `argument-hint`, and `allowed-tools` added to all SKILL.md files per Anthropic best practices
 - **Error handling sections**: Added to all SKILL.md files with skill-specific guidance
-- **Plugin manifest**: `.claude-plugin/plugin.json` updated with all skills and agents registered
+- **Plugin manifest**: `.codex-plugin/plugin.json` updated with all skills and agents registered
 - **Version tracking**: `pyproject.toml` with project metadata
 
 ### Fixed
@@ -246,8 +246,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.0] - 2026-03-12
 
 ### Security
-- **Install script supply chain fix**: Replaced `irm | iex` Windows PowerShell one-liner with `git clone + powershell -File` as primary install method. Claude Code's own security guardrails flagged the old pattern as a supply chain risk (reported by community member). Added collapsible "review before running" section for Unix curl method.
-- **Version pinning**: `install.sh` and `install.ps1` now clone a specific release tag (`v1.3.0`) by default rather than `main`, preventing silent updates. Override with `CLAUDE_SEO_TAG=main`.
+- **Install script supply chain fix**: Replaced `irm | iex` Windows PowerShell one-liner with `git clone + powershell -File` as primary install method. Codex's own security guardrails flagged the old pattern as a supply chain risk (reported by community member). Added collapsible "review before running" section for Unix curl method.
+- **Version pinning**: `install.sh` and `install.ps1` now clone a specific release tag (`v1.3.0`) by default rather than `main`, preventing silent updates. Override with `CODEX_SEO_TAG=main`.
 - **PowerShell Invoke-External hardening**: Comprehensive `PSNativeCommandUseErrorActionPreference` handling in `Invoke-External` wrapper (fixes Windows git clone stderr false-positive termination, from PR #13 + PR #15).
 
 ### Added
@@ -273,7 +273,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Extension system**: `extensions/` directory convention for self-contained add-ons with install/uninstall scripts
 - **DataForSEO extension**: 22 commands across 9 API modules (SERP, keywords, backlinks, on-page, content, business listings, AI visibility, LLM mentions). Install: `./extensions/dataforseo/install.sh`
 - **DataForSEO integration**: seo-audit, seo-content, seo-geo, seo-page, seo-plan, seo-technical auto-detect DataForSEO MCP tools for enriched analysis
-- **Plugin manifest**: `.claude-plugin/plugin.json` for official plugin directory submission
+- **Plugin manifest**: `.codex-plugin/plugin.json` for official plugin directory submission
 - **Documentation**: Extensions architecture in ARCHITECTURE.md, 22 new commands in COMMANDS.md, updated MCP integration guide
 
 ### Fixed
@@ -291,11 +291,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.1] - 2026-02-28
 
 ### Fixed
-- **User-Agent header**: Changed default from bot-style `ClaudeSEO/1.0` to Chrome-like string with `ClaudeSEO/1.2` suffix. SSR frameworks (Next.js, Nuxt, Angular) now pre-render properly instead of serving empty client-side shells (#9)
+- **User-Agent header**: Changed default from bot-style `CodexSEO/1.0` to Chrome-like string with `CodexSEO/1.2` suffix. SSR frameworks (Next.js, Nuxt, Angular) now pre-render properly instead of serving empty client-side shells (#9)
 - **Custom User-Agent support**: Added `--user-agent` flag to `fetch_page.py` for configurable UA strings
 
 ### Added
-- **install.cat support**: Added alternative install method via `curl install.cat/AgriciDaniel/claude-seo | bash` to README (#10)
+- **install.cat support**: Added alternative install method via `curl install.cat/launchborn/codex-seo | bash` to README (#10)
 
 ---
 
@@ -305,7 +305,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SSRF prevention**: Added private IP blocking to `fetch_page.py` and `analyze_visual.py`
 - **Path traversal prevention**: Added output path sanitization to `capture_screenshot.py` and file validation to `parse_html.py`
 - **Install hardening**: Removed `--break-system-packages`, switched to venv-based pip install
-- **requirements.txt**: Now persisted to `~/.claude/skills/seo/` for user retry
+- **requirements.txt**: Now persisted to `~/.codex/skills/seo/` for user retry
 
 ### Fixed
 - **YAML frontmatter parsing**: Removed HTML comments before `---` delimiter in 8 files (skills: seo-content, seo-images, seo-programmatic, seo-schema, seo-technical; agents: seo-content, seo-performance, seo-technical). Thanks @kylewhirl for identifying this in the codex-seo fork.
@@ -313,7 +313,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **requirements.txt missing after install**: Now copied to skill directory so users can retry (#1)
 
 ### Changed
-- Python dependencies now installed in a venv at `~/.claude/skills/seo/.venv/` with `--user` fallback (#2)
+- Python dependencies now installed in a venv at `~/.codex/skills/seo/.venv/` with `--user` fallback (#2)
 - Playwright marked as explicitly optional in install output
 - Windows installer uses `Resolve-Python` helper for robust Python detection (#5)
 
@@ -356,7 +356,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2026-02-07
 
 ### Added
-- Initial release of Claude SEO
+- Initial release of Codex SEO
 - 9 specialized skills: audit, page, sitemap, schema, images, technical, content, geo, plan
 - 6 subagents for parallel analysis: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual
 - Industry templates: SaaS, local service, e-commerce, publisher, agency, generic
@@ -378,8 +378,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bounded Python dependency pinning with CVE-aware minimums (lxml >= 5.3.2)
 
 ### Architecture
-- Follows Anthropic's official Claude Code skill specification (February 2026)
+- Follows Anthropic's official Codex skill specification (February 2026)
 - Standard directory layout: `scripts/`, `references/`, `assets/`
 - Valid hook matchers (tool name only, no argument patterns)
 - Correct subagent frontmatter fields (name, description, tools)
-- CLI command is `claude` (not `claude-code`)
+- CLI command documented for the active Codex runtime

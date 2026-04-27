@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Backlink API credential management for Claude SEO.
+Backlink API credential management for Codex SEO.
 
 Loads and validates credentials for Moz Link Explorer API,
 Bing Webmaster Tools API, and Common Crawl web graphs.
@@ -40,8 +40,8 @@ except ImportError:
             return False
         return True
 
-CONFIG_PATH = os.path.expanduser("~/.config/claude-seo/backlinks-api.json")
-CACHE_DIR = os.path.expanduser("~/.cache/claude-seo/commoncrawl")
+CONFIG_PATH = os.path.expanduser("~/.config/codex-seo/backlinks-api.json")
+CACHE_DIR = os.path.expanduser("~/.cache/codex-seo/commoncrawl")
 
 # Which services need which auth type
 SERVICE_AUTH = {
@@ -64,7 +64,7 @@ def load_config() -> dict:
     """
     Load configuration from config file with environment variable fallbacks.
 
-    Reads ~/.config/claude-seo/backlinks-api.json first. Any missing fields
+    Reads ~/.config/codex-seo/backlinks-api.json first. Any missing fields
     are filled from environment variables.
 
     Returns:
@@ -284,7 +284,7 @@ def print_setup_instructions():
 Backlink API Setup Instructions
 ================================
 
-Free backlink data sources for Claude SEO. No payment required for any of these.
+Free backlink data sources for Codex SEO. No payment required for any of these.
 
 TIER 0: ALWAYS AVAILABLE (no setup needed)
 ------------------------------------------
@@ -352,7 +352,7 @@ VERIFY CONFIGURATION:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Backlink API credential management for Claude SEO"
+        description="Backlink API credential management for Codex SEO"
     )
     parser.add_argument(
         "--check",

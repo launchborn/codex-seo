@@ -1,14 +1,14 @@
-# Video Script: Claude SEO v1.7.2 — What's New
+# Video Script: Codex SEO v1.7.2 — What's New
 
 **Duration:** ~5 minutes
-**Tone:** Natural, conversational, like talking to a friend who knows Claude Code
+**Tone:** Natural, conversational, like talking to a friend who knows Codex
 **Format:** Screen recording with face cam overlay
 
 ---
 
 ## INTRO (0:00 - 0:30)
 
-Hey everyone. So about a month ago I showed you Claude SEO — the universal SEO skill for Claude Code. Since then, the project has gone from around 2,000 stars to over 3,500, which is insane. Thank you.
+Hey everyone. So about a month ago I showed you Codex SEO — the universal SEO skill for Codex. Since then, the project has gone from around 2,000 stars to over 3,500, which is insane. Thank you.
 
 But I haven't just been watching the numbers grow — I've been shipping. We went from v1.5 to v1.7.2, and in this video I'm going to walk you through the biggest updates: Google API integration, AI image generation with Banana, the extension system, and marketplace compliance.
 
@@ -18,9 +18,9 @@ Let's get into it.
 
 ## SECTION 1: Google SEO APIs (0:30 - 2:15)
 
-*[Screen: Show terminal with Claude Code open]*
+*[Screen: Show terminal with Codex open]*
 
-The biggest addition is direct Google API integration. Claude SEO can now pull live data from Google's own APIs — Search Console, PageSpeed Insights, CrUX, GA4, and even the Indexing API.
+The biggest addition is direct Google API integration. Codex SEO can now pull live data from Google's own APIs — Search Console, PageSpeed Insights, CrUX, GA4, and even the Indexing API.
 
 *[Type: `/seo google psi https://example.com`]*
 
@@ -48,11 +48,11 @@ Same data, but in a spreadsheet. Queries, pages, indexation status — all in se
 
 *[Screen: Terminal]*
 
-The second feature I want to show is the Banana extension — AI image generation for SEO assets. This uses Google Gemini to generate images directly from Claude Code.
+The second feature I want to show is the Banana extension — AI image generation for SEO assets. This uses Google Gemini to generate images directly from Codex.
 
 *[Type: `/seo image-gen og "AI-powered SEO audit tool"`]*
 
-So I just asked it to generate an Open Graph image. Claude acts as a creative director — it builds a detailed prompt, picks the right model, generates the image, and saves it. About two cents per image.
+So I just asked it to generate an Open Graph image. Codex acts as a creative director — it builds a detailed prompt, picks the right model, generates the image, and saves it. About two cents per image.
 
 *[Show generated image]*
 
@@ -62,7 +62,7 @@ You can generate OG images, blog hero graphics, product shots, infographics — 
 
 The skill also does SEO image audits — it checks your existing images for missing alt text, wrong formats, oversized files, missing schema — and then creates a generation plan for the ones you need.
 
-This is the extension pattern in action. Claude SEO's core is free and local. Extensions like Banana, DataForSEO, and Firecrawl plug in via MCP servers when you need them. Each one has its own installer, its own uninstaller, completely self-contained.
+This is the extension pattern in action. Codex SEO's core is free and local. Extensions like Banana, DataForSEO, and Firecrawl plug in via MCP servers when you need them. Each one has its own installer, its own uninstaller, completely self-contained.
 
 ---
 
@@ -70,9 +70,9 @@ This is the extension pattern in action. Claude SEO's core is free and local. Ex
 
 *[Screen: Show the extensions/ folder structure in editor or terminal]*
 
-So let me quickly explain how the extension system works because this is key to how Claude SEO grows.
+So let me quickly explain how the extension system works because this is key to how Codex SEO grows.
 
-The core skill — 17 sub-skills, 12 subagents — works with zero API keys. You install it, you run `/seo audit`, and it does a full analysis using Claude's own intelligence.
+The core skill — 17 sub-skills, 12 subagents — works with zero API keys. You install it, you run `/seo audit`, and it does a full analysis using Codex native reasoning.
 
 But when you want live data — SERP rankings, backlink profiles, keyword volume — you add an extension. Right now there are three:
 
@@ -90,11 +90,11 @@ The audit orchestrator detects which extensions are installed and automatically 
 
 *[Screen: GitHub repo]*
 
-A few more things worth mentioning. We cleaned up the entire codebase following Anthropic's official best practices. Every skill now has its own LICENSE file. We added a privacy policy. We stripped out unsupported frontmatter fields. And we're now validated for the official Claude Code plugin marketplace.
+A few more things worth mentioning. We cleaned up the entire codebase following Anthropic's official best practices. Every skill now has its own LICENSE file. We added a privacy policy. We stripped out unsupported frontmatter fields. And we're now validated for the official Codex plugin marketplace.
 
-*[Show: `claude plugin validate .` passing]*
+*[Show: `codex plugin validate .` passing]*
 
-We also got listed on the awesome-claude-skills repo — that's the one with 49,000 stars — and we cross-linked with AI Marketing Claude as a companion tool for the post-audit workflow.
+We also got listed on the Codex skill ecosystem repo — that's the one with 49,000 stars — and we cross-linked with marketing automation tools as a companion tool for the post-audit workflow.
 
 The project is now at 19 sub-skills, 12 subagents, 3 extensions, and 3,500 stars. Community PRs keep coming in — we've reviewed and responded to every single one.
 
@@ -102,7 +102,7 @@ The project is now at 19 sub-skills, 12 subagents, 3 extensions, and 3,500 stars
 
 ## OUTRO (4:50 - 5:10)
 
-If you're using Claude Code for anything SEO-related, give Claude SEO a try. Install is one command — link in the description. Star the repo if you find it useful, and drop a comment if there's a feature you want to see next.
+If you're using Codex for anything SEO-related, give Codex SEO a try. Install is one command — link in the description. Star the repo if you find it useful, and drop a comment if there's a feature you want to see next.
 
 I'm thinking v1.8 might be the content strategy skill — turning audit findings into actual content plans. Let me know what you think.
 
@@ -113,30 +113,30 @@ See you in the next one.
 ## VIDEO DESCRIPTION (for YouTube)
 
 ```
-Claude SEO v1.7.2 — Universal SEO Skill for Claude Code
+Codex SEO v1.7.2 — Universal SEO Skill for Codex
 
 What's new:
 - Google SEO APIs (Search Console, PageSpeed, CrUX, GA4, Indexing API)
 - PDF & Excel reports (A4 with charts, multi-sheet .xlsx)
 - Banana extension (AI image generation via Gemini for OG, hero, product images)
 - Extension system (DataForSEO, Firecrawl, Banana — plug in what you need)
-- Official marketplace compliance (passes claude plugin validate)
+- Official marketplace compliance (passes codex plugin validate)
 
 Install:
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 
-GitHub: https://github.com/AgriciDaniel/claude-seo
+GitHub: https://github.com/launchborn/codex-seo
 Skool: https://www.skool.com/ai-marketing-hub-pro
 
 19 sub-skills | 12 subagents | 3 extensions | 3,500+ stars
 
-#ClaudeCode #SEO #AI #ClaudeSEO
+#Codex #SEO #AI #CodexSEO
 ```
 
 ---
 
 ## THUMBNAIL TEXT IDEAS
 
-- "Claude SEO v1.7.2"
+- "Codex SEO v1.7.2"
 - "Google APIs + AI Images"
 - "19 Skills | 3 Extensions"

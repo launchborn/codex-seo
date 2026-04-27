@@ -15,40 +15,35 @@
 ## MCP Server Configuration
 
 The installer configures this automatically. If you need to set it up manually,
-add to `~/.claude/settings.json`:
+add to `~/.codex/config.toml`:
 
-```json
-{
-  "mcpServers": {
-    "nanobanana-mcp": {
-      "command": "npx",
-      "args": ["-y", "@ycse/nanobanana-mcp@latest"],
-      "env": {
-        "GOOGLE_API_KEY": "your-api-key-here"
-      }
-    }
-  }
-}
+```toml
+[mcp_servers.nanobanana-mcp]
+command = "npx"
+args = ["-y", "@ycse/nanobanana-mcp@latest"]
+
+[mcp_servers.nanobanana-mcp.env]
+GOOGLE_AI_API_KEY = "your-api-key-here"
 ```
 
 ## Verifying Installation
 
 Run the validation script:
 ```bash
-python3 ~/.claude/skills/seo-image-gen/scripts/validate_setup.py
+python3 ~/.codex/skills/seo-image-gen/scripts/validate_setup.py
 ```
 
 Or check manually:
-1. `ls ~/.claude/skills/seo-image-gen/SKILL.md`:skill file exists
-2. `ls ~/.claude/agents/seo-image-gen.md`:agent file exists
-3. `grep nanobanana ~/.claude/settings.json`:MCP configured
+1. `ls ~/.codex/skills/seo-image-gen/SKILL.md`:skill file exists
+2. `ls ~/.codex/skills/seo/agents/seo-image-gen.md`:agent prompt file exists
+3. `grep nanobanana ~/.codex/config.toml`:MCP configured
 
 ## Common Issues
 
 ### "MCP tools not available"
-- Restart Claude Code after installing the extension
+- Restart Codex after installing the extension
 - Verify your API key is valid at [aistudio.google.com](https://aistudio.google.com)
-- Check `~/.claude/settings.json` has the nanobanana-mcp entry
+- Check `~/.codex/config.toml` has the nanobanana-mcp entry
 
 ### "Rate limited (429)"
 - Free tier: ~10 requests/minute, ~500/day
@@ -57,7 +52,7 @@ Or check manually:
 
 ### "IMAGE_SAFETY" error
 - The safety filter flagged your prompt (often a false positive)
-- Claude will suggest rephrased alternatives automatically
+- Codex will suggest rephrased alternatives automatically
 - Common triggers: certain color descriptions, implied scenarios
 - See `references/prompt-engineering.md` Safety Rephrase section
 
@@ -68,7 +63,7 @@ Or check manually:
 
 ### Generated images not appearing
 - Default output directory: `~/Documents/nanobanana_generated/`
-- Check the path returned by Claude after generation
+- Check the path returned by Codex after generation
 - Verify disk space is available
 
 ## ImageMagick (Optional)

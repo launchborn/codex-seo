@@ -222,12 +222,12 @@ li { margin: 1mm 0; }
 
 <!-- TITLE PAGE -->
 <div class="title-page">
-    <h1>Claude SEO</h1>
+    <h1>Codex SEO</h1>
     <div class="subtitle">Free Backlink Data Integration</div>
     <div class="version">v1.8.0 Release Notes</div>
     <div class="date">March 31, 2026</div>
     <div class="author">by AgriciDaniel</div>
-    <div class="url">github.com/AgriciDaniel/claude-seo</div>
+    <div class="url">github.com/launchborn/codex-seo</div>
 </div>
 
 <!-- EXECUTIVE SUMMARY -->
@@ -362,7 +362,7 @@ li { margin: 1mm 0; }
 <table>
     <tr><th>Protection</th><th>Implementation</th></tr>
     <tr><td>SSRF protection</td><td>All user-supplied URLs validated via <code>validate_url()</code> — blocks private IPs, loopback, metadata endpoints</td></tr>
-    <tr><td>Credential isolation</td><td>Config at <code>~/.config/claude-seo/backlinks-api.json</code> (outside repo, never committed)</td></tr>
+    <tr><td>Credential isolation</td><td>Config at <code>~/.config/codex-seo/backlinks-api.json</code> (outside repo, never committed)</td></tr>
     <tr><td>Rate limiting</td><td>Moz: 10s delay persisted via lockfile. Bing: 1s polite delay. Verify: 1s per domain.</td></tr>
     <tr><td>Memory safety</td><td>CC downloads capped at 500 MiB, incremental decompression, explicit buffer cleanup</td></tr>
     <tr><td>No hardcoded paths</td><td>All scripts use <code>os.path.dirname(os.path.abspath(__file__))</code></td></tr>
@@ -418,13 +418,13 @@ li { margin: 1mm 0; }
     <tr><td>Bugs found and fixed</td><td>18</td></tr>
     <tr><td>Audit rounds completed</td><td>4</td></tr>
     <tr><td>Security checks passed</td><td>All (SSRF, credentials, memory, rate limiting)</td></tr>
-    <tr><td>CLAUDE.md rule compliance</td><td>48/48 checks passed</td></tr>
+    <tr><td>CODEX.md rule compliance</td><td>48/48 checks passed</td></tr>
     <tr><td>Anthropic skill standard compliance</td><td>Full</td></tr>
 </table>
 
 <div class="footer">
-    Claude SEO v1.8.0 — Free Backlink Data Integration<br>
-    Generated March 31, 2026 | github.com/AgriciDaniel/claude-seo | MIT License
+    Codex SEO v1.8.0 — Free Backlink Data Integration<br>
+    Generated March 31, 2026 | github.com/launchborn/codex-seo | MIT License
 </div>
 
 </body>

@@ -16,7 +16,7 @@ Use this when you need a bottom-funnel page brief for a service, product, locati
 
 ## AI Compatibility
 
-Claude, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
+Codex, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
 
 ## Inputs
 

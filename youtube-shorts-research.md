@@ -1,10 +1,10 @@
-# YouTube Shorts Research: Claude SEO
+# YouTube Shorts Research: Codex SEO
 
 ## 1. Market Gap Analysis
 
-**Massive opportunity.** There are virtually ZERO YouTube videos specifically about "Claude Code SEO" or "Claude SEO skill." YouTube search returns no direct matches. Meanwhile:
+**Massive opportunity.** There are virtually ZERO YouTube videos specifically about "Codex SEO" or "Codex SEO skill." YouTube search returns no direct matches. Meanwhile:
 - The GitHub repo has 31,000+ demo views
-- Search Engine Land, Stormy AI, and multiple blogs are writing about Claude Code for SEO
+- Search Engine Land, Stormy AI, and multiple blogs are writing about Codex for SEO
 - 150+ skills listed on claudemarketplace.com
 - Multiple competitor SEO skills appearing (seo-geo-claude-skills, seomachine, marketingskills)
 
@@ -18,13 +18,13 @@
 
 | Keyword | Search Intent | Competition | Priority |
 |---------|--------------|-------------|----------|
-| claude code seo | Discovery | Very low | #1 |
-| claude code tutorial | Learning | Medium | #2 |
-| claude code skills | Learning | Low | #3 |
+| codex seo | Discovery | Very low | #1 |
+| codex tutorial | Learning | Medium | #2 |
+| codex skills | Learning | Low | #3 |
 | free seo audit tool | Solution | High | #4 |
 | ai seo tool 2026 | Discovery | Medium | #5 |
 | free backlink checker | Solution | High | #6 |
-| claude code plugins | Learning | Low | #7 |
+| codex plugins | Learning | Low | #7 |
 
 ### Long-Tail Keywords (Shorts titles)
 
@@ -32,18 +32,18 @@
 |---------------|------|
 | how to audit a website seo with ai | How-to |
 | free backlink analysis with common crawl | Tutorial |
-| claude code vs ahrefs | Comparison |
+| codex vs ahrefs | Comparison |
 | seo audit in 30 seconds with ai | Demo |
 | free domain authority checker | Tool demo |
 | check backlinks for free no signup | Solution |
 | ai that does seo for you | Discovery |
-| best claude code skill for seo | Recommendation |
-| how to install claude code plugins | Tutorial |
+| best codex skill for seo | Recommendation |
+| how to install codex plugins | Tutorial |
 | schema markup generator ai | Tool demo |
 | e-e-a-t checker tool free | Solution |
 | ai seo audit tool free 2026 | Discovery |
 | generative engine optimization tool | Niche |
-| geo seo claude code | Niche |
+| geo seo codex | Niche |
 | local seo audit with ai | Solution |
 
 ### Hashtags (use 3-5 per Short)
@@ -51,7 +51,7 @@
 **Always include:** `#Shorts`
 
 **Core rotation (pick 2-3):**
-- `#ClaudeCode` `#SEO` `#AITools`
+- `#Codex` `#SEO` `#AITools`
 - `#SEOAudit` `#FreeSEO` `#BacklinkChecker`
 - `#TechTutorial` `#DevTools` `#AIForSEO`
 - `#SEOTips` `#DigitalMarketing` `#WebDev`
@@ -108,7 +108,7 @@
 
 ### D. Comparisons & Hot Takes (engagement bait, comment drivers)
 
-21. **"Claude Code vs Ahrefs for SEO audits"** — Side by side. Hook: "One costs $99/month. The other is free. Which finds more issues?"
+21. **"Codex vs Ahrefs for SEO audits"** — Side by side. Hook: "One costs $99/month. The other is free. Which finds more issues?"
 
 22. **"I audited Google.com's SEO"** — Run audit on google.com. Hook: "Even Google fails its own SEO checks. Here's the score."
 
@@ -120,7 +120,7 @@
 
 ### E. Tutorials (highest value, saves/shares)
 
-26. **"Install Claude SEO in 30 seconds"** — Show marketplace install. Hook: "One command. 19 SEO tools. Zero dollars."
+26. **"Install Codex SEO in 30 seconds"** — Show marketplace install. Hook: "One command. 19 SEO tools. Zero dollars."
 
 27. **"Set up free backlink monitoring"** — Show backlinks_auth.py --setup. Hook: "Moz + Bing + Common Crawl. All free. Here's the setup."
 
@@ -173,12 +173,12 @@ Line 3-5: Hashtags (3-5 max)
 
 ## 5. Competitive Landscape
 
-### Who's Making Claude Code Content?
-- **Search Engine Land** — wrote about Claude Code as "SEO command center" (article, not video)
-- **Stormy AI Blog** — 3+ articles on Claude Code + SEO (text only)
+### Who's Making Codex Content?
+- **Search Engine Land** — wrote about Codex as "SEO command center" (article, not video)
+- **Stormy AI Blog** — 3+ articles on Codex + SEO (text only)
 - **mean.ceo blog** — "replaced my SEO agency" angle (text only)
-- **thruuu.com** — "SEO content strategy with Claude Code" (text only)
-- **almcorp.com** — "Claude Code for SEO data command center" (text only)
+- **thruuu.com** — "SEO content strategy with Codex" (text only)
+- **almcorp.com** — "Codex for SEO data command center" (text only)
 
 ### Key Insight
 **Everyone is writing blog posts. Nobody is making Shorts.** The video gap is enormous. First mover advantage is real.
@@ -198,14 +198,14 @@ Line 3-5: Hashtags (3-5 max)
 ### Week 1: Awareness (show what it does)
 | Day | Short | Keyword |
 |-----|-------|---------|
-| Mon | "I built a free SEO audit tool with AI" (#1) | claude code seo, free seo audit |
+| Mon | "I built a free SEO audit tool with AI" (#1) | codex seo, free seo audit |
 | Wed | "Free backlink checker using Common Crawl" (#2) | free backlink checker, common crawl |
 | Fri | "This AI checks if your site is ready for ChatGPT" (#6) | ai seo tool, geo seo |
 
 ### Week 2: Education + Authority
 | Day | Short | Keyword |
 |-----|-------|---------|
-| Mon | "Install Claude SEO in 30 seconds" (#26) | claude code tutorial, install plugin |
+| Mon | "Install Codex SEO in 30 seconds" (#26) | codex tutorial, install plugin |
 | Wed | "The bug that made Instagram look dead" (#10) | backlink verification, js rendering |
 | Fri | "I audited Google.com's SEO" (#22) | seo audit, google seo score |
 
@@ -218,8 +218,8 @@ Line 3-5: Hashtags (3-5 max)
 - [How to Optimize YouTube Shorts for SEO: 2026 Viral Blueprint](https://12amagency.com/blog/how-to-optimize-youtube-shorts-for-seo/)
 - [YouTube Shorts Trends 2026](https://klipa.ai/en/blog/youtube-shorts-trends-2026_151)
 - [YouTube Trends For SEO April 2026](https://blog.mean.ceo/youtube-trends-for-seo-april-2026/)
-- [How to Turn Claude Code Into Your SEO Command Center](https://searchengineland.com/claude-code-seo-work-470668)
-- [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)
-- [Claude SEO GitHub](https://github.com/AgriciDaniel/claude-seo)
+- [How to Turn Codex Into Your SEO Command Center](https://searchengineland.com/claude-code-seo-work-470668)
+- [Codex Skills Documentation](https://code.codex.com/docs/en/skills)
+- [Codex SEO GitHub](https://github.com/launchborn/codex-seo)
 - [YouTube SEO Guide 2026](https://www.nigcworld.com/youtube-seo-guide-2026)
 - [YouTube Shorts SEO Best Practices](https://www.hollyland.com/blog/topics/youtube-shorts-seo-best-practices)

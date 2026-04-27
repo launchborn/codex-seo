@@ -44,10 +44,11 @@ jobs:
           python3 -m py_compile scripts/dataforseo_costs.py
           python3 -m py_compile scripts/dataforseo_merchant.py
           python3 -m py_compile scripts/dataforseo_normalize.py
+          python3 -m py_compile scripts/codex_mcp_config.py
           python3 -m py_compile scripts/drift_baseline.py
           python3 -m py_compile scripts/drift_compare.py
           python3 -m py_compile scripts/drift_report.py
           python3 -m py_compile scripts/drift_history.py
           python3 -m py_compile scripts/sync_flow.py
           python3 -m py_compile scripts/release_report.py
-          echo "All 30 scripts passed syntax check"
+          echo "All 31 scripts passed syntax check"

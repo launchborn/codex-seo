@@ -208,7 +208,7 @@ def analyze_url(
     # Fetch the page text
     try:
         resp = requests.get(url, timeout=30, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; ClaudeSEO/1.7 NLP Analyzer)"
+            "User-Agent": "Mozilla/5.0 (compatible; CodexSEO/1.7 NLP Analyzer)"
         })
         resp.raise_for_status()
         html = resp.text

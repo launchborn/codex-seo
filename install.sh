@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Claude SEO Installer
+# Codex SEO Installer
 # Wraps everything in main() to prevent partial execution on network failure
 
 main() {
-    SKILL_DIR="${HOME}/.claude/skills/seo"
-    AGENT_DIR="${HOME}/.claude/agents"
-    REPO_URL="https://github.com/AgriciDaniel/claude-seo"
-    # Pin to a specific release tag to prevent silent updates from main.
-    # Override: CLAUDE_SEO_TAG=main bash install.sh
-    REPO_TAG="${CLAUDE_SEO_TAG:-v1.9.0}"
+    CODEX_HOME="${CODEX_HOME:-${HOME}/.codex}"
+    SKILL_ROOT="${CODEX_HOME}/skills"
+    SKILL_DIR="${SKILL_ROOT}/seo"
+    AGENT_DIR="${SKILL_DIR}/agents"
+    REPO_URL="https://github.com/launchborn/codex-seo"
+    # Override with a tag or branch: CODEX_SEO_TAG=v1.9.6 bash install.sh
+    REPO_TAG="${CODEX_SEO_TAG:-main}"
 
     echo "════════════════════════════════════════"
-    echo "║   Claude SEO - Installer             ║"
-    echo "║   Claude Code SEO Skill              ║"
+    echo "║   Codex SEO - Installer             ║"
+    echo "║   Codex SEO Skill                   ║"
     echo "════════════════════════════════════════"
     echo ""
 
@@ -39,57 +40,57 @@ main() {
     TEMP_DIR=$(mktemp -d)
     trap "rm -rf ${TEMP_DIR}" EXIT
 
-    echo "↓ Downloading Claude SEO (${REPO_TAG})..."
-    git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/claude-seo" 2>/dev/null
+    echo "↓ Downloading Codex SEO (${REPO_TAG})..."
+    git clone --depth 1 --branch "${REPO_TAG}" "${REPO_URL}" "${TEMP_DIR}/codex-seo" 2>/dev/null
 
     # Copy skill files
     echo "→ Installing skill files..."
-    cp -r "${TEMP_DIR}/claude-seo/skills/seo/"* "${SKILL_DIR}/"
+    cp -r "${TEMP_DIR}/codex-seo/skills/seo/"* "${SKILL_DIR}/"
 
     # Copy sub-skills
-    if [ -d "${TEMP_DIR}/claude-seo/skills" ]; then
-        for skill_dir in "${TEMP_DIR}/claude-seo/skills"/*/; do
+    if [ -d "${TEMP_DIR}/codex-seo/skills" ]; then
+        for skill_dir in "${TEMP_DIR}/codex-seo/skills"/*/; do
             skill_name=$(basename "${skill_dir}")
-            target="${HOME}/.claude/skills/${skill_name}"
+            target="${SKILL_ROOT}/${skill_name}"
             mkdir -p "${target}"
             cp -r "${skill_dir}"* "${target}/"
         done
     fi
 
     # Copy schema templates
-    if [ -d "${TEMP_DIR}/claude-seo/schema" ]; then
+    if [ -d "${TEMP_DIR}/codex-seo/schema" ]; then
         mkdir -p "${SKILL_DIR}/schema"
-        cp -r "${TEMP_DIR}/claude-seo/schema/"* "${SKILL_DIR}/schema/"
+        cp -r "${TEMP_DIR}/codex-seo/schema/"* "${SKILL_DIR}/schema/"
     fi
 
     # Copy reference docs
-    if [ -d "${TEMP_DIR}/claude-seo/pdf" ]; then
+    if [ -d "${TEMP_DIR}/codex-seo/pdf" ]; then
         mkdir -p "${SKILL_DIR}/pdf"
-        cp -r "${TEMP_DIR}/claude-seo/pdf/"* "${SKILL_DIR}/pdf/"
+        cp -r "${TEMP_DIR}/codex-seo/pdf/"* "${SKILL_DIR}/pdf/"
     fi
 
     # Copy agents
-    echo "→ Installing subagents..."
-    cp -r "${TEMP_DIR}/claude-seo/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
+    echo "→ Installing agent prompt files..."
+    cp -r "${TEMP_DIR}/codex-seo/agents/"*.md "${AGENT_DIR}/" 2>/dev/null || true
 
     # Copy shared scripts
-    if [ -d "${TEMP_DIR}/claude-seo/scripts" ]; then
+    if [ -d "${TEMP_DIR}/codex-seo/scripts" ]; then
         mkdir -p "${SKILL_DIR}/scripts"
-        cp -r "${TEMP_DIR}/claude-seo/scripts/"* "${SKILL_DIR}/scripts/"
+        cp -r "${TEMP_DIR}/codex-seo/scripts/"* "${SKILL_DIR}/scripts/"
     fi
 
     # Copy hooks
-    if [ -d "${TEMP_DIR}/claude-seo/hooks" ]; then
+    if [ -d "${TEMP_DIR}/codex-seo/hooks" ]; then
         mkdir -p "${SKILL_DIR}/hooks"
-        cp -r "${TEMP_DIR}/claude-seo/hooks/"* "${SKILL_DIR}/hooks/"
+        cp -r "${TEMP_DIR}/codex-seo/hooks/"* "${SKILL_DIR}/hooks/"
         chmod +x "${SKILL_DIR}/hooks/"*.sh 2>/dev/null || true
         chmod +x "${SKILL_DIR}/hooks/"*.py 2>/dev/null || true
     fi
 
     # Copy extensions (optional add-ons: dataforseo, banana)
-    if [ -d "${TEMP_DIR}/claude-seo/extensions" ]; then
+    if [ -d "${TEMP_DIR}/codex-seo/extensions" ]; then
         echo "=> Installing extensions..."
-        for ext_dir in "${TEMP_DIR}/claude-seo/extensions"/*/; do
+        for ext_dir in "${TEMP_DIR}/codex-seo/extensions"/*/; do
             [ -d "${ext_dir}" ] || continue
             ext_name=$(basename "${ext_dir}")
             # Extension skills
@@ -97,7 +98,7 @@ main() {
                 for ext_skill in "${ext_dir}skills"/*/; do
                     [ -d "${ext_skill}" ] || continue
                     ext_skill_name=$(basename "${ext_skill}")
-                    target="${HOME}/.claude/skills/${ext_skill_name}"
+                    target="${SKILL_ROOT}/${ext_skill_name}"
                     mkdir -p "${target}"
                     cp -r "${ext_skill}"* "${target}/"
                 done
@@ -120,17 +121,17 @@ main() {
     fi
 
     # Copy requirements.txt to skill dir so users can retry later
-    cp "${TEMP_DIR}/claude-seo/requirements.txt" "${SKILL_DIR}/requirements.txt" 2>/dev/null || true
+    cp "${TEMP_DIR}/codex-seo/requirements.txt" "${SKILL_DIR}/requirements.txt" 2>/dev/null || true
 
     # Install Python dependencies (venv preferred, --user fallback)
     echo "→ Installing Python dependencies..."
     VENV_DIR="${SKILL_DIR}/.venv"
     if python3 -m venv "${VENV_DIR}" 2>/dev/null; then
-        "${VENV_DIR}/bin/pip" install --quiet -r "${TEMP_DIR}/claude-seo/requirements.txt" 2>/dev/null && \
+        "${VENV_DIR}/bin/pip" install --quiet -r "${TEMP_DIR}/codex-seo/requirements.txt" 2>/dev/null && \
             echo "  ✓ Installed in venv at ${VENV_DIR}" || \
             echo "  ⚠  Venv pip install failed. Run: ${VENV_DIR}/bin/pip install -r ${SKILL_DIR}/requirements.txt"
     else
-        pip install --quiet --user -r "${TEMP_DIR}/claude-seo/requirements.txt" 2>/dev/null || \
+        pip install --quiet --user -r "${TEMP_DIR}/codex-seo/requirements.txt" 2>/dev/null || \
         echo "  ⚠  Could not auto-install. Run: pip install --user -r ${SKILL_DIR}/requirements.txt"
     fi
 
@@ -145,11 +146,11 @@ main() {
     fi
 
     echo ""
-    echo "✓ Claude SEO installed successfully!"
+    echo "✓ Codex SEO installed successfully!"
     echo ""
     echo "Usage:"
-    echo "  1. Start Claude Code:  claude"
-    echo "  2. Run commands:       /seo audit https://example.com"
+    echo "  1. Start Codex:  codex"
+    echo "  2. Run commands: /seo audit https://example.com"
     echo ""
     echo "Python deps location: ${SKILL_DIR}/requirements.txt"
     echo "To uninstall: curl -fsSL ${REPO_URL}/raw/main/uninstall.sh | bash"

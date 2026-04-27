@@ -1,14 +1,14 @@
 <!-- Source: github.com/AgriciDaniel/flow | License: CC BY 4.0 | Synced: 2026-04-26 -->
 ---
-title: "GBP Description Claude Prompt 2"
-description: "GBP Description Claude Prompt 2"
+title: "GBP Description Codex Prompt 1"
+description: "GBP Description Codex Prompt 1"
 updated: 2026-04-25
 tags:
   - prompts
   - local
 ---
 
-# GBP Description Claude Prompt 2
+# GBP Description Codex Prompt 1
 
 ## Use This When
 

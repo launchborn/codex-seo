@@ -3,7 +3,7 @@
 
 ## Overview
 
-Claude SEO can integrate with Model Context Protocol (MCP) servers to access external APIs and enhance analysis capabilities.
+Codex SEO can integrate with Model Context Protocol (MCP) servers to access external APIs and enhance analysis capabilities.
 
 ## Available Integrations
 
@@ -27,18 +27,13 @@ For organic search data, use the `mcp-server-gsc` MCP server by [ahonn](https://
 
 **Configuration:**
 
-```json
-{
-  "mcpServers": {
-    "google-search-console": {
-      "command": "npx",
-      "args": ["-y", "mcp-server-gsc"],
-      "env": {
-        "GOOGLE_CREDENTIALS_PATH": "/path/to/credentials.json"
-      }
-    }
-  }
-}
+```toml
+[mcp_servers.google-search-console]
+command = "npx"
+args = ["-y", "mcp-server-gsc"]
+
+[mcp_servers.google-search-console.env]
+GOOGLE_CREDENTIALS_PATH = "/path/to/credentials.json"
 ```
 
 ### PageSpeed Insights MCP Server
@@ -47,18 +42,13 @@ Use `mcp-server-pagespeed` by [enemyrr](https://github.com/enemyrr/mcp-server-pa
 
 **Configuration:**
 
-```json
-{
-  "mcpServers": {
-    "pagespeed": {
-      "command": "npx",
-      "args": ["-y", "mcp-server-pagespeed"],
-      "env": {
-        "PAGESPEED_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
+```toml
+[mcp_servers.pagespeed]
+command = "npx"
+args = ["-y", "mcp-server-pagespeed"]
+
+[mcp_servers.pagespeed.env]
+PAGESPEED_API_KEY = "your-api-key"
 ```
 
 ### Official SEO MCP Servers (2025-2026)
@@ -142,7 +132,7 @@ def get_crux_data(url: str, api_key: str) -> dict:
 
 ## Without API Keys
 
-If you don't have API keys, Claude SEO can still:
+If you don't have API keys, Codex SEO can still:
 
 1. Analyze HTML source for potential issues
 2. Identify common performance problems

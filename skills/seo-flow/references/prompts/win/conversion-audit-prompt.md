@@ -16,7 +16,7 @@ Use this when a page, campaign, or funnel gets traffic but produces weak leads, 
 
 ## AI Compatibility
 
-Claude, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
+Codex, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
 
 ## Inputs
 

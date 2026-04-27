@@ -1,18 +1,18 @@
-# Claude SEO — Multi-Platform Agent Instructions
+# Codex SEO — Multi-Platform Agent Instructions
 
 > For **Cursor**, **Cursor Cloud Agents**, **Google Antigravity**, and **Gemini CLI**.
-> Claude Code users: see `CLAUDE.md` instead.
+> Codex users: see `CODEX.md` for the Codex-native project architecture.
 
 ## Overview
 
-Claude SEO is a Tier 4 SEO analysis skill with 20 core sub-skills (+ 3 extensions),
-15 core subagents (+ 2 extension agents, 17 total), and 30 Python execution scripts.
+Codex SEO is a Tier 4 SEO analysis skill with one main orchestrator, 23 sub-skills,
+18 agent prompt files, and 31 Python execution scripts.
 
 ## Quick Reference
 
 | Command | What it does |
 |---------|-------------|
-| `/seo audit <url>` | Full website audit with parallel subagent delegation |
+| `/seo audit <url>` | Full website audit with optional parallel Codex agent delegation |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -66,13 +66,12 @@ DATAFORSEO_USERNAME=user DATAFORSEO_PASSWORD=pass python scripts/dataforseo_merc
 
 **Cursor Cloud gotchas:**
 - SSL certificates may not resolve for some domains — investigate the certificate issue rather than disabling verification
-- PATH may not include Python venv — use full path: `~/.claude/skills/seo/.venv/bin/python`
+- PATH may not include Python venv — use full path: `~/.codex/skills/seo/.venv/bin/python`
 - Screenshots save to `/tmp/` not CWD — check absolute paths
 
 ## Using with Google Antigravity
 
-Antigravity discovers this project via `plugin.json` at the repo root.
-Place the repo in `~/.gemini/antigravity/plugins/claude-seo/` or install via:
+Codex discovers this project through `.codex-plugin/plugin.json`. Antigravity users can still place the repo in `~/.gemini/antigravity/plugins/codex-seo/` and run the direct installer:
 
 ```bash
 bash install.sh
@@ -81,7 +80,7 @@ bash install.sh
 ## Architecture
 
 ```
-skills/                    # 23 skills (auto-discovered)
+skills/                    # 24 skills including the main orchestrator (auto-discovered)
   seo/SKILL.md            # Main orchestrator + routing
   seo-cluster/            # Semantic clustering (v1.9.0)
   seo-sxo/                # Search Experience Optimization (v1.9.0)
@@ -105,8 +104,8 @@ skills/                    # 23 skills (auto-discovered)
   seo-competitor-pages/   # Competitor pages
   seo-dataforseo/         # DataForSEO (extension)
   seo-image-gen/          # AI images (extension)
-agents/                    # 17 subagents
-scripts/                   # 30 Python scripts
+agents/                    # 18 agent prompt files
+scripts/                   # 31 Python scripts
 schema/                    # JSON-LD templates
 extensions/                # Optional add-ons (DataForSEO, Firecrawl, Banana, ASO)
 ```
@@ -116,10 +115,10 @@ extensions/                # Optional add-ons (DataForSEO, Firecrawl, Banana, AS
 1. **Progressive Disclosure**: Read SKILL.md for routing, load references on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
 3. **Security**: All scripts call `validate_url()` for SSRF protection
-4. **Config location**: `~/.config/claude-seo/` for API credentials
+4. **Config location**: `~/.config/codex-seo/` for API credentials
 
 ## Credits
 
-Created by [@AgriciDaniel](https://github.com/AgriciDaniel).
+Maintained by [Launchborn](https://github.com/launchborn).
 v1.9.0 community contributions by Lutfiya Miller, Chris Muller, Florian Schmitz,
 Dan Colta, and Matej Marjanovic. See [CONTRIBUTORS.md](CONTRIBUTORS.md).

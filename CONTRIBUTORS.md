@@ -1,6 +1,6 @@
 # Contributors
 
-Claude SEO is created and maintained by [@AgriciDaniel](https://github.com/AgriciDaniel).
+Codex SEO is created and maintained by [@AgriciDaniel](https://github.com/AgriciDaniel).
 
 This project thrives thanks to community contributions from the
 [AI Marketing Hub](https://www.skool.com/ai-marketing-hub) Pro Hub Challenge
@@ -8,8 +8,8 @@ and open-source pull requests.
 
 ## Pro Hub Challenge (v1.9.0)
 
-The Pro Hub Challenge invited community members to build extensions for Claude SEO
-and Claude Blog. These submissions were reviewed, security-audited, and integrated
+The Pro Hub Challenge invited community members to build extensions for Codex SEO
+and related SEO/content tools. These submissions were reviewed, security-audited, and integrated
 into v1.9.0 with the contributors' permission.
 
 | Contributor | Submission | Repo | Integrated As |
@@ -18,7 +18,7 @@ into v1.9.0 with the contributors' permission.
 | **Chris Muller** | Multi-lingual SEO | [Chriss54/claude-blog-multilingual](https://github.com/Chriss54/claude-blog-multilingual) | `seo-hreflang` enhancements (cultural profiles, locale formats, content parity) |
 | **Florian Schmitz** | SXO Skill | [tools-enerix/claude-sxo-skill](https://github.com/tools-enerix/claude-sxo-skill) | `seo-sxo` (core skill) |
 | **Dan Colta** | SEO Drift Monitor | [dancolta/seo-drift-monitor](https://github.com/dancolta/seo-drift-monitor) | `seo-drift` (core skill) |
-| **Matej Marjanovic** | E-commerce + DataForSEO Cost Config + ASO + Platform Support | [matej-marjanovic/claude-seo](https://github.com/matej-marjanovic/claude-seo) | `seo-ecommerce` (core), cost infrastructure, `seo-aso` (extension), `AGENTS.md` |
+| **Matej Marjanovic** | E-commerce + DataForSEO Cost Config + ASO + Platform Support | [matej-marjanovic/codex-seo](https://github.com/matej-marjanovic/codex-seo) | `seo-ecommerce` (core), cost infrastructure, `seo-aso` (extension), `AGENTS.md` |
 | **Benjamin Samar** | SEO Dungeon | -- | Reviewed (not integrated in v1.9.0) |
 
 ## Framework Integration (v1.9.5)
@@ -33,9 +33,9 @@ Attribution header on every bundled prompt file (automated by `scripts/sync_flow
 
 | Contributor | PR | What |
 |------------|-----|------|
-| [@edocltd](https://github.com/edocltd) | [#50](https://github.com/AgriciDaniel/claude-seo/pull/50) | Ukrainian localization |
-| [@MalteBerlin](https://github.com/MalteBerlin) | [#45](https://github.com/AgriciDaniel/claude-seo/pull/45) | Sub-skills count correction |
-| [@olivierroy](https://github.com/olivierroy) | [#43](https://github.com/AgriciDaniel/claude-seo/pull/43) | Extension install fix |
+| [@edocltd](https://github.com/edocltd) | [#50](https://github.com/launchborn/codex-seo/pull/50) | Ukrainian localization |
+| [@MalteBerlin](https://github.com/MalteBerlin) | [#45](https://github.com/launchborn/codex-seo/pull/45) | Sub-skills count correction |
+| [@olivierroy](https://github.com/olivierroy) | [#43](https://github.com/launchborn/codex-seo/pull/43) | Extension install fix |
 
 ## How to Contribute
 

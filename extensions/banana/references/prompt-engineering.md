@@ -1,4 +1,4 @@
-# Prompt Engineering Reference: Claude Banana
+# Prompt Engineering Reference: Banana
 
 > Load this on-demand when constructing complex prompts or when the user
 > asks about prompt techniques. Do NOT load at startup.
@@ -175,7 +175,7 @@ Useful for infographics with current data.
 
 ## Prompt Adaptation Rules
 
-When adapting prompts from the claude-prompts database (Midjourney/DALL-E/etc.)
+When adapting prompts from legacy prompt databases (Midjourney/DALL-E/etc.)
 to Gemini's natural language format:
 
 | Source Syntax | Gemini Equivalent |

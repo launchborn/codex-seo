@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Common Crawl Web Graph parser for Claude SEO.
+Common Crawl Web Graph parser for Codex SEO.
 
 Downloads and parses Common Crawl's domain-level web graph to extract
 backlink metrics: in-degree, out-degree, PageRank, harmonic centrality,
@@ -374,7 +374,7 @@ def get_graph_info() -> dict:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Common Crawl Web Graph parser for Claude SEO"
+        description="Common Crawl Web Graph parser for Codex SEO"
     )
     parser.add_argument(
         "domain",

@@ -87,8 +87,8 @@ sitemap-validation-report.md
 *-validation-report.md
 
 # Temporary download directories
-claude-ads-main/
-claude-seo-main/
+codex-ads-main/
+codex-seo-main/
 
 # Root-level duplicate media files (originals live in screenshots/)
 Cover Image.jpeg
@@ -100,8 +100,8 @@ seo command demo.gif
 Google-SEO-Report-*.html
 Google-SEO-Report-*.pdf
 
-# Claude Code local config (project-specific permissions, not for repo)
-.claude/
+# Codex local config (project-specific permissions, not for repo)
+.codex/
 .superpowers/
 
 # Site-specific analysis outputs

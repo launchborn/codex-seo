@@ -19,8 +19,7 @@ aspect ratios, and resolution defaults.
 
 ## Architecture Note
 
-This extension is built on [Claude Banana](https://github.com/AgriciDaniel/banana-claude),
-the standalone AI image generation skill for Claude Code.
+This extension is built on the Banana image generation workflow for Codex.
 
 This skill has two components with distinct roles:
 - **SKILL.md** (this file): Handles interactive `/seo image-gen` commands for generating images

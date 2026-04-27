@@ -14,23 +14,23 @@
 
 1. Перевірте встановлення:
 ```bash
-ls ~/.claude/skills/seo/SKILL.md
+ls ~/.codex/skills/seo/SKILL.md
 ```
 
 2. Перевірте frontmatter у SKILL.md:
 ```bash
-head -5 ~/.claude/skills/seo/SKILL.md
+head -5 ~/.codex/skills/seo/SKILL.md
 ```
 Має починатися з `---` та YAML.
 
-3. Перезапустіть Claude Code:
+3. Перезапустіть Codex:
 ```bash
-claude
+codex
 ```
 
 4. Перезапустіть інсталятор:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 ```
 
 ---
@@ -45,12 +45,12 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/instal
 
 ```bash
 # Use the venv pip
-~/.claude/skills/seo/.venv/bin/pip install -r ~/.claude/skills/seo/requirements.txt
+~/.codex/skills/seo/.venv/bin/pip install -r ~/.codex/skills/seo/requirements.txt
 ```
 
 Якщо venv не існує, встановіть з `--user`:
 ```bash
-pip install --user -r ~/.claude/skills/seo/requirements.txt
+pip install --user -r ~/.codex/skills/seo/requirements.txt
 ```
 
 Або встановіть окремо:
@@ -65,13 +65,13 @@ pip install --user beautifulsoup4 requests lxml playwright Pillow urllib3 valida
 **Рішення:** Починаючи з v1.2.0, requirements.txt копіюється в каталог навички:
 
 ```bash
-ls ~/.claude/skills/seo/requirements.txt
+ls ~/.codex/skills/seo/requirements.txt
 ```
 
 Якщо відсутній, завантажте напряму:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/requirements.txt \
-  -o ~/.claude/skills/seo/requirements.txt
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/requirements.txt \
+  -o ~/.codex/skills/seo/requirements.txt
 ```
 
 ### Проблеми з виявленням Python на Windows
@@ -109,7 +109,7 @@ python -m playwright install chromium
 
 **Рішення:**
 ```bash
-chmod +x ~/.claude/skills/seo/scripts/*.py
+chmod +x ~/.codex/skills/seo/scripts/*.py
 ```
 
 ---
@@ -122,17 +122,18 @@ chmod +x ~/.claude/skills/seo/scripts/*.py
 
 1. Перевірте наявність файлів агентів:
 ```bash
-ls ~/.claude/agents/seo-*.md
+ls ~/.codex/skills/seo/agents/seo-*.md
 ```
 
 2. Перевірте frontmatter агента:
 ```bash
-head -5 ~/.claude/agents/seo-technical.md
+head -5 ~/.codex/skills/seo/agents/seo-technical.md
 ```
 
 3. Перевстановіть агентів:
 ```bash
-cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
+mkdir -p ~/.codex/skills/seo/agents
+cp /path/to/codex-seo/agents/*.md ~/.codex/skills/seo/agents/
 ```
 
 ---
@@ -170,7 +171,7 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 **Рішення:**
 
 1. Аудит сканує до 500 сторінок — великі сайти потребують часу
-2. Субагенти працюють паралельно для прискорення аналізу
+2. Файли agent prompts працюють паралельно для прискорення аналізу
 3. Для швидших перевірок використовуйте `/seo page` для конкретних URL
 4. Перевірте, чи сайт має повільний час відповіді
 
@@ -182,19 +183,19 @@ cp /path/to/claude-seo/agents/*.md ~/.claude/agents/
 
 2. **GitHub Issues:** Повідомляйте про помилки в репозиторії
 
-3. **Логи:** Перевірте вивід Claude Code для деталей помилок
+3. **Логи:** Перевірте вивід Codex для деталей помилок
 
 ## Режим налагодження
 
-Для детального виводу перевірте внутрішні логи Claude Code або запустіть скрипти напряму:
+Для детального виводу перевірте внутрішні логи Codex або запустіть скрипти напряму:
 
 ```bash
 # Test fetch
-python3 ~/.claude/skills/seo/scripts/fetch_page.py https://example.com
+python3 ~/.codex/skills/seo/scripts/fetch_page.py https://example.com
 
 # Test parse
-python3 ~/.claude/skills/seo/scripts/parse_html.py page.html --json
+python3 ~/.codex/skills/seo/scripts/parse_html.py page.html --json
 
 # Test screenshot
-python3 ~/.claude/skills/seo/scripts/capture_screenshot.py https://example.com
+python3 ~/.codex/skills/seo/scripts/capture_screenshot.py https://example.com
 ```

@@ -1,11 +1,11 @@
-# Claude SEO Installer for Windows
+# Codex SEO Installer for Windows
 # PowerShell installation script
 
 $ErrorActionPreference = "Stop"
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "|   Claude SEO - Installer             |" -ForegroundColor Cyan
-Write-Host "|   Claude Code SEO Skill              |" -ForegroundColor Cyan
+Write-Host "|   Codex SEO - Installer             |" -ForegroundColor Cyan
+Write-Host "|   Codex SEO Skill                   |" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
@@ -82,27 +82,28 @@ try {
 }
 
 # Set paths
-$SkillDir = "$env:USERPROFILE\.claude\skills\seo"
-$AgentDir = "$env:USERPROFILE\.claude\agents"
-$RepoUrl = "https://github.com/AgriciDaniel/claude-seo"
-# Pin to a specific release tag to prevent silent updates from main.
-# Override: $env:CLAUDE_SEO_TAG = 'main'; .\install.ps1
-$RepoTag = if ($env:CLAUDE_SEO_TAG) { $env:CLAUDE_SEO_TAG } else { 'v1.9.0' }
+$CodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { "$env:USERPROFILE\.codex" }
+$SkillRoot = Join-Path $CodexHome 'skills'
+$SkillDir = Join-Path $SkillRoot 'seo'
+$AgentDir = Join-Path $SkillDir 'agents'
+$RepoUrl = "https://github.com/launchborn/codex-seo"
+# Override with a tag or branch: $env:CODEX_SEO_TAG = 'v1.9.6'; .\install.ps1
+$RepoTag = if ($env:CODEX_SEO_TAG) { $env:CODEX_SEO_TAG } else { 'main' }
 
 # Create directories
 New-Item -ItemType Directory -Force -Path $SkillDir | Out-Null
 New-Item -ItemType Directory -Force -Path $AgentDir | Out-Null
 
 # Clone to temp directory
-$TempDir = Join-Path $env:TEMP "claude-seo-install"
+$TempDir = Join-Path $env:TEMP "codex-seo-install"
 if (Test-Path $TempDir) {
     Remove-Item -Recurse -Force $TempDir
 }
 
-$keepTemp = ($env:CLAUDE_SEO_KEEP_TEMP -eq '1')
+$keepTemp = ($env:CODEX_SEO_KEEP_TEMP -eq '1')
 
 try {
-    Write-Host ">> Downloading Claude SEO ($RepoTag)..." -ForegroundColor Yellow
+    Write-Host ">> Downloading Codex SEO ($RepoTag)..." -ForegroundColor Yellow
     $clone = Invoke-External -Exe 'git' -Args @('clone','--depth','1','--branch',$RepoTag,$RepoUrl,$TempDir) -Quiet
     if ($clone.ExitCode -ne 0) {
         throw "git clone failed. Output:`n$($clone.Output -join "`n")"
@@ -120,7 +121,7 @@ try {
     $SkillsPath = "$TempDir\skills"
     if (Test-Path $SkillsPath) {
         Get-ChildItem -Directory $SkillsPath | ForEach-Object {
-            $target = "$env:USERPROFILE\.claude\skills\$($_.Name)"
+            $target = Join-Path $SkillRoot $($_.Name)
             New-Item -ItemType Directory -Force -Path $target | Out-Null
             Copy-Item -Recurse -Force "$($_.FullName)\*" $target
         }
@@ -143,7 +144,7 @@ try {
     }
 
     # Copy agents
-    Write-Host "=> Installing subagents..." -ForegroundColor Yellow
+    Write-Host "=> Installing agent prompt files..." -ForegroundColor Yellow
     $AgentsPath = Join-Path $TempDir 'agents'
     if (Test-Path $AgentsPath) {
         Copy-Item -Force (Join-Path $AgentsPath '*.md') $AgentDir -ErrorAction SilentlyContinue
@@ -176,7 +177,7 @@ try {
             $extSkills = Join-Path $extDir 'skills'
             if (Test-Path $extSkills) {
                 Get-ChildItem -Directory $extSkills | ForEach-Object {
-                    $target = "$env:USERPROFILE\.claude\skills\$($_.Name)"
+                    $target = Join-Path $SkillRoot $($_.Name)
                     New-Item -ItemType Directory -Force -Path $target | Out-Null
                     Copy-Item -Recurse -Force "$($_.FullName)\*" $target
                 }
@@ -250,10 +251,10 @@ try {
 }
 
 Write-Host ""
-Write-Host "[+] Claude SEO installed successfully!" -ForegroundColor Green
+Write-Host "[+] Codex SEO installed successfully!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Usage:" -ForegroundColor Cyan
-Write-Host "  1. Start Claude Code:  claude"
-Write-Host "  2. Run commands:       /seo audit https://example.com"
+Write-Host "  1. Start Codex:  codex"
+Write-Host "  2. Run commands: /seo audit https://example.com"
 Write-Host ""
 Write-Host "Python deps location: $installedReqFile" -ForegroundColor Gray

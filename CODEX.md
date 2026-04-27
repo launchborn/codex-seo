@@ -1,11 +1,11 @@
-# Claude SEO: Universal SEO Analysis Skill
+# Codex SEO: Universal SEO Analysis Skill
 
 ## Project Overview
 
-This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
+This repository contains **Codex SEO**, a Tier 4 Codex skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 21 core sub-skills (+ 3
-extensions), 16 core subagents (+ 2 extension agents, 18 total), and an extensible reference
+3-layer architecture (directive, orchestration, execution). One main orchestrator plus
+23 sub-skills, 18 agent prompt files, 31 Python execution scripts, and an extensible reference
 system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
 local SEO (GBP, citations, reviews, map pack), maps intelligence, semantic topic
@@ -15,13 +15,12 @@ SEO, and international SEO with cultural adaptation profiles.
 ## Architecture
 
 ```
-claude-seo/
-  CLAUDE.md                          # Project instructions (this file)
+codex-seo/
+  CODEX.md                           # Project instructions (this file)
   CONTRIBUTORS.md                    # Community credits (Pro Hub Challenge)
   AGENTS.md                          # Multi-platform agent instructions (Cursor, Antigravity)
-  .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.9.0)
-    marketplace.json               # Marketplace catalog for distribution
+  .codex-plugin/
+    plugin.json                    # Codex plugin manifest (v1.9.6)
   skills/                            # 24 skills (auto-discovered)
     seo/                           # Main orchestrator skill
       SKILL.md                     # Entry point, routing table, core rules
@@ -61,7 +60,7 @@ claude-seo/
     seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
-  agents/                          # 18 subagents (auto-discovered)
+  agents/                          # 18 agent prompt files
     seo-technical.md             # Crawlability, indexability, security
     seo-content.md               # E-E-A-T, readability, thin content
     seo-schema.md                # Structured data validation
@@ -81,7 +80,7 @@ claude-seo/
     seo-ecommerce.md             # E-commerce SEO analysis
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (30 tracked + 2 dev-only)
+  scripts/                         # Python execution scripts (31 tracked)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     backlinks_auth.py            # Backlink API credential management (Moz, Bing)
     moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
@@ -123,7 +122,7 @@ claude-seo/
 
 | Command | Purpose |
 |---------|---------|
-| `/seo audit <url>` | Full site audit with up to 15 parallel subagents |
+| `/seo audit <url>` | Full site audit with up to 15 specialist audit slices |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo technical <url>` | Technical SEO audit (9 categories) |
 | `/seo content <url>` | E-E-A-T and content quality analysis |
@@ -157,8 +156,8 @@ claude-seo/
 - Reference files should be focused and under 200 lines
 - Scripts must have docstrings, CLI interface, and JSON output
 - Follow kebab-case naming for all skill directories
-- Agents invoked via Agent tool, never via Bash
-- Python dependencies install into `~/.claude/skills/seo/.venv/`
+- Agent prompt files are reference prompts. Use native Codex parallel agents only when the current Codex environment supports them and the user requested parallel delegation; otherwise run the same checks inline.
+- Python dependencies install into `~/.codex/skills/seo/.venv/`
 - Test with `python -m pytest tests/` after changes (if applicable)
 
 ## Security Rules
@@ -167,7 +166,7 @@ claude-seo/
 - **URL validation**: All scripts that accept user URLs must call `validate_url()` from `google_auth.py` before making API calls. This blocks private IPs, loopback, and GCP metadata endpoints (SSRF protection).
 - **OAuth tokens**: Never store `client_secret` in the token file. Read it from the client_secret.json file at runtime.
 - **No hardcoded paths**: Use `os.path.dirname(os.path.abspath(__file__))` for relative paths, never `/home/username/...`
-- **Config location**: `~/.config/claude-seo/google-api.json` and `~/.config/claude-seo/backlinks-api.json` (user-space, not in repo)
+- **Config location**: `~/.config/codex-seo/google-api.json` and `~/.config/codex-seo/backlinks-api.json` (user-space, not in repo)
 
 ## Report Generation Rules
 
@@ -186,16 +185,16 @@ claude-seo/
 
 ## Ecosystem
 
-Part of the Claude Code skill family:
-- [Claude Banana](https://github.com/AgriciDaniel/banana-claude) -- standalone image gen (bundled as extension here)
-- [Claude Blog](https://github.com/AgriciDaniel/claude-blog) -- companion blog engine, consumes SEO findings
-- [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) -- community marketing suite (copy, emails, ads, funnels, CRO)
+Part of the Codex SEO workflow:
+- Banana image generation -- bundled as the `seo-image-gen` extension
+- Blog/content generation skills -- optional companion workflow for SEO findings
+- Marketing automation tools -- optional post-audit execution layer for copy, email, social, ads, funnels, and CRO
 
 ## Key Principles
 
 1. **Progressive Disclosure**: Metadata always loaded, instructions on activation, resources on demand
 2. **Industry Detection**: Auto-detect SaaS, e-commerce, local, publisher, agency
-3. **Parallel Execution**: Full audits spawn up to 15 subagents simultaneously
+3. **Parallel Execution**: Full audits can run up to 15 specialist audit slices, using native Codex parallel agents when available and requested
 4. **Extension System**: DataForSEO MCP for live data, Firecrawl MCP for site crawling, Banana MCP for AI image generation
 
 ## Release Blog Post
@@ -206,4 +205,4 @@ After cutting a new release (git tag + `gh release create`), run:
 /release-blog
 ```
 
-This generates a blog post on https://claude-seo.md/blog/, handles cover image generation, SEO metadata, FAQ schema, internal linking, sitemap/llms.txt updates, Vercel deployment, and Google indexing.
+This generates a blog post on https://codex-seo.md/blog/, handles cover image generation, SEO metadata, FAQ schema, internal linking, sitemap/llms.txt updates, Vercel deployment, and Google indexing.

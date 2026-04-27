@@ -17,14 +17,14 @@ metadata:
 **Scripts:** Located at the plugin root `scripts/` directory.
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 21 specialized sub-skills and 18 subagents
+e-commerce, publishers, agencies). Orchestrates 23 specialized sub-skills and 18 agent prompt files
 (+ 3 optional extension sub-skills: seo-dataforseo, seo-firecrawl, and seo-image-gen).
 
 ## Quick Reference
 
 | Command | What it does |
 |---------|-------------|
-| `/seo audit <url>` | Full website audit with parallel subagent delegation |
+| `/seo audit <url>` | Full website audit with optional parallel Codex agent delegation |
 | `/seo page <url>` | Deep single-page analysis |
 | `/seo sitemap <url or generate>` | Analyze or generate XML sitemaps |
 | `/seo schema <url>` | Detect, validate, and generate Schema.org markup |
@@ -53,17 +53,17 @@ e-commerce, publishers, agencies). Orchestrates 21 specialized sub-skills and 18
 
 ## Orchestration Logic
 
-When the user invokes `/seo audit`, delegate to subagents in parallel:
+When the user invokes `/seo audit`, use the agent prompt files as audit slices. If the current Codex environment supports native parallel agents and the user requested parallel delegation, run those slices concurrently; otherwise run them inline and aggregate the same outputs:
 1. Detect business type (SaaS, local, ecommerce, publisher, agency, other)
-2. Spawn subagents: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo
-3. If Google API credentials detected (`python scripts/google_auth.py --check`), also spawn seo-google agent
-4. If local business detected, also spawn seo-local agent
-5. If local business detected AND DataForSEO MCP available, also spawn seo-maps agent
-6. If backlink APIs detected (`python scripts/backlinks_auth.py --check`), also spawn seo-backlinks agent
+2. Run slices: seo-technical, seo-content, seo-schema, seo-sitemap, seo-performance, seo-visual, seo-geo
+3. If Google API credentials detected (`python scripts/google_auth.py --check`), also run the seo-google slice
+4. If local business detected, also run the seo-local slice
+5. If local business detected AND DataForSEO MCP available, also run the seo-maps slice
+6. If backlink APIs detected (`python scripts/backlinks_auth.py --check`), also run the seo-backlinks slice
 7. If Firecrawl MCP available, use `firecrawl_map` to discover all site URLs before analysis
-8. If content strategy signals detected (blog, pillar pages, topic clusters), also spawn seo-cluster agent
-9. If e-commerce detected, also spawn seo-ecommerce agent
-10. If drift baseline exists for this URL (`python scripts/drift_history.py <url>`), also spawn seo-drift agent
+8. If content strategy signals detected (blog, pillar pages, topic clusters), also run the seo-cluster slice
+9. If e-commerce detected, also run the seo-ecommerce slice
+10. If drift baseline exists for this URL (`python scripts/drift_history.py <url>`), also run the seo-drift slice
 11. Always include seo-sxo in full audits (search experience applies to all sites)
 12. Collect results and generate unified report with SEO Health Score (0-100)
 13. Create prioritized action plan (Critical -> High -> Medium -> Low)
@@ -198,9 +198,9 @@ This skill orchestrates 21 specialized sub-skills (+ 3 extensions):
 23. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
 24. **seo-flow** -- FLOW framework integration (Find → Leverage → Optimize → Win, 41 AI prompts, CC BY 4.0)
 
-## Subagents
+## Agent Prompt Files
 
-For parallel analysis during audits:
+For audit slices and optional parallel analysis:
 - `seo-technical` -- Crawlability, indexability, security, CWV
 - `seo-content` -- E-E-A-T, readability, thin content
 - `seo-schema` -- Detection, validation, generation
@@ -208,10 +208,10 @@ For parallel analysis during audits:
 - `seo-performance` -- Core Web Vitals measurement
 - `seo-visual` -- Screenshots, mobile testing, above-fold
 - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
-- `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (conditional: spawned when Local Service detected)
-- `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (conditional: spawned when Local Service detected AND DataForSEO MCP available)
-- `seo-google` -- CWV field data, URL indexation status, organic traffic trends (conditional: spawned when Google API credentials detected)
-- `seo-backlinks` -- Backlink profile data: DA/PA, referring domains, anchor text, toxic links (conditional: spawned when Moz/Bing API keys detected or always for CC domain-level metrics)
+- `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (conditional: run when Local Service detected)
+- `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (conditional: run when Local Service detected AND DataForSEO MCP available)
+- `seo-google` -- CWV field data, URL indexation status, organic traffic trends (conditional: run when Google API credentials detected)
+- `seo-backlinks` -- Backlink profile data: DA/PA, referring domains, anchor text, toxic links (conditional: run when Moz/Bing API keys detected or always for CC domain-level metrics)
 - `seo-cluster` -- Semantic clustering analysis (conditional: content strategy detected)
 - `seo-sxo` -- Page-type mismatch, user stories, persona scoring (always in full audits)
 - `seo-drift` -- Baseline comparison (conditional: drift baseline exists for URL)

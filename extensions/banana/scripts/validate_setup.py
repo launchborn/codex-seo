@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Validate that the Claude Banana MCP server is properly configured.
+Validate that the Banana MCP server is properly configured.
 
 Checks:
-1. Claude Code settings.json has the MCP entry
+1. Codex config.toml has the MCP entry
 2. API key is present
 3. Node.js/npx is available
 4. Output directory exists or can be created
@@ -13,11 +13,13 @@ Usage:
 """
 
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
 
-SETTINGS_PATH = Path.home() / ".claude" / "settings.json"
+CODEX_HOME = Path(os.environ.get("CODEX_HOME", "~/.codex")).expanduser()
+CONFIG_PATH = Path(os.environ.get("CODEX_CONFIG", str(CODEX_HOME / "config.toml"))).expanduser()
 MCP_NAME = "nanobanana-mcp"
 OUTPUT_DIR = Path.home() / "Documents" / "nanobanana_generated"
 
@@ -32,65 +34,59 @@ def check(label: str, passed: bool, detail: str = "") -> bool:
 
 
 def main() -> int:
-    print("Claude Banana - Setup Validation")
+    print("Banana - Setup Validation")
     print("=" * 40)
     results = []
 
-    # 1. Settings file exists
+    # 1. Codex config exists
     results.append(check(
-        "Claude Code settings.json exists",
-        SETTINGS_PATH.exists(),
-        str(SETTINGS_PATH),
+        "Codex config.toml exists",
+        CONFIG_PATH.exists(),
+        str(CONFIG_PATH),
     ))
 
-    if not SETTINGS_PATH.exists():
-        print("\nCannot continue without settings.json.")
+    if not CONFIG_PATH.exists():
+        print("\nCannot continue without config.toml.")
         return 1
 
-    # 2. Load and parse settings
-    try:
-        with open(SETTINGS_PATH) as f:
-            settings = json.load(f)
-        results.append(check("settings.json is valid JSON", True))
-    except json.JSONDecodeError as e:
-        results.append(check("settings.json is valid JSON", False, str(e)))
-        return 1
+    text = CONFIG_PATH.read_text(encoding="utf-8")
 
-    # 3. MCP entry exists
-    servers = settings.get("mcpServers", {})
-    has_mcp = MCP_NAME in servers
+    # 2. MCP entry exists
+    has_mcp = f"[mcp_servers.{MCP_NAME}]" in text
     results.append(check(f"MCP server '{MCP_NAME}' configured", has_mcp))
 
     if has_mcp:
-        mcp = servers[MCP_NAME]
-
-        # 4. Command is npx
+        # 3. Command is npx
         results.append(check(
             "Command is 'npx'",
-            mcp.get("command") == "npx",
-            mcp.get("command", "(missing)"),
+            'command = "npx"' in text,
         ))
 
-        # 5. Package is correct
-        args = mcp.get("args", [])
-        has_pkg = "@ycse/nanobanana-mcp" in args
+        # 4. Package is correct
+        has_pkg = "@ycse/nanobanana-mcp" in text
         results.append(check(
             "Package is @ycse/nanobanana-mcp",
             has_pkg,
-            str(args),
         ))
 
-        # 6. API key present
-        env = mcp.get("env", {})
-        key = env.get("GOOGLE_AI_API_KEY", "")
+        # 5. API key present
+        key = ""
+        for line in text.splitlines():
+            if line.strip().startswith("GOOGLE_AI_API_KEY"):
+                _, _, value = line.partition("=")
+                try:
+                    key = json.loads(value.strip())
+                except json.JSONDecodeError:
+                    key = value.strip().strip('"')
+                break
         results.append(check(
             "GOOGLE_AI_API_KEY is set",
             bool(key),
             f"{key[:8]}...{key[-4:]}" if len(key) > 12 else "(empty or short)",
         ))
 
-        # 7. Model configured
-        model = env.get("NANOBANANA_MODEL", "")
+        # 6. Model configured
+        model = "NANOBANANA_MODEL" if "NANOBANANA_MODEL" in text else ""
         results.append(check(
             "NANOBANANA_MODEL is set",
             bool(model),

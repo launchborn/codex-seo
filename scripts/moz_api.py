@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Moz Link Explorer API client for Claude SEO.
+Moz Link Explorer API client for Codex SEO.
 
 Queries the Moz API (JSON-RPC 2.0) for Domain Authority, Page Authority,
 Spam Score, link counts, and referring domain data. Free tier provides
@@ -40,7 +40,7 @@ MOZ_ENDPOINT = "https://api.moz.com/jsonrpc"
 
 # Rate limit: 1 request per 10 seconds on free tier
 RATE_LIMIT_DELAY = 10
-RATE_LIMIT_FILE = os.path.expanduser("~/.cache/claude-seo/moz_last_request.lock")
+RATE_LIMIT_FILE = os.path.expanduser("~/.cache/codex-seo/moz_last_request.lock")
 
 
 def _rate_limit():
@@ -91,7 +91,7 @@ def _moz_request(method: str, params: dict, api_key: str) -> dict:
 
     payload = {
         "jsonrpc": "2.0",
-        "id": "claude-seo",
+        "id": "codex-seo",
         "method": method,
         "params": params,
     }
@@ -99,7 +99,7 @@ def _moz_request(method: str, params: dict, api_key: str) -> dict:
     headers = {
         "Content-Type": "application/json",
         "x-moz-token": api_key,
-        "User-Agent": "ClaudeSEO/1.8.0",
+        "User-Agent": "CodexSEO/1.8.0",
     }
 
     try:
@@ -336,7 +336,7 @@ def get_top_pages(domain: str, api_key: str, limit: int = 50) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Moz Link Explorer API client for Claude SEO"
+        description="Moz Link Explorer API client for Codex SEO"
     )
     parser.add_argument(
         "command",

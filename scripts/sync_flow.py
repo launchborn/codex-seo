@@ -33,6 +33,25 @@ STATIC_FILES = [
     ("docs/10-references/bibliography.md", "bibliography.md"),
 ]
 LOCK_REL = pathlib.Path("skills") / "seo-flow" / "references" / "flow-prompts.lock"
+PROMPT_RENAMES = {
+    "claude-prompt-1.md": "codex-prompt-1.md",
+    "claude-prompt-2.md": "codex-prompt-2.md",
+    "reddit-claude-prompt.md": "reddit-codex-prompt.md",
+    "claude-deep-research-prompt.md": "codex-deep-research-prompt.md",
+    "gbp-description-claude-prompt-1.md": "gbp-description-codex-prompt-1.md",
+    "gbp-description-claude-prompt-2.md": "gbp-description-codex-prompt-2.md",
+    "gbp-description-claude-prompt-3.md": "gbp-description-codex-prompt-3.md",
+}
+PROMPT_TEXT_REPLACEMENTS = {
+    "Claude, GPT, Gemini": "Codex, GPT, Gemini",
+    "Claude 'Deep Research' Prompt": "Codex Deep Research Prompt",
+    "GBP Description Claude Prompt 1": "GBP Description Codex Prompt 1",
+    "GBP Description Claude Prompt 2": "GBP Description Codex Prompt 2",
+    "GBP Description Claude Prompt 3": "GBP Description Codex Prompt 3",
+    "Reddit Claude Prompt": "Reddit Codex Prompt",
+    "Claude Prompt 1": "Codex Prompt 1",
+    "Claude Prompt 2": "Codex Prompt 2",
+}
 
 
 def script_root():
@@ -167,6 +186,17 @@ def prompt_meta(stage, filename, raw):
     }
 
 
+def codex_prompt_filename(filename):
+    return PROMPT_RENAMES.get(filename, filename)
+
+
+def codex_prompt_content(raw):
+    content = raw
+    for old, new in PROMPT_TEXT_REPLACEMENTS.items():
+        content = content.replace(old, new)
+    return content
+
+
 def escape_cell(value):
     return str(value).replace("|", "\\|").replace("\n", " ").strip()
 
@@ -245,9 +275,11 @@ def sync(args):
         for source, filename in list_markdown_files(source_dir, args.ref, headers):
             print(f"fetch: {source}", file=sys.stderr)
             raw = fetch_file(source, args.ref, headers)
-            prompt_rows.append(prompt_meta(stage, filename, raw))
-            target = refs / "prompts" / stage / filename
-            content = f"{attribution_header(today)}\n{raw}"
+            target_filename = codex_prompt_filename(filename)
+            prompt_content = codex_prompt_content(raw)
+            prompt_rows.append(prompt_meta(stage, target_filename, prompt_content))
+            target = refs / "prompts" / stage / target_filename
+            content = f"{attribution_header(today)}\n{prompt_content}"
             record_write(root, target, content, args.dry_run, changes)
 
     record_write(root, refs / "prompts" / "README.md", prompt_readme(prompt_rows), args.dry_run, changes)

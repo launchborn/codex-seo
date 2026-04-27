@@ -16,7 +16,7 @@ Use this when you need to judge whether a page can perform in traditional search
 
 ## AI Compatibility
 
-Claude, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
+Codex, GPT, Gemini, and other long-context models. Works best with current customer language and conversion evidence.
 
 ## Inputs
 

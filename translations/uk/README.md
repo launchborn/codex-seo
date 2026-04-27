@@ -2,22 +2,22 @@
 <!-- i18n-source-sha: HEAD -->
 <!-- i18n-date: 2026-04-10 -->
 
-![Claude SEO](../../screenshots/cover-image.jpeg)
+![Codex SEO](../../screenshots/cover-image.jpeg)
 
-# Claude SEO — навичка SEO-аудиту для Claude Code
+# Codex SEO — навичка SEO-аудиту для Codex
 
 🌐 **Language / Мова:** [English](../../README.md) | [Українська](README.md)
 
-Комплексна навичка SEO-аналізу для Claude Code. Охоплює технічне SEO, аналіз сторінок, якість контенту (E-E-A-T), розмітку Schema, оптимізацію зображень, архітектуру карти сайту, оптимізацію для AI-пошуку (GEO), локальне SEO, аналітику карт, Google SEO API (Search Console, PageSpeed, CrUX, GA4), генерацію PDF-звітів та стратегічне планування.
+Комплексна навичка SEO-аналізу для Codex. Охоплює технічне SEO, аналіз сторінок, якість контенту (E-E-A-T), розмітку Schema, оптимізацію зображень, архітектуру карти сайту, оптимізацію для AI-пошуку (GEO), локальне SEO, аналітику карт, Google SEO API (Search Console, PageSpeed, CrUX, GA4), генерацію PDF-звітів та стратегічне планування.
 
 ![SEO Command Demo](../../screenshots/seo-command-demo.gif)
 
-[![CI](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml)
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
+[![CI](https://github.com/launchborn/codex-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/launchborn/codex-seo/actions/workflows/ci.yml)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-blue)](https://github.com/openai/codex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
-[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
+[![Version](https://img.shields.io/github/v/release/launchborn/codex-seo)](https://github.com/launchborn/codex-seo/releases)
 
-> **Блог:** [Повний огляд SEO-стеку Claude Code](https://agricidaniel.com/blog/claude-code-seo-stack) | [Реліз v1.7.2: аналіз зворотних посилань Firecrawl](https://agricidaniel.com/blog/claude-seo-172-firecrawl-backlink-analysis)
+> **Блог:** [Реліз v1.7.2: аналіз зворотних посилань Firecrawl](https://agricidaniel.com/blog/codex-seo-172-firecrawl-backlink-analysis)
 
 ## Зміст
 
@@ -35,40 +35,34 @@
 
 ## Встановлення
 
-### Встановлення як плагін (Claude Code 1.0.33+)
+### Codex plugin manifest
 
-```bash
-# Add marketplace (one-time)
-/plugin marketplace add AgriciDaniel/claude-seo
-
-# Install plugin
-/plugin install claude-seo@AgriciDaniel-claude-seo
-```
+Репозиторій містить Codex manifest у `.codex-plugin/plugin.json`. Використовуйте його з вашим Codex plugin loader або встановіть навички вручну скриптами нижче.
 
 ### Ручне встановлення (Unix/macOS/Linux)
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-bash claude-seo/install.sh
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+bash codex-seo/install.sh
 ```
 
 <details>
 <summary>Однорядкове встановлення (curl)</summary>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 ```
 
 Або через [install.cat](https://install.cat):
 
 ```bash
-curl -fsSL install.cat/AgriciDaniel/claude-seo | bash
+curl -fsSL install.cat/launchborn/codex-seo | bash
 ```
 
 Бажаєте переглянути скрипт перед запуском?
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh > install.sh
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh > install.sh
 cat install.sh        # review
 bash install.sh       # run when satisfied
 rm install.sh
@@ -79,17 +73,17 @@ rm install.sh
 ### Windows (PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+powershell -ExecutionPolicy Bypass -File codex-seo\install.ps1
 ```
 
-> **Чому git clone, а не `irm | iex`?** Власні захисні механізми Claude Code позначають `irm ... | iex` як ризик ланцюга постачання (завантаження та виконання віддаленого коду без перевірки). Підхід з git clone дозволяє переглянути скрипт `claude-seo\install.ps1` перед його запуском.
+> **Чому git clone, а не `irm | iex`?** Власні захисні механізми Codex позначають `irm ... | iex` як ризик ланцюга постачання (завантаження та виконання віддаленого коду без перевірки). Підхід з git clone дозволяє переглянути скрипт `codex-seo\install.ps1` перед його запуском.
 
 ## Швидкий старт
 
 ```bash
-# Start Claude Code
-claude
+# Start Codex
+codex
 
 # Run a full site audit
 /seo audit https://example.com
@@ -235,9 +229,9 @@ claude
 ## Архітектура
 
 ```
-~/.claude/skills/seo/         # Main orchestrator skill
-~/.claude/skills/seo-*/       # Sub-skills (15 + 2 extensions)
-~/.claude/agents/seo-*.md     # Subagents (10 + 2 extensions)
+~/.codex/skills/seo/         # Main orchestrator skill
+~/.codex/skills/seo-*/       # Sub-skills (15 + 2 extensions)
+~/.codex/skills/seo/agents/seo-*.md     # Agent prompt files (10 + 2 extensions)
 ```
 
 ### Розмітка Video та Live Schema (нове)
@@ -260,22 +254,22 @@ claude
 ## Вимоги
 
 - Python 3.10+
-- Claude Code CLI
+- Codex CLI
 - Опціонально: Playwright для скріншотів
 - Опціонально: Облікові дані Google API для розширених даних (див. `/seo google setup`)
 
 ## Видалення
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-bash claude-seo/uninstall.sh
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+bash codex-seo/uninstall.sh
 ```
 
 <details>
 <summary>Однорядкове видалення (curl)</summary>
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/uninstall.sh | bash
 ```
 
 </details>
@@ -310,8 +304,7 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninst
 
 ### Banana (генерація AI-зображень)
 
-Генерація SEO-зображень (OG-прев'ю, герої блогів, фото продуктів, інфографіка) за допомогою пайплайну
-[Claude Banana](https://github.com/AgriciDaniel/banana-claude) Creative Director.
+Генерація SEO-зображень (OG-прев'ю, герої блогів, фото продуктів, інфографіка) за допомогою Banana Creative Director pipeline.
 
 ```bash
 # Install extension
@@ -326,18 +319,18 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninst
 ```
 
 Див. [Розширення Banana](../../extensions/banana/README.md) для повної документації.
-Вже використовуєте окремий Claude Banana? Розширення використовує вашу існуючу конфігурацію nanobanana-mcp.
+Вже використовуєте окремий Banana? Розширення використовує вашу існуючу конфігурацію nanobanana-mcp.
 
 ## Екосистема
 
-Claude SEO є частиною сімейства навичок Claude Code, що працюють разом:
+Codex SEO працює з супутніми Codex-навичками та SEO automation tools:
 
 | Навичка | Що робить | Як з'єднується |
 |---------|-----------|----------------|
-| [Claude SEO](https://github.com/AgriciDaniel/claude-seo) | SEO-аналіз, аудити, Schema, GEO | Ядро — аналізує сайти, генерує плани дій |
-| [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Написання блогів, оптимізація, оцінювання | Компаньйон — створення контенту на основі SEO-знахідок |
-| [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | Генерація AI-зображень через Gemini | Спільний — генерація зображень для SEO та блогів |
-| [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) | Копірайтинг, email, соцмережі, реклама, воронки, CRO | Спільнота — маркетингові дії після SEO-аудиту |
+| [Codex SEO](https://github.com/launchborn/codex-seo) | SEO-аналіз, аудити, Schema, GEO | Ядро — аналізує сайти, генерує плани дій |
+| Blog/content skills | Написання блогів, оптимізація, оцінювання | Компаньйон — створення контенту на основі SEO-знахідок |
+| Banana image generation | Генерація AI-зображень через Gemini | Спільний — генерація зображень для SEO та блогів |
+| Marketing automation tools | Копірайтинг, email, соцмережі, реклама, воронки, CRO | Спільнота — маркетингові дії після SEO-аудиту |
 
 **Приклад робочого процесу:**
 1. `/seo audit https://example.com` — визначення прогалин контенту та технічних проблем
@@ -364,4 +357,4 @@ Claude SEO є частиною сімейства навичок Claude Code, щ
 
 ---
 
-Створено для Claude Code [@AgriciDaniel](https://github.com/AgriciDaniel)
+Створено для Codex [@AgriciDaniel](https://github.com/AgriciDaniel)

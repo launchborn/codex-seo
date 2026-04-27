@@ -1,18 +1,18 @@
 <!-- Source: github.com/AgriciDaniel/flow | License: CC BY 4.0 | Synced: 2026-04-26 -->
 ---
-title: "Reddit Claude Prompt"
-description: "Reddit Claude Prompt"
+title: "Codex Deep Research Prompt"
+description: "Codex Deep Research Prompt"
 updated: 2026-04-25
 tags:
   - prompts
-  - optimize
+  - local
 ---
 
-# Reddit Claude Prompt
+# Codex Deep Research Prompt
 
 ## Use This When
 
-Use this prompt when you need a structured optimize deliverable and want the model to separate observations, assumptions, recommended actions, and claims that need verification.
+Use this prompt when you need a structured local deliverable and want the model to separate observations, assumptions, recommended actions, and claims that need verification.
 
 ## AI Compatibility
 
@@ -31,7 +31,7 @@ Works with long-context reasoning models. For smaller models, provide narrower i
 ```text
 Act as a senior SEO strategist using the FLOW model.
 
-Task: create a optimize deliverable for: [BUSINESS OR ASSET].
+Task: create a local deliverable for: [BUSINESS OR ASSET].
 
 Use only the supplied inputs and clearly label any assumption. Do not invent statistics. Do not reuse private examples. Build the answer around:
 1. Searcher or buyer intent.

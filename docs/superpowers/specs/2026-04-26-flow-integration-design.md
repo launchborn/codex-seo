@@ -1,4 +1,4 @@
-# Design: FLOW Framework Integration — Claude SEO v1.9.5
+# Design: FLOW Framework Integration — Codex SEO v1.9.5
 
 **Date:** 2026-04-26
 **Author:** Daniel Agrici
@@ -9,14 +9,14 @@
 
 ## 1. Intent
 
-Integrate the FLOW SEO knowledge base (github.com/AgriciDaniel/flow) into Claude SEO as a
-prompt-and-framework layer. FLOW is a content corpus (72 docs, 42 prompts, CC BY 4.0). Claude SEO
+Integrate the FLOW SEO knowledge base (github.com/AgriciDaniel/flow) into Codex SEO as a
+prompt-and-framework layer. FLOW is a content corpus (72 docs, 42 prompts, CC BY 4.0). Codex SEO
 is the execution runtime. This integration makes the runtime framework-aware: skills gain access to
 FLOW's evidence-led prompts and operate within the Find → Leverage → Optimize → Win loop.
 
 ## 2. Integration depth: selective port (Option B)
 
-Bundle the **operational layer** of FLOW into the claude-seo repo:
+Bundle the **operational layer** of FLOW into the codex-seo repo:
 - 42 standardized AI prompts (`docs/09-prompts/`)
 - FLOW framework overview (`docs/01-framework/flow-framework.md`)
 - Bibliography (`docs/10-references/bibliography.md`)
@@ -107,7 +107,7 @@ python scripts/sync_flow.py --ref <sha>  # pin to a specific Flow commit
 
 **Output:** JSON summary listing files added, updated, and unchanged.
 
-**Triggered by:** `/seo flow sync` command and manually during claude-seo releases.
+**Triggered by:** `/seo flow sync` command and manually during codex-seo releases.
 
 ## 4. Modified files
 
@@ -120,29 +120,29 @@ All modifications are additive. No existing skill routing logic changes.
 | `skills/seo-local/SKILL.md` | Add cross-reference to Flow local prompts | ~2 |
 | `skills/seo-content/SKILL.md` | Add cross-reference to Flow optimize/win prompts | ~2 |
 | `skills/seo-cluster/SKILL.md` | Add cross-reference to Flow find prompts | ~2 |
-| `.claude-plugin/plugin.json` | Version bump `1.9.0` → `1.9.5` | ~1 |
+| `.codex-plugin/plugin.json` | Version bump `1.9.0` → `1.9.5` | ~1 |
 | `CONTRIBUTORS.md` | Credit Daniel Agrici / FLOW framework, CC BY 4.0 | ~3 |
 | `README.md` | Add FLOW to Ecosystem table; add `sync_flow.py` to dev docs | ~5 |
 | `CHANGELOG.md` | v1.9.5 release entry with FLOW integration notes | ~10 |
 
 ## 5. Orchestration layer
 
-Work is split by type between Claude (main) and Codex (sub-agent via `openai-codex` plugin v1.0.4).
+Work is split by type between Codex (main) and Codex (sub-agent via `openai-codex` plugin v1.0.4).
 
 | Task | Agent | Boundary reason |
 |---|---|---|
-| Design and write `seo-flow` SKILL.md | Claude | Requires understanding existing skill routing architecture |
-| Write cross-skill reference additions (5 files) | Claude | Context-sensitive — must match each skill's format/voice |
-| Write `agents/seo-flow.md` | Claude | Agent contract design requires full system context |
-| Version bump + CONTRIBUTORS.md + README | Claude | Project-level judgment calls |
-| Review all Codex output | Claude | Hard gate — no merge without full line-by-line review |
+| Design and write `seo-flow` SKILL.md | Codex | Requires understanding existing skill routing architecture |
+| Write cross-skill reference additions (5 files) | Codex | Context-sensitive — must match each skill's format/voice |
+| Write `agents/seo-flow.md` | Codex | Agent contract design requires full system context |
+| Version bump + CONTRIBUTORS.md + README | Codex | Project-level judgment calls |
+| Review all Codex output | Codex | Hard gate — no merge without full line-by-line review |
 | Download + format 42 prompt files from GitHub API | **Codex** | Mechanical file transformation, no architecture knowledge needed |
 | Insert CC BY 4.0 attribution headers into 42 files | **Codex** | Templated string insertion across many files |
 | Implement `scripts/sync_flow.py` | **Codex** | Python + GitHub API scripting — Codex strength |
 
 **Sub-agent review protocol** (per user's stated requirements):
 1. Codex output staged on a branch before any merge.
-2. Claude reviews the full diff: do prompt files match the Flow source verbatim? Attribution headers
+2. Codex reviews the full diff: do prompt files match the Flow source verbatim? Attribution headers
    present and correctly formatted on all 42? Does `sync_flow.py` use only real GitHub API
    endpoints (no invented methods)? Any scope drift (files modified outside the task boundary)?
 3. Only after the review gate passes does the branch merge to main.
@@ -164,7 +164,7 @@ FLOW content is CC BY 4.0 (content) + MIT (scripts). Requirements:
 - CONTRIBUTORS.md credit entry
 - SKILL.md footer with attribution + canonical URL
 - `README.md` Ecosystem table links to `github.com/AgriciDaniel/flow`
-- Claude SEO's own MIT license is unaffected (applies to skill code, not bundled CC BY 4.0 content)
+- Codex SEO's own MIT license is unaffected (applies to skill code, not bundled CC BY 4.0 content)
 
 ## 8. Rollback plan
 
@@ -179,7 +179,7 @@ No redeploy of infrastructure. No migration needed. Time to rollback: < 5 minute
 
 ## 9. What this is not
 
-- Not a full port of Flow's 72-doc corpus into claude-seo
+- Not a full port of Flow's 72-doc corpus into codex-seo
 - Not a dependency on Flow being online (prompts are bundled locally)
 - Not a change to any existing skill's analysis logic
 - Not a replacement for the canonical Flow repo, which remains authoritative for the full knowledge base

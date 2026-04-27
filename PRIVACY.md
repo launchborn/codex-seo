@@ -2,11 +2,11 @@
 
 ## Data Handling
 
-Claude SEO is a Claude Code skill that runs entirely on your local machine. The core skill does not collect, transmit, or store any personal data.
+Codex SEO is a Codex skill that runs entirely on your local machine. The core skill does not collect, transmit, or store any personal data.
 
 ## What Stays Local
 
-- All SEO analysis runs in your Claude Code session
+- All SEO analysis runs in your Codex session
 - HTML parsing, content analysis, and report generation happen locally
 - Generated reports (PDF, HTML, Excel) are saved to your local filesystem
 - No telemetry, analytics, or usage tracking
@@ -49,6 +49,6 @@ Google API usage is governed by [Google's Privacy Policy](https://policies.googl
 
 ## Credentials
 
-- API keys and OAuth tokens are stored locally in `~/.config/claude-seo/` or environment variables
+- API keys and OAuth tokens are stored locally in `~/.config/codex-seo/` or environment variables
 - Credentials are never committed to the repository (blocked by `.gitignore`)
 - OAuth tokens use refresh tokens and never store client secrets in token files

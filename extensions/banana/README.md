@@ -1,4 +1,4 @@
-# Banana Image Generation Extension for Claude SEO
+# Banana Image Generation Extension for Codex SEO
 
 Generate production-ready SEO images using AI: OG/social previews, blog heroes,
 product photography, infographics, and more. Powered by Google Gemini via the
@@ -6,10 +6,10 @@ banana Creative Director pipeline.
 
 ## Prerequisites
 
-> This extension wraps [Claude Banana](https://github.com/AgriciDaniel/banana-claude)
+> This extension wraps the Banana image generation workflow
 > for SEO-specific use cases. Install the standalone skill for general-purpose image generation.
 
-- **Claude SEO** installed (`~/.claude/skills/seo/`)
+- **Codex SEO** installed (`~/.codex/skills/seo/`)
 - **Node.js 18+** with npx
 - **Google AI API key** (free at [aistudio.google.com/apikey](https://aistudio.google.com/apikey))
 - **ImageMagick** (optional, for post-processing)
@@ -21,10 +21,10 @@ banana Creative Director pipeline.
 ```
 
 The installer will:
-1. Verify Claude SEO is installed
+1. Verify Codex SEO is installed
 2. Prompt for your Google AI API key (if nanobanana-mcp not already configured)
-3. Install the `seo-image-gen` skill and agent
-4. Configure the MCP server in `~/.claude/settings.json`
+3. Install the `seo-image-gen` skill and agent prompt file
+4. Configure the MCP server in `~/.codex/config.toml`
 
 ## Commands
 
@@ -50,7 +50,7 @@ The installer will:
 
 ## How It Works
 
-Claude acts as a **Creative Director**. It never passes raw text to the API.
+Codex acts as a **Creative Director**. It never passes raw text to the API.
 Instead, it analyzes your intent, selects the optimal domain mode, and constructs
 an optimized prompt using a proven 6-component Reasoning Brief system:
 
@@ -63,7 +63,7 @@ an optimized prompt using a proven 6-component Reasoning Brief system:
 
 ## Post-Generation SEO Checklist
 
-After every generation, Claude provides:
+After every generation, Codex provides:
 - Alt text suggestion (keyword-rich, descriptive)
 - SEO-friendly file naming convention
 - WebP conversion command
@@ -86,7 +86,7 @@ The agent never auto-generates images. It produces a plan for your review.
 ./extensions/banana/uninstall.sh
 ```
 
-This removes the skill and agent. If you also use [Claude Banana](https://github.com/AgriciDaniel/banana-claude),
+This removes the skill and agent. If you also use a standalone Banana setup,
 the MCP server config is preserved.
 
 ## Troubleshooting

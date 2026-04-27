@@ -4,7 +4,7 @@
 
 - **Python 3.10+** with pip
 - **Git** for cloning the repository
-- **Claude Code CLI** installed and configured
+- **Codex CLI** installed and configured
 
 Optional:
 - **Playwright** for screenshot capabilities
@@ -14,14 +14,14 @@ Optional:
 ### Unix/macOS/Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-cd claude-seo
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+cd codex-seo
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
@@ -30,8 +30,8 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-seo.git
-cd claude-seo
+git clone https://github.com/launchborn/codex-seo.git
+cd codex-seo
 ```
 
 2. **Run the installer**
@@ -42,14 +42,14 @@ cd claude-seo
 
 3. **Install Python dependencies** (if not done automatically)
 
-The installer creates a venv at `~/.claude/skills/seo/.venv/`. If that fails, install manually:
+The installer creates a venv at `~/.codex/skills/seo/.venv/`. If that fails, install manually:
 
 ```bash
 # Option A: Use the venv
-~/.claude/skills/seo/.venv/bin/pip install -r ~/.claude/skills/seo/requirements.txt
+~/.codex/skills/seo/.venv/bin/pip install -r ~/.codex/skills/seo/requirements.txt
 
 # Option B: User-level install
-pip install --user -r ~/.claude/skills/seo/requirements.txt
+pip install --user -r ~/.codex/skills/seo/requirements.txt
 ```
 
 4. **Install Playwright browsers** (optional, for visual analysis)
@@ -67,16 +67,16 @@ The installer copies files to:
 
 | Component | Path |
 |-----------|------|
-| Main skill | `~/.claude/skills/seo/` |
-| Sub-skills | `~/.claude/skills/seo-*/` |
-| Subagents | `~/.claude/agents/seo-*.md` |
+| Main skill | `~/.codex/skills/seo/` |
+| Sub-skills | `~/.codex/skills/seo-*/` |
+| Agent prompt files | `~/.codex/skills/seo/agents/seo-*.md` |
 
 ## Verify Installation
 
-1. Start Claude Code:
+1. Start Codex:
 
 ```bash
-claude
+codex
 ```
 
 2. Check that the skill is loaded:
@@ -90,32 +90,32 @@ You should see a help message or prompt for a URL.
 ## Uninstallation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/uninstall.sh | bash
 ```
 
 Or manually:
 
 ```bash
-rm -rf ~/.claude/skills/seo
-rm -rf ~/.claude/skills/seo-audit
-rm -rf ~/.claude/skills/seo-backlinks
-rm -rf ~/.claude/skills/seo-competitor-pages
-rm -rf ~/.claude/skills/seo-content
-rm -rf ~/.claude/skills/seo-dataforseo
-rm -rf ~/.claude/skills/seo-geo
-rm -rf ~/.claude/skills/seo-google
-rm -rf ~/.claude/skills/seo-hreflang
-rm -rf ~/.claude/skills/seo-image-gen
-rm -rf ~/.claude/skills/seo-images
-rm -rf ~/.claude/skills/seo-local
-rm -rf ~/.claude/skills/seo-maps
-rm -rf ~/.claude/skills/seo-page
-rm -rf ~/.claude/skills/seo-plan
-rm -rf ~/.claude/skills/seo-programmatic
-rm -rf ~/.claude/skills/seo-schema
-rm -rf ~/.claude/skills/seo-sitemap
-rm -rf ~/.claude/skills/seo-technical
-rm -f ~/.claude/agents/seo-*.md
+rm -rf ~/.codex/skills/seo
+rm -rf ~/.codex/skills/seo-audit
+rm -rf ~/.codex/skills/seo-backlinks
+rm -rf ~/.codex/skills/seo-competitor-pages
+rm -rf ~/.codex/skills/seo-content
+rm -rf ~/.codex/skills/seo-dataforseo
+rm -rf ~/.codex/skills/seo-geo
+rm -rf ~/.codex/skills/seo-google
+rm -rf ~/.codex/skills/seo-hreflang
+rm -rf ~/.codex/skills/seo-image-gen
+rm -rf ~/.codex/skills/seo-images
+rm -rf ~/.codex/skills/seo-local
+rm -rf ~/.codex/skills/seo-maps
+rm -rf ~/.codex/skills/seo-page
+rm -rf ~/.codex/skills/seo-plan
+rm -rf ~/.codex/skills/seo-programmatic
+rm -rf ~/.codex/skills/seo-schema
+rm -rf ~/.codex/skills/seo-sitemap
+rm -rf ~/.codex/skills/seo-technical
+rm -rf ~/.codex/skills/seo/agents
 ```
 
 ## Upgrading
@@ -124,10 +124,10 @@ To upgrade to the latest version:
 
 ```bash
 # Uninstall current version
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/uninstall.sh | bash
 
 # Install new version
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/launchborn/codex-seo/main/install.sh | bash
 ```
 
 ## Troubleshooting
@@ -137,7 +137,7 @@ curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/instal
 Ensure the skill is installed in the correct location:
 
 ```bash
-ls ~/.claude/skills/seo/SKILL.md
+ls ~/.codex/skills/seo/SKILL.md
 ```
 
 If the file doesn't exist, re-run the installer.
@@ -163,5 +163,5 @@ playwright install chromium
 Make sure scripts are executable:
 
 ```bash
-chmod +x ~/.claude/skills/seo/scripts/*.py
+chmod +x ~/.codex/skills/seo/scripts/*.py
 ```

@@ -2,20 +2,27 @@
 
 ## Overview
 
-Claude SEO follows Anthropic's official Claude Code skill specification with a modular, multi-skill architecture.
+Codex SEO follows the Codex plugin and skill conventions with a modular, multi-skill architecture.
 
 ## Directory Structure
 
 ```
-~/.claude/
+~/.codex/
 ├── skills/
 │   ├── seo/              # Main orchestrator skill
 │   │   ├── SKILL.md          # Entry point with routing logic
-│   │   └── references/       # On-demand reference files
+│   │   ├── references/       # On-demand reference files
 │   │       ├── cwv-thresholds.md
 │   │       ├── schema-types.md
 │   │       ├── eeat-framework.md
 │   │       └── quality-gates.md
+│   │   └── agents/           # Agent prompt files for environments with parallel delegation
+│   │       ├── seo-technical.md
+│   │       ├── seo-content.md
+│   │       ├── seo-schema.md
+│   │       ├── seo-sitemap.md
+│   │       ├── seo-performance.md
+│   │       └── seo-visual.md
 │   │
 │   ├── seo-audit/            # Full site audit
 │   ├── seo-competitor-pages/ # Competitor comparison pages
@@ -30,14 +37,6 @@ Claude SEO follows Anthropic's official Claude Code skill specification with a m
 │   ├── seo-schema/           # Schema markup
 │   ├── seo-sitemap/          # Sitemap analysis/generation
 │   └── seo-technical/        # Technical SEO
-│
-└── agents/
-    ├── seo-technical.md      # Technical SEO specialist
-    ├── seo-content.md        # Content quality reviewer
-    ├── seo-schema.md         # Schema markup expert
-    ├── seo-sitemap.md        # Sitemap architect
-    ├── seo-performance.md    # Performance analyzer
-    └── seo-visual.md         # Visual analyzer
 ```
 
 ## Component Types
@@ -60,11 +59,11 @@ description: >
 Instructions and documentation...
 ```
 
-### Subagents
+### Agent Prompt Files
 
-Subagents are specialized workers that can be delegated tasks. They have their own context and tools.
+Agent prompt files are specialized analysis contracts that Codex can use as reference prompts. If the current Codex environment supports native parallel agents and the user requested parallel delegation, use them for concurrent audit slices; otherwise run the same checks inline.
 
-**Agent Format:**
+**Prompt Format:**
 ```yaml
 ---
 name: agent-name
@@ -93,7 +92,7 @@ User Request
 └────────┬────────┘
          │
          │  Detects business type
-         │  Spawns subagents in parallel
+         │  Runs specialist audit slices
          │
     ┌────┴────┬────────┬────────┬────────┬────────┐
     ▼         ▼        ▼        ▼        ▼        ▼
@@ -144,7 +143,7 @@ User Request (e.g., /seo page)
 
 ### 2. Parallel Processing
 
-- Subagents run concurrently during audits
+- Specialist audit slices can run concurrently when native Codex parallel agents are available and requested
 - Independent analyses don't block each other
 - Results aggregated after all complete
 
@@ -180,7 +179,7 @@ User Request (e.g., /seo page)
 3. Write skill instructions
 4. Update main `skills/seo/SKILL.md` to route to new skill
 
-### Adding a New Subagent
+### Adding a New Agent Prompt
 
 1. Create `agents/seo-newagent.md`
 2. Add YAML frontmatter with name, description, tools
@@ -209,7 +208,7 @@ extensions/
 │   │   └── seo-dataforseo/
 │   │       └── SKILL.md           # Sub-skill (22 commands)
 │   ├── agents/
-│   │   └── seo-dataforseo.md      # Subagent
+│   │   └── seo-dataforseo.md      # Agent prompt file
 │   └── docs/
 │       └── DATAFORSEO-SETUP.md    # Account setup guide
 │
@@ -221,7 +220,7 @@ extensions/
     │   └── seo-image-gen/
     │       └── SKILL.md           # Sub-skill (6 commands)
     ├── agents/
-    │   └── seo-image-gen.md       # Image audit subagent
+    │   └── seo-image-gen.md       # Image audit prompt file
     ├── scripts/                   # Python scripts (stdlib only)
     │   ├── generate.py            # Direct API fallback
     │   ├── edit.py                # Image editing fallback
@@ -255,6 +254,6 @@ Each extension follows this pattern:
 1. Self-contained in `extensions/<name>/`
 2. Own `install.sh` and `install.ps1` that copy files and configure MCP
 3. Own `uninstall.sh` and `uninstall.ps1` that cleanly reverse installation
-4. Installs skill to `~/.claude/skills/seo-<name>/`
-5. Installs agent to `~/.claude/agents/seo-<name>.md`
-6. Merges MCP config into `~/.claude/settings.json` (non-destructive)
+4. Installs skill to `~/.codex/skills/seo-<name>/`
+5. Installs agent prompt files under `~/.codex/skills/seo/agents/`
+6. Merges MCP config into `~/.codex/config.toml` through `scripts/codex_mcp_config.py` (non-destructive)

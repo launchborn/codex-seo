@@ -1,395 +1,289 @@
-<!-- Updated: 2026-04-14 -->
+<!-- Updated: 2026-04-27 -->
 
-![Claude SEO](screenshots/cover-image.jpeg)
+# Codex SEO
 
-# Claude SEO - SEO Audit Skill for Claude Code
+Codex-native SEO analysis skill set for technical audits, on-page review,
+content quality, structured data, AI search visibility, local SEO, backlinks,
+Google SEO APIs, and strategic SEO planning.
 
-Comprehensive SEO analysis skill for Claude Code. 21 core sub-skills covering technical SEO, on-page analysis, content quality (E-E-A-T), schema markup, image optimization, sitemap architecture, AI search optimization (GEO), local SEO, maps intelligence, semantic topic clustering, search experience optimization (SXO), SEO drift monitoring, e-commerce SEO, international SEO with cultural profiles, FLOW framework integration, Google SEO APIs (Search Console, PageSpeed, CrUX, GA4), PDF report generation, and strategic planning.
+Codex discovery starts from `.codex-plugin/plugin.json`. Manual installs place
+skills under `~/.codex/skills`, and MCP servers are written to Codex
+`config.toml`.
 
-![SEO Command Demo](screenshots/seo-command-demo.gif)
-
-[![CI](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/AgriciDaniel/claude-seo/actions/workflows/ci.yml)
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://claude.ai/claude-code)
+[![CI](https://github.com/launchborn/codex-seo/actions/workflows/ci.yml/badge.svg)](https://github.com/launchborn/codex-seo/actions/workflows/ci.yml)
+[![Codex Skill](https://img.shields.io/badge/Codex-Skill-blue)](https://github.com/openai/codex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-seo)](https://github.com/AgriciDaniel/claude-seo/releases)
+[![Version](https://img.shields.io/github/v/release/launchborn/codex-seo)](https://github.com/launchborn/codex-seo/releases)
 
-## Table of Contents
+## What It Includes
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Commands](#commands)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Extensions](#extensions)
-- [Showcase](#showcase)
-- [Ecosystem](#ecosystem)
-- [Documentation](#documentation)
-- [Requirements](#requirements)
-- [Uninstall](#uninstall)
-- [Contributing](#contributing)
+- Main orchestrator skill: `skills/seo`
+- 23 focused SEO sub-skills in `skills/seo-*`
+- 18 specialist agent prompt files in `agents/`
+- 31 Python execution scripts in `scripts/`
+- Schema.org templates in `schema/`
+- Optional MCP-backed extensions for DataForSEO, Firecrawl, and Banana image generation
+- Codex plugin manifest in `.codex-plugin/plugin.json`
 
 ## Installation
 
-### Plugin Install (Claude Code 1.0.33+)
+### Codex Plugin
 
-```bash
-# Add marketplace (one-time)
-/plugin marketplace add AgriciDaniel/claude-seo
+Use the bundled manifest with a Codex plugin loader:
 
-# Install plugin
-/plugin install claude-seo@AgriciDaniel-claude-seo
+```text
+.codex-plugin/plugin.json
 ```
 
-### Manual Install (Unix/macOS/Linux)
+The manifest points Codex at the skill directory and hook configuration.
+
+### Manual Install
+
+Unix, macOS, or Linux:
 
 ```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-bash claude-seo/install.sh
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+bash codex-seo/install.sh
 ```
 
-<details>
-<summary>One-liner (curl)</summary>
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash
-```
-
-Or via [install.cat](https://install.cat):
-
-```bash
-curl -fsSL install.cat/AgriciDaniel/claude-seo | bash
-```
-
-Prefer to review the script before running?
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh > install.sh
-cat install.sh        # review
-bash install.sh       # run when satisfied
-rm install.sh
-```
-
-</details>
-
-### Windows (PowerShell)
+Windows PowerShell:
 
 ```powershell
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+powershell -ExecutionPolicy Bypass -File codex-seo\install.ps1
 ```
 
-> **Why git clone instead of `irm | iex`?** Claude Code's own security guardrails flag `irm ... | iex` as a supply chain risk (downloading and executing remote code with no verification). The git clone approach lets you inspect the script at `claude-seo\install.ps1` before running it.
+The installer copies skills to `~/.codex/skills`, installs shared scripts under
+`~/.codex/skills/seo/scripts`, and keeps agent prompt files under
+`~/.codex/skills/seo/agents`.
+
+To install a specific tag or branch:
+
+```bash
+CODEX_HOME="$HOME/.codex" CODEX_SEO_TAG="main" bash codex-seo/install.sh
+```
 
 ## Quick Start
 
+Start Codex, then run SEO commands from the Codex prompt:
+
 ```bash
-# Start Claude Code
-claude
+codex
+```
 
-# Run a full site audit
+```text
 /seo audit https://example.com
-
-# Analyze a single page
 /seo page https://example.com/about
-
-# Check schema markup
+/seo technical https://example.com
 /seo schema https://example.com
-
-# Generate a sitemap
-/seo sitemap generate
-
-# Optimize for AI search
 /seo geo https://example.com
 ```
-### Demo:
-[Watch the full demo on YouTube](https://www.youtube.com/watch?v=COMnNlUakQk)
-
-**`/seo audit`: full site audit with parallel subagents:**
-
-![SEO Audit Demo](screenshots/seo-audit-demo.gif)
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `/seo audit <url>` | Full website audit with parallel subagent delegation |
-| `/seo page <url>` | Deep single-page analysis |
-| `/seo sitemap <url>` | Analyze existing XML sitemap |
-| `/seo sitemap generate` | Generate new sitemap with industry templates |
-| `/seo schema <url>` | Detect, validate, and generate Schema.org markup |
-| `/seo images <url>` | Image optimization analysis |
-| `/seo technical <url>` | Technical SEO audit (9 categories) |
-| `/seo content <url>` | E-E-A-T and content quality analysis |
-| `/seo geo <url>` | AI Overviews / Generative Engine Optimization |
-| `/seo plan <type>` | Strategic SEO planning (saas, local, ecommerce, publisher, agency) |
-| `/seo programmatic <url>` | Programmatic SEO analysis and planning |
-| `/seo competitor-pages <url>` | Competitor comparison page generation |
-| `/seo local <url>` | Local SEO analysis (GBP, citations, reviews, map pack) |
-| `/seo maps [command]` | Maps intelligence (geo-grid, GBP audit, reviews, competitors) |
-| `/seo hreflang <url>` | Hreflang/i18n SEO audit and generation |
-| `/seo google [command] [url]` | Google SEO APIs (GSC, PageSpeed, CrUX, Indexing, GA4) |
-| `/seo google report [type]` | Generate PDF/HTML report with charts (cwv-audit, gsc-performance, full) |
-| `/seo backlinks <url>` | Backlink profile analysis (free: Moz, Bing, Common Crawl) |
-| `/seo cluster <seed-keyword>` | SERP-based semantic clustering and content architecture |
-| `/seo sxo <url>` | Search Experience Optimization: page-type, user stories, personas |
-| `/seo drift baseline <url>` | Capture SEO baseline for change monitoring |
-| `/seo drift compare <url>` | Compare current state to stored baseline |
-| `/seo drift history <url>` | Show drift history over time |
-| `/seo ecommerce <url>` | E-commerce SEO: product schema, marketplace intelligence |
-| `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
-| `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
-| `/seo image-gen [use-case] <desc>` | AI image generation for SEO assets (extension) |
+| Command | Purpose |
+|---------|---------|
+| `/seo audit <url>` | Full website audit across technical, content, schema, performance, visual, GEO, and local SEO surfaces |
+| `/seo page <url>` | Deep single-page SEO analysis |
+| `/seo technical <url>` | Crawlability, indexability, canonicals, robots, redirects, security, performance basics |
+| `/seo content <url>` | E-E-A-T, helpfulness, intent match, readability, thin content, trust signals |
+| `/seo schema <url>` | Detect, validate, and generate Schema.org JSON-LD |
+| `/seo sitemap <url>` | Analyze XML sitemaps |
+| `/seo sitemap generate` | Generate sitemap structures with industry-aware templates |
+| `/seo images <url>` | Image SEO audit: filenames, alt text, dimensions, lazy loading, Open Graph images |
+| `/seo geo <url>` | AI Overviews and generative engine optimization |
+| `/seo local <url>` | Local SEO: NAP, GBP, citations, reviews, local schema |
+| `/seo maps [command]` | Maps intelligence: geo-grid, GBP audit, competitor radius, review analysis |
+| `/seo hreflang <url>` | International SEO and hreflang validation |
+| `/seo google [command] [url]` | Google APIs: Search Console, PageSpeed, CrUX, URL Inspection, Indexing, GA4 |
+| `/seo google report [type]` | PDF/HTML reports with charts |
+| `/seo backlinks <url>` | Backlink analysis with free sources and optional premium data |
+| `/seo backlinks setup` | Configure free backlink data sources |
+| `/seo backlinks verify <url>` | Verify known backlinks still exist |
+| `/seo cluster <keyword>` | SERP-based semantic clustering and content architecture |
+| `/seo sxo <url>` | Search Experience Optimization: page type, personas, user stories |
+| `/seo drift baseline <url>` | Capture an SEO baseline for later comparison |
+| `/seo drift compare <url>` | Compare current page state to the stored baseline |
+| `/seo drift history <url>` | Review SEO drift history |
+| `/seo ecommerce <url>` | E-commerce SEO: product schema, marketplaces, category/product page checks |
+| `/seo programmatic <url>` | Programmatic SEO analysis and scale planning |
+| `/seo competitor-pages <url>` | Competitor comparison and alternatives page planning |
+| `/seo firecrawl [command] <url>` | Full-site crawling via Firecrawl extension |
+| `/seo dataforseo [command]` | Live SERP, keyword, backlink, and AI visibility data via DataForSEO |
+| `/seo image-gen [use-case] <desc>` | SEO image generation via Banana extension |
 
-### `/seo programmatic [url|plan]`
-**Programmatic SEO Analysis & Planning**
+## Codex Architecture
 
-Build SEO pages at scale from data sources with quality safeguards.
-
-**Capabilities:**
-- Analyze existing programmatic pages for thin content and cannibalization
-- Plan URL patterns and template structures for data-driven pages
-- Internal linking automation between generated pages
-- Canonical strategy and index bloat prevention
-- Quality gates: WARNING at 100+ pages, HARD STOP at 500+ without audit
-
-### `/seo competitor-pages [url|generate]`
-**Competitor Comparison Page Generator**
-
-Create high-converting "X vs Y" and "alternatives to X" pages.
-
-**Capabilities:**
-- Structured comparison tables with feature matrices
-- Product schema markup with AggregateRating
-- Conversion-optimized layouts with CTA placement
-- Keyword targeting for comparison intent queries
-- Fairness guidelines for accurate competitor representation
-
-### `/seo hreflang [url]`
-**Hreflang / i18n SEO Audit & Generation**
-
-Validate and generate hreflang tags for multi-language sites.
-
-**Capabilities:**
-- Generate hreflang tags (HTML, HTTP headers, or XML sitemap)
-- Validate self-referencing tags, return tags, x-default
-- Detect common mistakes (missing returns, invalid codes, HTTP/HTTPS mismatch)
-- Cross-domain hreflang support
-- Language/region code validation (ISO 639-1 + ISO 3166-1)
-
-## Features
-
-### Core Web Vitals (Current Metrics)
-- **LCP** (Largest Contentful Paint): Target < 2.5s
-- **INP** (Interaction to Next Paint): Target < 200ms
-- **CLS** (Cumulative Layout Shift): Target < 0.1
-
-> Note: INP replaced FID on March 12, 2024. FID was fully removed from all Chrome tools on September 9, 2024.
-
-### E-E-A-T Analysis
-Updated to September 2025 Quality Rater Guidelines:
-- **Experience**: First-hand knowledge signals
-- **Expertise**: Author credentials and depth
-- **Authoritativeness**: Industry recognition
-- **Trustworthiness**: Contact info, security, transparency
-
-### Schema Markup
-- Detection: JSON-LD (preferred), Microdata, RDFa
-- Validation against Google's supported types
-- Generation with templates
-- Deprecation awareness:
-  - HowTo: Deprecated (Sept 2023)
-  - FAQ: Restricted to gov/health sites (Aug 2023)
-  - SpecialAnnouncement: Deprecated (July 2025)
-
-### AI Search Optimization (GEO)
-New for 2026 - optimize for:
-- Google AI Overviews
-- ChatGPT web search
-- Perplexity
-- Other AI-powered search
-
-### Google SEO APIs (New in v1.7.0)
-Direct integration with Google's SEO data:
-- **PageSpeed Insights + CrUX**: Lab and field Core Web Vitals data
-- **Search Console**: Top queries, URL inspection, sitemap status
-- **Indexing API**: Notify Google of new/updated/removed URLs
-- **GA4**: Organic traffic, top landing pages, device/country breakdown
-- **PDF Reports**: Enterprise A4 reports with charts via WeasyPrint + matplotlib
-
-4-tier credential system — get value at every level:
-| Tier | Auth | APIs |
-|------|------|------|
-| 0 | API key | PSI, CrUX, CrUX History |
-| 1 | + OAuth/SA | + GSC, URL Inspection, Indexing |
-| 2 | + GA4 config | + GA4 organic traffic |
-| 3 | + Ads token | + Keyword Planner |
-
-### Local SEO & Maps Intelligence (New in v1.6.0)
-- Google Business Profile optimization
-- NAP consistency auditing
-- Citation and review analysis
-- Geo-grid rank tracking and competitor radius mapping
-
-### Quality Gates
-- Warning at 30+ location pages
-- Hard stop at 50+ location pages
-- Thin content detection per page type
-- Doorway page prevention
-
-## Architecture
-
-```
-~/.claude/skills/seo/         # Main orchestrator skill
-~/.claude/skills/seo-*/       # Sub-skills (21 + 3 extensions)
-~/.claude/agents/seo-*.md     # Subagents (15 + 2 extensions)
+```text
+codex-seo/
+  .codex-plugin/plugin.json       # Codex plugin manifest
+  CODEX.md                        # Codex-native project instructions
+  AGENTS.md                       # Multi-platform fallback instructions
+  skills/
+    seo/                          # Main router/orchestrator
+    seo-*/                        # Focused sub-skills
+  agents/                         # Specialist prompt files
+  scripts/                        # Python execution layer
+  hooks/                          # Codex hook config and schema validation
+  schema/                         # JSON-LD templates
+  extensions/                     # Optional MCP-backed add-ons
 ```
 
-### Video & Live Schema (New)
-Additional schema types for video content, live streaming, and key moments:
-- VideoObject: Video page markup with thumbnails, duration, upload date
-- BroadcastEvent: LIVE badge support for live streaming content
-- Clip: Key moments / chapters within videos
-- SeekToAction: Enable seek functionality in video rich results
-- SoftwareSourceCode: Open source and code repository pages
+Installed layout:
 
-See `schema/templates.json` for ready-to-use JSON-LD snippets.
-
-### Recently Added
-- Programmatic SEO skill (`/seo programmatic`)
-- Competitor comparison pages skill (`/seo competitor-pages`)
-- Multi-language hreflang validation (`/seo hreflang`)
-- Video & Live schema types (VideoObject, BroadcastEvent, Clip, SeekToAction)
-- Google SEO quick-reference guide
-
-## Requirements
-
-- Python 3.10+
-- Claude Code CLI
-- Optional: Playwright for screenshots
-- Optional: Google API credentials for enriched data (see `/seo google setup`)
-
-## Uninstall
-
-```bash
-git clone --depth 1 https://github.com/AgriciDaniel/claude-seo.git
-bash claude-seo/uninstall.sh
+```text
+~/.codex/skills/seo/
+~/.codex/skills/seo-*/
+~/.codex/skills/seo/agents/
+~/.codex/skills/seo/scripts/
+~/.codex/config.toml
 ```
 
-<details>
-<summary>One-liner (curl)</summary>
+Codex SEO uses agent prompt files as reusable specialist instructions. Native
+Codex parallel agents can be used when the active Codex environment supports
+them and the user requests delegation; otherwise the orchestrator runs the same
+checks inline.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/uninstall.sh | bash
+## Data And Credentials
+
+Local credential files stay outside the repository:
+
+```text
+~/.config/codex-seo/google-api.json
+~/.config/codex-seo/backlinks-api.json
+~/.codex/config.toml
 ```
 
-</details>
+The core scripts include URL validation for SSRF protection before fetching user
+URLs. Secrets, OAuth tokens, service account files, and local `.env` files are
+ignored by git.
 
-### MCP Integrations
+## MCP Integrations
 
-Integrates with MCP servers for live SEO data, including official servers from **Ahrefs** (`@ahrefs/mcp`) and **Semrush**, plus community servers for Google Search Console, PageSpeed Insights, and DataForSEO. See [MCP Integration Guide](docs/MCP-INTEGRATION.md) for setup.
+Codex MCP servers are configured in `~/.codex/config.toml`. Extension installers
+use `scripts/codex_mcp_config.py` to add or remove MCP server blocks.
+
+Example Codex MCP block:
+
+```toml
+[mcp_servers.dataforseo]
+command = "npx"
+args = ["-y", "dataforseo-mcp-server"]
+
+[mcp_servers.dataforseo.env]
+DATAFORSEO_USERNAME = "user@example.com"
+DATAFORSEO_PASSWORD = "your-password"
+```
+
+See [docs/MCP-INTEGRATION.md](docs/MCP-INTEGRATION.md) for setup details.
 
 ## Extensions
 
-Optional add-ons that integrate external data sources via MCP servers.
-
 ### DataForSEO
 
-Live SERP data, keyword research, backlinks, on-page analysis, content analysis, business listings, AI visibility checking, and LLM mention tracking. 22 commands across 9 API modules.
+Live SERP data, keyword research, backlinks, on-page analysis, content analysis,
+business listings, AI visibility checking, and LLM mention tracking.
 
 ```bash
-# Install (requires DataForSEO account)
 ./extensions/dataforseo/install.sh
 ```
 
-```bash
-# Example commands
+```text
 /seo dataforseo serp best coffee shops
 /seo dataforseo keywords seo tools
 /seo dataforseo backlinks example.com
 /seo dataforseo ai-mentions your brand
-/seo dataforseo ai-scrape your brand name
 ```
 
-See [DataForSEO Extension](extensions/dataforseo/README.md) for full documentation.
+### Firecrawl
 
-### Banana (AI Image Generation)
-
-Generate SEO images (OG previews, blog heroes, product photos, infographics) using the
-[Claude Banana](https://github.com/AgriciDaniel/banana-claude) Creative Director pipeline.
+Site crawling, URL discovery, page scraping, and search workflows through the
+Firecrawl MCP server.
 
 ```bash
-# Install extension
+./extensions/firecrawl/install.sh
+```
+
+```text
+/seo firecrawl crawl https://example.com
+/seo firecrawl map https://example.com
+```
+
+### Banana Image Generation
+
+Generate SEO assets such as Open Graph images, blog heroes, product visuals, and
+infographics through the Banana image workflow.
+
+```bash
 ./extensions/banana/install.sh
 ```
 
-```bash
-# Example commands
+```text
 /seo image-gen og "Professional SaaS dashboard"
 /seo image-gen hero "AI-powered content creation"
 /seo image-gen batch "Product photography" 3
 ```
 
-See [Banana Extension](extensions/banana/README.md) for full documentation.
-Already using standalone Claude Banana? The extension reuses your existing nanobanana-mcp setup.
+## Feature Areas
 
-### Firecrawl (Site Crawling)
+- Technical SEO: crawlability, indexability, redirects, canonicals, robots, status codes
+- Core Web Vitals: LCP, INP, CLS, PageSpeed Insights, CrUX, CrUX History
+- Content quality: E-E-A-T, helpful content, trust signals, intent matching
+- Schema: JSON-LD detection, validation, generation, deprecated rich result awareness
+- AI search: Google AI Overviews, ChatGPT search, Perplexity, crawler access, citability
+- Local SEO: Google Business Profile, citations, reviews, NAP consistency, geo-grid checks
+- Backlinks: Moz, Bing Webmaster Tools, Common Crawl graph, verification crawler
+- International SEO: hreflang, locale formatting, content parity, cultural profiles
+- Programmatic SEO: URL patterns, templates, internal links, index bloat prevention
+- E-commerce SEO: product schema, category pages, Google Shopping, marketplace signals
+- Drift monitoring: SQLite baselines, comparison rules, historical reports
+- FLOW integration: evidence-led SEO prompt library with attribution
 
-Full-site crawling and URL discovery using the [Firecrawl](https://www.firecrawl.dev/) MCP server.
+## Requirements
+
+- Codex CLI
+- Python 3.10+
+- Git
+- Optional: Node.js 20+ for MCP extensions
+- Optional: Playwright for visual rendering checks
+- Optional: Google API credentials for enriched reports
+
+Python dependencies are listed in [requirements.txt](requirements.txt).
+
+## Development
+
+Run syntax checks:
 
 ```bash
-# Install extension
-./extensions/firecrawl/install.sh
+python3 -m py_compile hooks/validate-schema.py scripts/*.py extensions/banana/scripts/*.py
+bash -n install.sh uninstall.sh extensions/dataforseo/install.sh extensions/dataforseo/uninstall.sh extensions/firecrawl/install.sh extensions/firecrawl/uninstall.sh extensions/banana/install.sh extensions/banana/uninstall.sh
+python3 -m json.tool .codex-plugin/plugin.json hooks/hooks.json
 ```
+
+Run tests when `pytest` is available:
 
 ```bash
-# Example commands
-/seo firecrawl crawl https://example.com
-/seo firecrawl map https://example.com
+python3 -m pytest tests/
 ```
 
-See [Firecrawl Extension](extensions/firecrawl/README.md) for full documentation.
+FLOW prompt sync uses the GitHub API:
 
-## Showcase
+```bash
+python3 scripts/sync_flow.py --dry-run
+```
 
-Community projects built on top of Claude SEO:
+## Uninstall
 
-<table>
-<tr>
-<td width="40%">
-  <a href="https://github.com/avalonreset/claude-seo-dungeon">
-    <img src="https://raw.githubusercontent.com/avalonreset/claude-seo-dungeon/main/screenshots/battle-scene.webp" alt="Claude SEO Dungeon - turn-based SEO battle scene with Guild Ledger">
-  </a>
-</td>
-<td width="60%">
+```bash
+git clone --depth 1 https://github.com/launchborn/codex-seo.git
+bash codex-seo/uninstall.sh
+```
 
-**[Claude SEO Dungeon](https://github.com/avalonreset/claude-seo-dungeon)** -- a 16-bit gamified dungeon crawler that turns SEO audits into boss battles. Built on Claude SEO v1.9.0 with Phaser 3, every detected issue becomes a demon and every fix becomes a real commit to your codebase. The Guild Ledger streams Claude's tool calls in real time as you fight.
+Windows:
 
-Built by [@avalonreset](https://github.com/avalonreset) -- live at [seodungeon.com](https://seodungeon.com).
-
-</td>
-</tr>
-</table>
-
-Want your project featured here? [Open an issue](https://github.com/AgriciDaniel/claude-seo/issues/new) with a link.
-
-## Ecosystem
-
-Claude SEO is part of a family of Claude Code skills that work together:
-
-| Skill | What it does | How it connects |
-|-------|-------------|-----------------|
-| [Claude SEO](https://github.com/AgriciDaniel/claude-seo) | SEO analysis, audits, schema, GEO | Core -- analyzes sites, generates action plans |
-| [Claude Blog](https://github.com/AgriciDaniel/claude-blog) | Blog writing, optimization, scoring | Companion -- write content optimized by SEO findings |
-| [Claude Banana](https://github.com/AgriciDaniel/banana-claude) | AI image generation via Gemini | Shared -- generates images for SEO assets and blog posts |
-| [AI Marketing Claude](https://github.com/zubair-trabzada/ai-marketing-claude) | Copywriting, emails, social, ads, funnels, CRO | Community -- post-audit marketing action from SEO findings |
-| [FLOW](https://github.com/AgriciDaniel/flow) | Evidence-led SEO framework (41 AI prompts, CC BY 4.0) | Knowledge base — powers `seo-flow` prompts |
-
-**Workflow example:**
-1. `/seo audit https://example.com` -- identify content gaps and technical issues
-2. `/seo backlinks https://example.com` -- analyze link profile and competitor gaps
-3. `/blog write "target keyword"` -- create SEO-optimized blog posts
-4. `/seo image-gen hero "blog topic"` -- generate hero images (banana extension)
-5. `/seo geo https://example.com/blog/post` -- optimize for AI citations
+```powershell
+powershell -ExecutionPolicy Bypass -File codex-seo\uninstall.ps1
+```
 
 ## Documentation
 
@@ -398,46 +292,26 @@ Claude SEO is part of a family of Claude Code skills that work together:
 - [Architecture](docs/ARCHITECTURE.md)
 - [MCP Integration](docs/MCP-INTEGRATION.md)
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Codex Project Instructions](CODEX.md)
 
 ## Community Contributors
 
-v1.9.0 includes contributions from the [AI Marketing Hub](https://www.skool.com/ai-marketing-hub) Pro Hub Challenge:
+v1.9.0 includes contributions from the AI Marketing Hub Pro Hub Challenge:
 
 | Contributor | Contribution |
-|------------|-------------|
-| **Lutfiya Miller** (Winner) | Semantic Cluster Engine → `seo-cluster` |
-| **Florian Schmitz** | SXO Skill → `seo-sxo` |
-| **Dan Colta** | SEO Drift Monitor → `seo-drift` |
-| **Chris Muller** | Multi-lingual SEO → `seo-hreflang` enhancements |
-| **Matej Marjanovic** | E-commerce + DataForSEO Cost Config → `seo-ecommerce` + cost guardrails |
+|------------|--------------|
+| Lutfiya Miller | Semantic Cluster Engine: `seo-cluster` |
+| Florian Schmitz | Search Experience Optimization: `seo-sxo` |
+| Dan Colta | SEO Drift Monitor: `seo-drift` |
+| Chris Muller | Hreflang and international SEO enhancements |
+| Matej Marjanovic | E-commerce SEO and DataForSEO cost guardrails |
 
-See [CONTRIBUTORS.md](CONTRIBUTORS.md) for full details and original repo links.
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for full credits and source links.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE).
 
-## Contributing
+## Maintainer
 
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting PRs.
-
----
-
-Built for Claude Code by [@AgriciDaniel](https://github.com/AgriciDaniel)
-
----
-
-## Publishing Pipeline
-
-For a full GUI-based publishing workflow from SEO research to published content, see [Rankenstein](https://rankenstein.pro) - the AI content engine built on the same SEO principles.
-
----
-
-## Author
-
-Built by [Agrici Daniel](https://agricidaniel.com/about) - AI Workflow Architect.
-
-- [Blog](https://agricidaniel.com/blog) - Deep dives on AI marketing automation
-- [AI Marketing Hub](https://www.skool.com/ai-marketing-hub) - Free community, 2,800+ members
-- [YouTube](https://www.youtube.com/@AgriciDaniel) - Tutorials and demos
-- [All open-source tools](https://github.com/AgriciDaniel)
+Maintained by [Launchborn](https://github.com/launchborn).

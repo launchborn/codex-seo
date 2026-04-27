@@ -23,7 +23,7 @@ except ImportError:
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 ClaudeSEO/1.2"
+    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 CodexSEO/1.2"
 )
 
 # Googlebot UA for prerender/dynamic rendering detection.

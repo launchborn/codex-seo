@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: "Full website SEO audit with parallel subagent delegation. Crawls up to 500 pages, detects business type, delegates to up to 15 specialists (8 always + 7 conditional), generates health score. Use when user says audit, full SEO check, analyze my site, or website health check."
+description: "Full website SEO audit with optional parallel Codex agent delegation. Crawls up to 500 pages, detects business type, runs up to 15 specialist audit slices (8 always + 7 conditional), generates health score. Use when user says audit, full SEO check, analyze my site, or website health check."
 user-invokable: true
 argument-hint: "[url]"
 license: MIT
@@ -17,7 +17,7 @@ metadata:
 1. **Fetch homepage**: use `scripts/fetch_page.py` to retrieve HTML
 2. **Detect business type**: analyze homepage signals per seo orchestrator
 3. **Crawl site**: follow internal links up to 500 pages, respect robots.txt
-4. **Delegate to subagents** (if available, otherwise run inline sequentially):
+4. **Run specialist audit slices** (use native Codex parallel agents only when available and requested; otherwise run inline sequentially):
    - `seo-technical` -- robots.txt, sitemaps, canonicals, Core Web Vitals, security headers
    - `seo-content` -- E-E-A-T, readability, thin content, AI citation readiness
    - `seo-schema` -- detection, validation, generation recommendations
@@ -25,14 +25,14 @@ metadata:
    - `seo-performance` -- LCP, INP, CLS measurements
    - `seo-visual` -- screenshots, mobile testing, above-fold analysis
    - `seo-geo` -- AI crawler access, llms.txt, citability, brand mention signals
-   - `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (spawn when Local Service industry detected: brick-and-mortar, SAB, or hybrid business type)
-   - `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (spawn when Local Service detected AND DataForSEO MCP available)
-   - `seo-google` -- CWV field data (CrUX), URL indexation (GSC), organic traffic (GA4) (spawn when Google API credentials detected via `python scripts/google_auth.py --check`)
-   - `seo-backlinks` -- Backlink profile data: DA/PA, referring domains, anchor text, toxic links (spawn when Moz or Bing API credentials detected via `python scripts/backlinks_auth.py --check`, or always include Common Crawl domain-level metrics)
-   - `seo-cluster` -- Semantic clustering analysis (spawn when content strategy signals detected: blog, pillar pages, topic clusters)
+   - `seo-local` -- GBP signals, NAP consistency, reviews, local schema, industry-specific local factors (run when Local Service industry detected: brick-and-mortar, SAB, or hybrid business type)
+   - `seo-maps` -- Geo-grid rank tracking, GBP audit, review intelligence, competitor radius mapping (run when Local Service detected AND DataForSEO MCP available)
+   - `seo-google` -- CWV field data (CrUX), URL indexation (GSC), organic traffic (GA4) (run when Google API credentials detected via `python scripts/google_auth.py --check`)
+   - `seo-backlinks` -- Backlink profile data: DA/PA, referring domains, anchor text, toxic links (run when Moz or Bing API credentials detected via `python scripts/backlinks_auth.py --check`, or always include Common Crawl domain-level metrics)
+   - `seo-cluster` -- Semantic clustering analysis (run when content strategy signals detected: blog, pillar pages, topic clusters)
    - `seo-sxo` -- Search experience analysis: page-type mismatch, user stories, persona scoring (always include in full audits)
-   - `seo-drift` -- Drift analysis: compare against stored baseline (spawn when drift baseline exists for the URL via `python scripts/drift_history.py <url>`)
-   - `seo-ecommerce` -- Product schema, marketplace intelligence (spawn when E-commerce industry detected)
+   - `seo-drift` -- Drift analysis: compare against stored baseline (run when drift baseline exists for the URL via `python scripts/drift_history.py <url>`)
+   - `seo-ecommerce` -- Product schema, marketplace intelligence (run when E-commerce industry detected)
 5. **Score** -- aggregate into SEO Health Score (0-100)
 6. **Report** -- generate prioritized action plan
 
@@ -121,11 +121,11 @@ Delay between requests: 1 second
 
 ## DataForSEO Integration (Optional)
 
-If DataForSEO MCP tools are available, spawn the `seo-dataforseo` agent alongside existing subagents to enrich the audit with live data: real SERP positions, backlink profiles with spam scores, on-page analysis (Lighthouse), business listings, and AI visibility checks (ChatGPT scraper, LLM mentions).
+If DataForSEO MCP tools are available, run the `seo-dataforseo` slice alongside the existing audit slices to enrich the audit with live data: real SERP positions, backlink profiles with spam scores, on-page analysis (Lighthouse), business listings, and AI visibility checks (ChatGPT scraper, LLM mentions).
 
 ## Google API Integration (Optional)
 
-If Google API credentials are configured (`python scripts/google_auth.py --check`), spawn the `seo-google` agent to enrich the audit with real Google field data: CrUX Core Web Vitals (replaces lab-only estimates), GSC URL indexation status, search performance (clicks, impressions, CTR), and GA4 organic traffic trends. The Performance (CWV) category score benefits most from field data.
+If Google API credentials are configured (`python scripts/google_auth.py --check`), run the `seo-google` slice to enrich the audit with real Google field data: CrUX Core Web Vitals (replaces lab-only estimates), GSC URL indexation status, search performance (clicks, impressions, CTR), and GA4 organic traffic trends. The Performance (CWV) category score benefits most from field data.
 
 ## Error Handling
 

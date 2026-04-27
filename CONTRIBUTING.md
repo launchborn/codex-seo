@@ -1,10 +1,10 @@
-# Contributing to claude-seo
+# Contributing to codex-seo
 
 Thanks for your interest in contributing! Here's how to get involved.
 
 ## Reporting Bugs
 
-Open a [GitHub Issue](https://github.com/AgriciDaniel/claude-seo/issues) with:
+Open a [GitHub Issue](https://github.com/launchborn/codex-seo/issues) with:
 
 - Your OS and Python version
 - The full error output (copy from terminal)
@@ -13,7 +13,7 @@ Open a [GitHub Issue](https://github.com/AgriciDaniel/claude-seo/issues) with:
 
 ## Suggesting Features
 
-Use [GitHub Discussions](https://github.com/AgriciDaniel/claude-seo/discussions) for feature ideas and questions.
+Use [GitHub Discussions](https://github.com/launchborn/codex-seo/discussions) for feature ideas and questions.
 
 ## Pull Requests
 
@@ -26,14 +26,14 @@ Use [GitHub Discussions](https://github.com/AgriciDaniel/claude-seo/discussions)
 ### Development Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-seo.git
-cd claude-seo
+git clone https://github.com/YOUR_USERNAME/codex-seo.git
+cd codex-seo
 bash install.sh
 ```
 
 ### Guidelines
 
-- All Python scripts should output JSON for Claude Code to parse
+- All Python scripts should output JSON for Codex to parse
 - Shell scripts should use `set -euo pipefail` for safety
 - SKILL.md files must stay under 500 lines
 - Reference files should be focused and under 200 lines
@@ -48,7 +48,7 @@ bash install.sh
 
 ## Community Extensions (Pro Hub Challenge)
 
-Claude SEO accepts community-built extensions through challenges and PRs.
+Codex SEO accepts community-built extensions through challenges and PRs.
 v1.9.0 integrated 5 community submissions — see [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 To submit a community extension:

@@ -40,7 +40,7 @@ and `skills/seo-flow/references/prompts/README.md` (CC BY 4.0 header). A new
 | Modify | `skills/seo-flow/references/prompts/README.md` |
 | Create | `skills/seo-flow/references/flow-prompts.lock` |
 | Modify | `tests/test_sync_flow.py` |
-| Modify | `.claude-plugin/plugin.json` (version bump 1.9.5 → 1.9.6) |
+| Modify | `.codex-plugin/plugin.json` (version bump 1.9.5 → 1.9.6) |
 | Modify | `CHANGELOG.md` |
 
 ---
@@ -158,7 +158,7 @@ Update `sync()` to use `_base_headers()` initially (line 175):
 
 After the change, run the existing tests:
 ```bash
-cd /home/agricidaniel/Desktop/Claude-SEO
+cd /home/agricidaniel/Desktop/Codex-SEO
 python -m pytest tests/test_sync_flow.py -v
 # Expected: all tests pass
 ```
@@ -355,7 +355,7 @@ After the script changes are committed, run sync in dry-run mode to validate,
 then run it live to generate the initial lockfile:
 
 ```bash
-cd /home/agricidaniel/Desktop/Claude-SEO
+cd /home/agricidaniel/Desktop/Codex-SEO
 python scripts/sync_flow.py --dry-run 2>&1 | head -20
 # Expected: no errors, drift report says "no drift" or shows initial ADDED lines
 
@@ -461,12 +461,12 @@ git commit -m "docs(seo-flow): add CC BY 4.0 attribution header to prompts READM
 ## Task 6 — Version bump and changelog
 
 **Files:**
-- Modify: `.claude-plugin/plugin.json`
+- Modify: `.codex-plugin/plugin.json`
 - Modify: `CHANGELOG.md`
 
 ### What to change
 
-In `.claude-plugin/plugin.json`, change `"version": "1.9.5"` → `"version": "1.9.6"`.
+In `.codex-plugin/plugin.json`, change `"version": "1.9.5"` → `"version": "1.9.6"`.
 
 In `CHANGELOG.md`, prepend:
 
@@ -503,7 +503,7 @@ In `CHANGELOG.md`, prepend:
 ### Test
 
 ```bash
-grep '"version"' .claude-plugin/plugin.json
+grep '"version"' .codex-plugin/plugin.json
 # Expected: "version": "1.9.6"
 head -10 CHANGELOG.md
 # Expected: ## [1.9.6] - 2026-04-26
@@ -512,7 +512,7 @@ head -10 CHANGELOG.md
 ### Commit
 
 ```bash
-git add .claude-plugin/plugin.json CHANGELOG.md
+git add .codex-plugin/plugin.json CHANGELOG.md
 git commit -m "chore: bump version to 1.9.6, add security changelog"
 ```
 
@@ -541,6 +541,6 @@ wc -l skills/seo-flow/references/flow-prompts.lock
 
 Confirm version bump:
 ```bash
-grep '"version"' .claude-plugin/plugin.json
+grep '"version"' .codex-plugin/plugin.json
 # Expected: "1.9.6"
 ```

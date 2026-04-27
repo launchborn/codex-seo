@@ -2,13 +2,13 @@
 <!-- i18n-source-sha: HEAD -->
 <!-- i18n-date: 2026-04-10 -->
 
-# Внесок у claude-seo
+# Внесок у codex-seo
 
 Дякуємо за інтерес до участі! Ось як долучитися.
 
 ## Повідомлення про помилки
 
-Відкрийте [GitHub Issue](https://github.com/AgriciDaniel/claude-seo/issues) із зазначенням:
+Відкрийте [GitHub Issue](https://github.com/launchborn/codex-seo/issues) із зазначенням:
 
 - Вашої ОС та версії Python
 - Повного виводу помилки (скопіюйте з терміналу)
@@ -17,7 +17,7 @@
 
 ## Пропозиції функцій
 
-Використовуйте [GitHub Discussions](https://github.com/AgriciDaniel/claude-seo/discussions) для ідей та питань.
+Використовуйте [GitHub Discussions](https://github.com/launchborn/codex-seo/discussions) для ідей та питань.
 
 ## Pull Requests
 
@@ -30,14 +30,14 @@
 ### Налаштування середовища розробки
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-seo.git
-cd claude-seo
+git clone https://github.com/YOUR_USERNAME/codex-seo.git
+cd codex-seo
 bash install.sh
 ```
 
 ### Настанови
 
-- Усі Python-скрипти повинні виводити JSON для парсингу Claude Code
+- Усі Python-скрипти повинні виводити JSON для парсингу Codex
 - Shell-скрипти повинні використовувати `set -euo pipefail` для безпеки
 - Файли SKILL.md мають бути не довшими за 500 рядків
 - Довідкові файли мають бути цілеспрямованими та не довшими за 200 рядків

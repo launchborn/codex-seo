@@ -1,23 +1,24 @@
-# Firecrawl Extension Installer for Claude SEO (Windows)
+# Firecrawl Extension Installer for Codex SEO (Windows)
 $ErrorActionPreference = 'Stop'
 
 Write-Host "====================================" -ForegroundColor Cyan
 Write-Host "  Firecrawl Extension - Installer" -ForegroundColor Cyan
-Write-Host "  For Claude SEO" -ForegroundColor Cyan
+Write-Host "  For Codex SEO" -ForegroundColor Cyan
 Write-Host "====================================" -ForegroundColor Cyan
 Write-Host ""
 
-$SkillDir = "$env:USERPROFILE\.claude\skills\seo-firecrawl"
-$SeoSkillDir = "$env:USERPROFILE\.claude\skills\seo"
-$SettingsFile = "$env:USERPROFILE\.claude\settings.json"
+$SkillDir = "$env:USERPROFILE\.codex\skills\seo-firecrawl"
+$SeoSkillDir = "$env:USERPROFILE\.codex\skills\seo"
+$CodexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { "$env:USERPROFILE\.codex" }
+$ConfigFile = if ($env:CODEX_CONFIG) { $env:CODEX_CONFIG } else { Join-Path $CodexHome "config.toml" }
 
 # Check prerequisites
 if (-not (Test-Path $SeoSkillDir)) {
-    Write-Host "x Claude SEO is not installed." -ForegroundColor Red
-    Write-Host "  Install it first: irm https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.ps1 | iex"
+    Write-Host "x Codex SEO is not installed." -ForegroundColor Red
+    Write-Host "  Install it first: irm https://raw.githubusercontent.com/launchborn/codex-seo/main/install.ps1 | iex"
     exit 1
 }
-Write-Host "v Claude SEO detected" -ForegroundColor Green
+Write-Host "v Codex SEO detected" -ForegroundColor Green
 
 $nodeVersion = (node -v 2>$null) -replace 'v',''
 if (-not $nodeVersion) {
@@ -66,15 +67,21 @@ Copy-Item "$SourceDir\skills\seo-firecrawl\SKILL.md" "$SkillDir\SKILL.md" -Force
 
 # Configure MCP server
 Write-Host "=> Configuring MCP server..." -ForegroundColor Yellow
-$settingsContent = if (Test-Path $SettingsFile) { Get-Content $SettingsFile -Raw | ConvertFrom-Json } else { @{} }
-if (-not $settingsContent.mcpServers) { $settingsContent | Add-Member -NotePropertyName mcpServers -NotePropertyValue @{} -Force }
-$settingsContent.mcpServers | Add-Member -NotePropertyName 'firecrawl-mcp' -NotePropertyValue @{
-    command = 'npx'
-    args = @('-y', 'firecrawl-mcp')
-    env = @{ FIRECRAWL_API_KEY = $apiKeyPlain }
-} -Force
-$settingsContent | ConvertTo-Json -Depth 10 | Set-Content $SettingsFile -Encoding UTF8
-Write-Host "  v MCP server configured" -ForegroundColor Green
+$python = Get-Command -Name python -ErrorAction SilentlyContinue
+if ($null -eq $python) {
+    $python = Get-Command -Name py -ErrorAction SilentlyContinue
+}
+if ($null -ne $python) {
+    $helper = Join-Path $SeoSkillDir "scripts\codex_mcp_config.py"
+    $env:CODEX_CONFIG = $ConfigFile
+    & $python.Source $helper add firecrawl-mcp `
+        --command npx `
+        --args-json '["-y", "firecrawl-mcp"]' `
+        --env "FIRECRAWL_API_KEY=$apiKeyPlain" | Out-Null
+    Write-Host "  v MCP server configured in $ConfigFile" -ForegroundColor Green
+} else {
+    Write-Host "  Warning: Python not found. Add firecrawl-mcp manually to $ConfigFile" -ForegroundColor Yellow
+}
 
 # Pre-warm
 Write-Host "=> Pre-downloading firecrawl-mcp..." -ForegroundColor Yellow

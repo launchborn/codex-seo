@@ -1,6 +1,6 @@
 # DataForSEO Account Setup
 
-Step-by-step guide to getting DataForSEO API credentials for the Claude SEO extension.
+Step-by-step guide to getting DataForSEO API credentials for the Codex SEO extension.
 
 ## 1. Create Account
 
@@ -42,30 +42,25 @@ DataForSEO uses a credit-based system:
 
 ## 4. Manual MCP Configuration
 
-If the installer's auto-configuration fails, add this to `~/.claude/settings.json`:
+If the installer's auto-configuration fails, add this to `~/.codex/config.toml`:
 
-```json
-{
-  "mcpServers": {
-    "dataforseo": {
-      "command": "npx",
-      "args": ["-y", "dataforseo-mcp-server"],
-      "env": {
-        "DATAFORSEO_USERNAME": "your-email@example.com",
-        "DATAFORSEO_PASSWORD": "your-api-password",
-        "ENABLED_MODULES": "SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION",
-        "FIELD_CONFIG_PATH": "/home/youruser/.claude/skills/seo/dataforseo-field-config.json"
-      }
-    }
-  }
-}
+```toml
+[mcp_servers.dataforseo]
+command = "npx"
+args = ["-y", "dataforseo-mcp-server"]
+
+[mcp_servers.dataforseo.env]
+DATAFORSEO_USERNAME = "your-email@example.com"
+DATAFORSEO_PASSWORD = "your-api-password"
+ENABLED_MODULES = "SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION"
+FIELD_CONFIG_PATH = "/home/youruser/.codex/skills/seo/dataforseo-field-config.json"
 ```
 
 Replace the username, password, and FIELD_CONFIG_PATH with your actual values.
 
 ## 5. Verify Installation
 
-After installing, start Claude Code and run:
+After installing, start Codex and run:
 
 ```
 /seo dataforseo serp test query

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Bing Webmaster Tools API client for Claude SEO.
+Bing Webmaster Tools API client for Codex SEO.
 
 Queries the Bing Webmaster API for inbound link data, referring domain counts,
 and competitor backlink comparison. Free for verified site owners.
@@ -74,7 +74,7 @@ def _bing_request(endpoint: str, api_key: str, params: Optional[dict] = None,
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "ClaudeSEO/1.8.0",
+        "User-Agent": "CodexSEO/1.8.0",
     }
 
     try:
@@ -294,7 +294,7 @@ def compare_links(site_url: str, competitor_url: str, api_key: str) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Bing Webmaster Tools API client for Claude SEO"
+        description="Bing Webmaster Tools API client for Codex SEO"
     )
     parser.add_argument(
         "command",

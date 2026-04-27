@@ -1,4 +1,4 @@
-# Glossary for Ukrainian translation of claude-seo
+# Glossary for Ukrainian translation of codex-seo
 # Used by repo-translator to ensure consistent terminology
 
 language: uk
@@ -55,7 +55,7 @@ terms:
   AI overview: "AI-огляд"
   generative engine optimization: "оптимізація для генеративних систем"
 
-  # Claude Code
+  # Codex
   skill: "навичка"
   skills: "навички"
   subagent: "субагент"
@@ -73,11 +73,11 @@ terms:
   contributing: "внесок"
 
 do_not_translate:
-  - "Claude Code"
-  - "Claude SEO"
-  - "Claude Blog"
-  - "Claude Banana"
-  - "Claude"
+  - "Codex"
+  - "Codex SEO"
+  - "Blog/content skills"
+  - "Banana"
+  - "Codex"
   - "Anthropic"
   - "GitHub"
   - "MCP"
@@ -109,7 +109,7 @@ do_not_translate:
   - "PR"
   - "README"
   - "SKILL.md"
-  - "CLAUDE.md"
+  - "CODEX.md"
   - "MIT"
   - "OAuth"
   - "WeasyPrint"
